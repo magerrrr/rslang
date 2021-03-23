@@ -1,1 +1,19 @@
 .idea
+/dist/
+node_modules/
+
+.cache/
+!dist/index.html
+*.log
+
+# .env
+.env
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
