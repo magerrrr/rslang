@@ -75,7 +75,13 @@ const App = () => {
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <Link component={RouterLink} to="/" color="primary" variant="body1">
+                <Link
+                  component={RouterLink}
+                  to="/"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
                   Home
                 </Link>
               </ListItem>
@@ -84,7 +90,13 @@ const App = () => {
                 <ListItemIcon>
                   <GroupIcon />
                 </ListItemIcon>
-                <Link component={RouterLink} to="/our-team" color="primary" variant="body1">
+                <Link
+                  component={RouterLink}
+                  to="/our-team"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
                   Our Team
                 </Link>
               </ListItem>
@@ -93,7 +105,13 @@ const App = () => {
                 <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
-                <Link component={RouterLink} to="/login" color="primary" variant="body1">
+                <Link
+                  component={RouterLink}
+                  to="/login"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
                   Login
                 </Link>
               </ListItem>
@@ -104,7 +122,13 @@ const App = () => {
                 <ListItemIcon>
                   <PersonIcon />
                 </ListItemIcon>
-                <Link component={RouterLink} to="/profile" color="primary" variant="body1">
+                <Link
+                  component={RouterLink}
+                  to="/profile"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
                   Profile
                 </Link>
               </ListItem>
