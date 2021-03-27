@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { Main } from './components/Main';
 import { Login } from './components/Login';
@@ -31,11 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
+    appBar: {
+      boxShadow: '0px 2px 4px -1px rgb(42 68 78 / 20%), 0px 4px 5px 0px rgb(42 68 78 / 14%), 0px 1px 10px 0px rgb(42 68 78 / 12%)',
+    },
     menuButton: {
       marginRight: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
+      textTransform: 'uppercase',
+      fontWeight: 600,
     },
     list: {
       width: 250,
@@ -43,106 +49,129 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#2A444E',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Philosopher', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', '"Droid Sans"', '"Helvetica Neue"', 'sans-serif'
+    ].join(','),
+    allVariants: {
+      color: '#2A444E',
+      fontWeight: 500,
+    },
+  },
+});
+
 const App = () => {
   const classes = useStyles();
   const [shown, setShown] = useState(false);
 
   return (
     <Router>
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              onClick={() => setShown(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <RouterLink to="/" style={{ textDecoration: 'none', color: 'white' }}>
-              <Typography variant="h6" className={classes.title}>
-                RS Lang Learning
-              </Typography>
-            </RouterLink>
-          </Toolbar>
-        </AppBar>
-        <Drawer open={shown} onClose={() => setShown(false)}>
-          <div className={classes.list}>
-            <List>
-              <Link
-                component={RouterLink}
-                to="/"
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <AppBar position="static" color="transparent" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={() => setShown(true)}
               >
-                <ListItem button onClick={() => {}}>
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
+                <MenuIcon />
+              </IconButton>
+              <RouterLink to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                <Typography variant="h6" className={classes.title}>
+                  Lang
+              </Typography>
+              </RouterLink>
+            </Toolbar>
+          </AppBar>
+          <Drawer open={shown} onClose={() => setShown(false)}>
+            <div className={classes.list}>
+              <List>
+                <Link
+                  component={RouterLink}
+                  to="/"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListItem button onClick={() => { }}>
+                    <ListItemIcon>
+                      <HomeIcon />
+                    </ListItemIcon>
                   Home
                 </ListItem>
-              </Link>
+                </Link>
 
-              <Link
-                component={RouterLink}
-                to="/our-team"
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <ListItem button onClick={() => {}}>
-                  <ListItemIcon>
-                    <GroupIcon />
-                  </ListItemIcon>
+                <Link
+                  component={RouterLink}
+                  to="/our-team"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListItem button onClick={() => { }}>
+                    <ListItemIcon>
+                      <GroupIcon />
+                    </ListItemIcon>
                   Our Team
                 </ListItem>
-              </Link>
+                </Link>
 
-              <Link
-                component={RouterLink}
-                to="/login"
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <ListItem button onClick={() => {}}>
-                  <ListItemIcon>
-                    <ExitToAppIcon />
-                  </ListItemIcon>
+                <Link
+                  component={RouterLink}
+                  to="/login"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListItem button onClick={() => { }}>
+                    <ListItemIcon>
+                      <ExitToAppIcon />
+                    </ListItemIcon>
                   Login
                 </ListItem>
-              </Link>
+                </Link>
 
-              <Divider />
+                <Divider />
 
-              <Link
-                component={RouterLink}
-                to="/profile"
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <ListItem button onClick={() => {}}>
-                  <ListItemIcon>
-                    <PersonIcon />
-                  </ListItemIcon>
+                <Link
+                  component={RouterLink}
+                  to="/profile"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListItem button onClick={() => { }}>
+                    <ListItemIcon>
+                      <PersonIcon />
+                    </ListItemIcon>
                   Profile
                 </ListItem>
-              </Link>
-            </List>
-          </div>
-        </Drawer>
-      </div>
-      <Switch>
-        <Route exact path="/" component={Main} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/our-team" component={OurTeam} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-      </Switch>
+                </Link>
+              </List>
+            </div>
+          </Drawer>
+        </div>
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/our-team" component={OurTeam} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+        </Switch>
+      </MuiThemeProvider>
     </Router>
   );
 };
