@@ -108,7 +108,7 @@ const App = () => {
                 >
                   <ListItem button onClick={() => { }}>
                     <ListItemIcon>
-                      <HomeIcon />
+                      <HomeIcon color="primary"/>
                     </ListItemIcon>
                   Home
                 </ListItem>
@@ -123,7 +123,7 @@ const App = () => {
                 >
                   <ListItem button onClick={() => { }}>
                     <ListItemIcon>
-                      <GroupIcon />
+                      <GroupIcon color="primary"/>
                     </ListItemIcon>
                   Our Team
                 </ListItem>
@@ -138,7 +138,7 @@ const App = () => {
                 >
                   <ListItem button onClick={() => { }}>
                     <ListItemIcon>
-                      <ExitToAppIcon />
+                      <ExitToAppIcon color="primary"/>
                     </ListItemIcon>
                   Login
                 </ListItem>
@@ -155,7 +155,7 @@ const App = () => {
                 >
                   <ListItem button onClick={() => { }}>
                     <ListItemIcon>
-                      <PersonIcon />
+                      <PersonIcon color="primary"/>
                     </ListItemIcon>
                   Profile
                 </ListItem>
