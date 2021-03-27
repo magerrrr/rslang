@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     appBar: {
-      boxShadow: '0px 2px 4px -1px rgb(42 68 78 / 20%), 0px 4px 5px 0px rgb(42 68 78 / 14%), 0px 1px 10px 0px rgb(42 68 78 / 12%)',
+      boxShadow:
+        '0px 2px 4px -1px rgb(42 68 78 / 20%), 0px 4px 5px 0px rgb(42 68 78 / 14%), 0px 1px 10px 0px rgb(42 68 78 / 12%)',
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -60,8 +61,18 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      'Philosopher', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-      'Cantarell', 'Fira Sans', '"Droid Sans"', '"Helvetica Neue"', 'sans-serif'
+      'Philosopher',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'Segoe UI',
+      'Roboto',
+      'Oxygen',
+      'Ubuntu',
+      'Cantarell',
+      'Fira Sans',
+      '"Droid Sans"',
+      '"Helvetica Neue"',
+      'sans-serif',
     ].join(','),
     allVariants: {
       color: '#2A444E',
@@ -92,7 +103,7 @@ const App = () => {
               <RouterLink to="/" style={{ textDecoration: 'none', color: 'white' }}>
                 <Typography variant="h6" className={classes.title}>
                   Lang
-              </Typography>
+                </Typography>
               </RouterLink>
             </Toolbar>
           </AppBar>
@@ -106,12 +117,12 @@ const App = () => {
                   variant="body1"
                   style={{ textDecoration: 'none' }}
                 >
-                  <ListItem button onClick={() => { }}>
+                  <ListItem button onClick={() => {}}>
                     <ListItemIcon>
-                      <HomeIcon color="primary"/>
+                      <HomeIcon color="primary" />
                     </ListItemIcon>
-                  Home
-                </ListItem>
+                    Home
+                  </ListItem>
                 </Link>
 
                 <Link
@@ -121,12 +132,12 @@ const App = () => {
                   variant="body1"
                   style={{ textDecoration: 'none' }}
                 >
-                  <ListItem button onClick={() => { }}>
+                  <ListItem button onClick={() => {}}>
                     <ListItemIcon>
-                      <GroupIcon color="primary"/>
+                      <GroupIcon color="primary" />
                     </ListItemIcon>
-                  Our Team
-                </ListItem>
+                    Our Team
+                  </ListItem>
                 </Link>
 
                 <Link
@@ -136,12 +147,12 @@ const App = () => {
                   variant="body1"
                   style={{ textDecoration: 'none' }}
                 >
-                  <ListItem button onClick={() => { }}>
+                  <ListItem button onClick={() => {}}>
                     <ListItemIcon>
-                      <ExitToAppIcon color="primary"/>
+                      <ExitToAppIcon color="primary" />
                     </ListItemIcon>
-                  Login
-                </ListItem>
+                    Login
+                  </ListItem>
                 </Link>
 
                 <Divider />
@@ -153,12 +164,12 @@ const App = () => {
                   variant="body1"
                   style={{ textDecoration: 'none' }}
                 >
-                  <ListItem button onClick={() => { }}>
+                  <ListItem button onClick={() => {}}>
                     <ListItemIcon>
-                      <PersonIcon color="primary"/>
+                      <PersonIcon color="primary" />
                     </ListItemIcon>
-                  Profile
-                </ListItem>
+                    Profile
+                  </ListItem>
                 </Link>
               </List>
             </div>
