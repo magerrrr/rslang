@@ -6,6 +6,7 @@ import { Login } from './components/Login';
 import { OurTeam } from './components/OurTeam';
 import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
+import SpeakIt from "./components/SpeakIt";
 import {
   IconButton,
   Toolbar,
@@ -263,6 +264,7 @@ const App = () => {
           <Route path="/our-team" component={OurTeam} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/speakit" component={SpeakIt} />
         </Switch>
       </MuiThemeProvider>
     </Router>

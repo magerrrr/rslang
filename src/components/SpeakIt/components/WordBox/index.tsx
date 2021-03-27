@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
-import mainImage from '../../../assets/speakit.png';
+import mainImage from '../../../../assets/speakit.png';
 
 const BACK_BASE_URL = 'https://raw.githubusercontent.com/anasidorovich/rslang-data/master';
 
