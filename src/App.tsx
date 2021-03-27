@@ -61,9 +61,11 @@ const App = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              RS Lang Learning
-            </Typography>
+            <RouterLink to="/" style={{ textDecoration: 'none', color: 'white' }}>
+              <Typography variant="h6" className={classes.title}>
+                RS Lang Learning
+              </Typography>
+            </RouterLink>
           </Toolbar>
         </AppBar>
         <Drawer open={shown} onClose={() => setShown(false)}>
