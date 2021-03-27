@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { MuiThemeProvider, createMuiTheme, createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { Main } from './components/Main';
 import { Login } from './components/Login';
 import { OurTeam } from './components/OurTeam';
 import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
+import Sprint from './components/Sprint';
 import {
   IconButton,
   Toolbar,
@@ -263,6 +270,7 @@ const App = () => {
           <Route path="/our-team" component={OurTeam} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/sprint" component={Sprint} />
         </Switch>
       </MuiThemeProvider>
     </Router>
