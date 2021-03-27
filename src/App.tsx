@@ -185,49 +185,74 @@ const App = () => {
                     Профиль
                   </ListItem>
                 </Link>
-                <Link
-                  component={RouterLink}
-                  to="/games"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ListItem button onClick={handleClick}>
-                    <ListItemIcon>
-                      <SportsEsportsIcon color="primary" />
-                    </ListItemIcon>
-                    <ListItemText primary="Мини-игры" />
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                  </ListItem>
-                  <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
+                <ListItem button onClick={handleClick}>
+                  <ListItemIcon>
+                    <SportsEsportsIcon color="primary" />
+                  </ListItemIcon>
+                  <ListItemText primary="Мини-игры" />
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <Link
+                      component={RouterLink}
+                      to="/savannah"
+                      color="primary"
+                      variant="body1"
+                      style={{ textDecoration: 'none' }}
+                    >
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <StarBorder style={{ fill: '#dc622f' }} />
                         </ListItemIcon>
                         <ListItemText primary="Саванна" />
                       </ListItem>
+                    </Link>
+                    <Link
+                      component={RouterLink}
+                      to="/speakit"
+                      color="primary"
+                      variant="body1"
+                      style={{ textDecoration: 'none' }}
+                    >
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <StarBorder style={{ fill: '#A632C6' }} />
                         </ListItemIcon>
                         <ListItemText primary="Скажи это" />
                       </ListItem>
+                    </Link>
+                    <Link
+                      component={RouterLink}
+                      to="/audiochallendge"
+                      color="primary"
+                      variant="body1"
+                      style={{ textDecoration: 'none' }}
+                    >
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <StarBorder style={{ fill: '#1BD9DE' }} />
                         </ListItemIcon>
+
                         <ListItemText primary="Аудиовызов" />
                       </ListItem>
+                    </Link>
+                    <Link
+                      component={RouterLink}
+                      to="/sprint"
+                      color="primary"
+                      variant="body1"
+                      style={{ textDecoration: 'none' }}
+                    >
                       <ListItem button className={classes.nested}>
                         <ListItemIcon>
                           <StarBorder style={{ fill: '#32A2E5' }} />
                         </ListItemIcon>
                         <ListItemText primary="Спринт" />
                       </ListItem>
-                    </List>
-                  </Collapse>
-                </Link>
+                    </Link>
+                  </List>
+                </Collapse>
               </List>
             </div>
           </Drawer>
