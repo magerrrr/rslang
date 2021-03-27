@@ -71,67 +71,67 @@ const App = () => {
         <Drawer open={shown} onClose={() => setShown(false)}>
           <div className={classes.list}>
             <List>
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <Link
-                  component={RouterLink}
-                  to="/"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
+              <Link
+                component={RouterLink}
+                to="/"
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
                   Home
-                </Link>
-              </ListItem>
+                </ListItem>
+              </Link>
 
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <GroupIcon />
-                </ListItemIcon>
-                <Link
-                  component={RouterLink}
-                  to="/our-team"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
+              <Link
+                component={RouterLink}
+                to="/our-team"
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <GroupIcon />
+                  </ListItemIcon>
                   Our Team
-                </Link>
-              </ListItem>
+                </ListItem>
+              </Link>
 
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <ExitToAppIcon />
-                </ListItemIcon>
-                <Link
-                  component={RouterLink}
-                  to="/login"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
+              <Link
+                component={RouterLink}
+                to="/login"
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <ExitToAppIcon />
+                  </ListItemIcon>
                   Login
-                </Link>
-              </ListItem>
+                </ListItem>
+              </Link>
 
               <Divider />
 
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
-                <Link
-                  component={RouterLink}
-                  to="/profile"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
+              <Link
+                component={RouterLink}
+                to="/profile"
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <PersonIcon />
+                  </ListItemIcon>
                   Profile
-                </Link>
-              </ListItem>
+                </ListItem>
+              </Link>
             </List>
           </div>
         </Drawer>
