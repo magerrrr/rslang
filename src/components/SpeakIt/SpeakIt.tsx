@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { PlayButton, ControlButton } from './SpeakItStyles';
+import WordBox from './components/WordBox';
 
 const activeInit = {
   id: false,
@@ -19,7 +20,11 @@ const SpeakIt = () => {
   return (
     <div className="SpeakIt">
       <Container>
-
+        <WordBox
+          activeImg={active.img}
+          activeAudio={activeAudio}
+          wordTranslate={active.wordTranslate}
+        />
       </Container>
     </div>
   );

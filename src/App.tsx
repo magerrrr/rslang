@@ -24,6 +24,12 @@ import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupIcon from '@material-ui/icons/Group';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 import './App.css';
 
@@ -46,6 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     list: {
       width: 250,
+    },
+    nested: {
+      paddingLeft: theme.spacing(4),
     },
   }),
 );
@@ -84,6 +93,11 @@ const theme = createMuiTheme({
 const App = () => {
   const classes = useStyles();
   const [shown, setShown] = useState(false);
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   return (
     <Router>
@@ -121,7 +135,7 @@ const App = () => {
                     <ListItemIcon>
                       <HomeIcon color="primary" />
                     </ListItemIcon>
-                    Home
+                    Домашняя
                   </ListItem>
                 </Link>
 
@@ -136,7 +150,7 @@ const App = () => {
                     <ListItemIcon>
                       <GroupIcon color="primary" />
                     </ListItemIcon>
-                    Our Team
+                    Наша Команда
                   </ListItem>
                 </Link>
 
@@ -151,7 +165,7 @@ const App = () => {
                     <ListItemIcon>
                       <ExitToAppIcon color="primary" />
                     </ListItemIcon>
-                    Login
+                    Войти
                   </ListItem>
                 </Link>
 
@@ -168,8 +182,51 @@ const App = () => {
                     <ListItemIcon>
                       <PersonIcon color="primary" />
                     </ListItemIcon>
-                    Profile
+                    Профиль
                   </ListItem>
+                </Link>
+                <Link
+                  component={RouterLink}
+                  to="/games"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListItem button onClick={handleClick}>
+                    <ListItemIcon>
+                      <SportsEsportsIcon color="primary" />
+                    </ListItemIcon>
+                    <ListItemText primary="Мини-игры" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon>
+                          <StarBorder style={{ fill: '#dc622f' }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Саванна" />
+                      </ListItem>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon>
+                          <StarBorder style={{ fill: '#A632C6' }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Скажи это" />
+                      </ListItem>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon>
+                          <StarBorder style={{ fill: '#1BD9DE' }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Аудиовызов" />
+                      </ListItem>
+                      <ListItem button className={classes.nested}>
+                        <ListItemIcon>
+                          <StarBorder style={{ fill: '#32A2E5' }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Спринт" />
+                      </ListItem>
+                    </List>
+                  </Collapse>
                 </Link>
               </List>
             </div>
