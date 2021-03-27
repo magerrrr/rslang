@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { MuiThemeProvider, createMuiTheme, createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { Main } from './components/Main';
-import { Login } from './components/Login';
+import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';
 import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
@@ -156,7 +162,7 @@ const App = () => {
 
                 <Link
                   component={RouterLink}
-                  to="/login"
+                  to="/sign-in"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
@@ -261,7 +267,7 @@ const App = () => {
           <Route exact path="/" component={Main} />
           <Route path="/profile" component={Profile} />
           <Route path="/our-team" component={OurTeam} />
-          <Route path="/login" component={Login} />
+          <Route path="/sign-in" component={SignIn} />
           <Route path="/signup" component={Signup} />
         </Switch>
       </MuiThemeProvider>
