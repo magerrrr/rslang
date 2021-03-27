@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { Main } from './components/Main';
 import { Login } from './components/Login';
+import { OurTeam } from './components/OurTeam';
 import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
 import {
@@ -21,6 +22,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GroupIcon from '@material-ui/icons/Group';
 
 import './App.css';
 
@@ -78,6 +80,15 @@ const App = () => {
 
               <ListItem button onClick={() => {}}>
                 <ListItemIcon>
+                  <GroupIcon />
+                </ListItemIcon>
+                <Link component={RouterLink} to="/our-team" color="primary" variant="body1">
+                  Our Team
+                </Link>
+              </ListItem>
+
+              <ListItem button onClick={() => {}}>
+                <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
                 <Link component={RouterLink} to="/login" color="primary" variant="body1">
@@ -102,6 +113,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/profile" component={Profile} />
+        <Route path="/our-team" component={OurTeam} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
       </Switch>
