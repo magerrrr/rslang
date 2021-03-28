@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { Main } from './components/Main';
+import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';
-import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
 import {
   IconButton,
@@ -26,17 +26,16 @@ import {
   ListItemText,
   Collapse,
 } from '@material-ui/core';
-
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupIcon from '@material-ui/icons/Group';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
-
 import './App.css';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -162,6 +161,21 @@ const App = () => {
 
                 <Link
                   component={RouterLink}
+                  to="/sign-up"
+                  color="primary"
+                  variant="body1"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListItem button onClick={() => {}}>
+                    <ListItemIcon>
+                      <MeetingRoomIcon color="primary" />
+                    </ListItemIcon>
+                    Регистрация
+                  </ListItem>
+                </Link>
+
+                <Link
+                  component={RouterLink}
                   to="/sign-in"
                   color="primary"
                   variant="body1"
@@ -268,7 +282,7 @@ const App = () => {
           <Route path="/profile" component={Profile} />
           <Route path="/our-team" component={OurTeam} />
           <Route path="/sign-in" component={SignIn} />
-          <Route path="/signup" component={Signup} />
+          <Route path="/sign-up" component={SignUp} />
         </Switch>
       </MuiThemeProvider>
     </Router>
