@@ -25,7 +25,7 @@ export const Profile = (props: Props) => {
       <h1>Profile</h1>
       {user && (
         <>
-          {user.avatar && <img src={`${baseURL}/${user.avatar}`} alt="User Photo" />}
+          {user.avatar && <img src={`${baseURL}/${user.avatar}`} alt="Avatar" />}
           <p>
             <span>Имя:</span>
             <span>{user.name}</span>
