@@ -14,8 +14,6 @@ const createNewUser = async (userData) => {
 
   try {
     const createNewUserResponse = await fetch(urls.users.defaultRoute, settings);
-    localStorage.setItem('token', createNewUserResponse.data.token);
-
     return await createNewUserResponse.json();
   } catch (error) {
     return error;
