@@ -15,6 +15,9 @@ const signIn = async (userData) => {
     const data = await signInResponse.json();
 
     localStorage.setItem('token', data.token);
+    localStorage.setItem('refreshToken', data.refreshToken);
+    localStorage.setItem('userId', data.userId);
+    localStorage.setItem('name', data.name);
     return data;
   } catch (error) {
     return error;
