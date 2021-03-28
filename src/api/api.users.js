@@ -6,10 +6,9 @@ const createNewUser = async (userData) => {
   const settings = {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
-    body: JSON.stringify(userData),
+    body: userData,
   };
 
   try {

@@ -18,11 +18,19 @@ const initialSignUpData = {
 
 export const SignUp = (props: Props) => {
   const [signUpData, setSignUpData] = React.useState<ISignUpData>(initialSignUpData);
+  const [avatar, setAvatar] = React.useState<any>(null);
   const history = useHistory();
 
   const handleSubmitSignUp = async (e: any) => {
     e.preventDefault();
-    await api.users.createNewUser(signUpData);
+
+    const formData = new FormData();
+    formData.append('name', signUpData.name);
+    formData.append('email', signUpData.email);
+    formData.append('password', signUpData.password);
+    formData.append('avatar', avatar, avatar.name);
+
+    await api.users.createNewUser(formData);
     history.push('/');
   };
 
@@ -31,6 +39,11 @@ export const SignUp = (props: Props) => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const onFileChange = (event: any) => {
+    const file = event.target.files[0];
+    setAvatar(file);
   };
 
   return (
@@ -55,6 +68,11 @@ export const SignUp = (props: Props) => {
             value={signUpData.password}
             onChange={inputChangeHandler}
           />
+        </label>
+
+        <label>
+          <p>Аватар:</p>
+          <input type="file" onChange={onFileChange} />
         </label>
         <p>
           <input type="submit" value="Sign Up" />
