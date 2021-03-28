@@ -27,6 +27,14 @@ const Card = styled.div`
   &.isGame {
     pointer-events: none;
   }
+  &.isGuessed {
+    box-shadow: inset 0px 0px 0px 3px #64ffda;
+    box-shadow: 0 0 10px #64ffda;
+  }
+  &.isNotGuessed {
+    box-shadow: inset 0px 0px 0px 3px #e57373;
+    box-shadow: 0 0 10px #e57373;
+  }
 `;
 
 const AudioIcon = styled.span`
