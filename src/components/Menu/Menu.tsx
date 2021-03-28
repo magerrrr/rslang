@@ -24,10 +24,13 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import { ROUTES } from '../../shared/constants';
 
 import useStyles from './style';
 
 type Props = {};
+
+const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP } = ROUTES;
 
 export const Menu = (props: Props) => {
   const classes = useStyles();
@@ -51,7 +54,7 @@ export const Menu = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
-          <RouterLink to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          <RouterLink to={MAIN.route} style={{ textDecoration: 'none', color: 'white' }}>
             <Typography variant="h6" className={classes.title}>
               Lang
             </Typography>
@@ -63,7 +66,7 @@ export const Menu = (props: Props) => {
           <List>
             <Link
               component={RouterLink}
-              to="/"
+              to={MAIN.route}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -72,13 +75,13 @@ export const Menu = (props: Props) => {
                 <ListItemIcon>
                   <HomeIcon color="primary" />
                 </ListItemIcon>
-                Домашняя
+                {MAIN.name}
               </ListItem>
             </Link>
 
             <Link
               component={RouterLink}
-              to="/our-team"
+              to={TEAM.route}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -87,13 +90,13 @@ export const Menu = (props: Props) => {
                 <ListItemIcon>
                   <GroupIcon color="primary" />
                 </ListItemIcon>
-                Наша Команда
+                {TEAM.name}
               </ListItem>
             </Link>
 
             <Link
               component={RouterLink}
-              to="/sign-up"
+              to={SIGN_UP.route}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -102,13 +105,13 @@ export const Menu = (props: Props) => {
                 <ListItemIcon>
                   <MeetingRoomIcon color="primary" />
                 </ListItemIcon>
-                Регистрация
+                {SIGN_UP.name}
               </ListItem>
             </Link>
 
             <Link
               component={RouterLink}
-              to="/sign-in"
+              to={SIGN_IN.route}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -117,7 +120,7 @@ export const Menu = (props: Props) => {
                 <ListItemIcon>
                   <ExitToAppIcon color="primary" />
                 </ListItemIcon>
-                Войти
+                {SIGN_IN.name}
               </ListItem>
             </Link>
 
@@ -125,7 +128,7 @@ export const Menu = (props: Props) => {
 
             <Link
               component={RouterLink}
-              to="/profile"
+              to={PROFILE.route}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -134,7 +137,7 @@ export const Menu = (props: Props) => {
                 <ListItemIcon>
                   <PersonIcon color="primary" />
                 </ListItemIcon>
-                Профиль
+                {PROFILE.name}
               </ListItem>
             </Link>
             <ListItem button onClick={handleClick}>
