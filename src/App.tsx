@@ -7,9 +7,12 @@ import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';
 import { Profile } from './components/Profile';
 import { Menu } from './components/Menu/Menu';
+import { ROUTES } from './shared/constants';
 
 import './App.css';
 import theme from './theme';
+
+const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP } = ROUTES;
 
 const App = () => {
   return (
@@ -17,11 +20,11 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <Menu />
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/our-team" component={OurTeam} />
-          <Route path="/sign-in" component={SignIn} />
-          <Route path="/sign-up" component={SignUp} />
+          <Route exact path={MAIN.route} component={Main} />
+          <Route path={PROFILE.route} component={Profile} />
+          <Route path={TEAM.route} component={OurTeam} />
+          <Route path={SIGN_IN.route} component={SignIn} />
+          <Route path={SIGN_UP.route} component={SignUp} />
         </Switch>
       </MuiThemeProvider>
     </Router>
