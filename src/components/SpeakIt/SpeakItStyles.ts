@@ -34,16 +34,23 @@ const PlayButton = styled(Button)`
   border: none;
   color: inherit;
 
-  &:hover {
-    background-color: rgba(166, 50, 198, 0.5);
-    color: inherit;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: rgba(166, 50, 198, 0.5) !important;
+    color: inherit !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
   }
 `;
 
 const ControlButton = styled(PlayButton)`
   background-color: #ffe8ee;
-  &:hover {
-    background-color: rgba(166, 50, 198, 0.2);
+  box-shadow: 0 0 10px rgb(166 50 198 / 50%) !important;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: rgba(166, 50, 198, 0.2) !important;
   }
 `;
 

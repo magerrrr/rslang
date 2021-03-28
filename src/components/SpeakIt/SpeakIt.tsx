@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { PlayButton, ControlButton, GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
+import Controls from './components/Controls';
 import { request } from './SpeakItApi';
 
 const activeInit = {
@@ -18,9 +19,27 @@ const SpeakIt = () => {
   const [words, setWords] = useState([]);
   const [active, setActive] = useState(activeInit);
   const [activeAudio, setActiveAudio] = useState('');
-  const [isGameMod, setIsGameMod] = useState(false);
+  const [isGameMode, setIsGameMode] = useState(false);
   const [gamePage, setGamePage] = useState(0);
   const [gameLevel, setGameLevel] = useState(0);
+
+  const startGame = () => {
+    setIsGameMode(true);
+    setActive({
+      ...active,
+      id: false,
+    });
+    setWords(words);
+    //showPendingWord(gameWordNum)
+    //startRecording()
+  };
+
+  const finishedGame = () => {
+    setIsFinish(true);
+    setIsGameMode(false);
+    //stopRecording()
+    //showResult()
+  };
 
   const getData = async (page: number, group: number) => {
     const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
@@ -37,9 +56,9 @@ const SpeakIt = () => {
     }
   };
 
-  async function init() {
+  const init = async () => {
     await getData(gamePage, gameLevel);
-  }
+  };
 
   useEffect(() => {
     init();
@@ -62,11 +81,12 @@ const SpeakIt = () => {
               active={active}
               setActive={setActive}
               setActiveAudio={setActiveAudio}
-              isGameMod={isGameMod}
+              isGameMode={isGameMode}
               activeAudio={activeAudio}
             />
           ))}
         </Row>
+        <Controls isGameMode={isGameMode} startGame={startGame} finishedGame={finishedGame} />
       </Container>
     </GameContainer>
   );

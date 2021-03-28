@@ -24,6 +24,9 @@ const Card = styled.div`
     margin-top: 0;
     margin-bottom: 0;
   }
+  &.isGame {
+    pointer-events: none;
+  }
 `;
 
 const AudioIcon = styled.span`

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Card as WordCard, AudioIcon } from './CardStyles';
 
 const Card = ({
@@ -11,7 +11,7 @@ const Card = ({
   setActiveAudio,
   audio,
   wordTranslate,
-  isGameMod,
+  isGameMode,
   isGuessed,
   isNotGuessed,
 }: any) => {
@@ -19,7 +19,6 @@ const Card = ({
 
   function setCurrentItem(id: number, image: string, setActive: any, activeAudio: string) {
     const audio = document.querySelector('audio') as any;
-    console.log(image);
     if (isActive && audio) {
       audio.play();
     } else {
@@ -34,16 +33,17 @@ const Card = ({
   return (
     <WordCard
       className={[
-        'item ',
         isActive ? 'isActive' : '',
         id,
-        isGameMod ? 'isGame' : '',
+        isGameMode ? 'isGame' : '',
         isGuessed ? 'isGuessed' : '',
         isNotGuessed ? 'isNotGuessed' : '',
       ].join(' ')}
-      onClick={() => setCurrentItem(id, image, setActive, audio)}
     >
-      <AudioIcon className="audio-icon" />
+      <AudioIcon
+        className="audio-icon"
+        onClick={() => setCurrentItem(id, image, setActive, audio)}
+      />
       <p>{word}</p>
       <p>{transcription}</p>
     </WordCard>
