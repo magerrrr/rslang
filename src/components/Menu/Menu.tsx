@@ -27,6 +27,7 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import { ROUTES } from '../../shared/constants';
 
 import useStyles from './style';
+import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 
 type Props = {};
 
@@ -36,6 +37,7 @@ export const Menu = (props: Props) => {
   const classes = useStyles();
   const [shown, setShown] = React.useState(false);
   const [open, setOpen] = React.useState(true);
+  const isAuthenticated = useCheckAuthenticate();
 
   const handleClick = () => {
     setOpen(!open);
@@ -94,52 +96,58 @@ export const Menu = (props: Props) => {
               </ListItem>
             </Link>
 
-            <Link
-              component={RouterLink}
-              to={SIGN_UP.route}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <MeetingRoomIcon color="primary" />
-                </ListItemIcon>
-                {SIGN_UP.name}
-              </ListItem>
-            </Link>
+            {!isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={SIGN_UP.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <MeetingRoomIcon color="primary" />
+                  </ListItemIcon>
+                  {SIGN_UP.name}
+                </ListItem>
+              </Link>
+            )}
 
-            <Link
-              component={RouterLink}
-              to={SIGN_IN.route}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <ExitToAppIcon color="primary" />
-                </ListItemIcon>
-                {SIGN_IN.name}
-              </ListItem>
-            </Link>
+            {!isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={SIGN_IN.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <ExitToAppIcon color="primary" />
+                  </ListItemIcon>
+                  {SIGN_IN.name}
+                </ListItem>
+              </Link>
+            )}
 
             <Divider />
 
-            <Link
-              component={RouterLink}
-              to={PROFILE.route}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <PersonIcon color="primary" />
-                </ListItemIcon>
-                {PROFILE.name}
-              </ListItem>
-            </Link>
+            {isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={PROFILE.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <PersonIcon color="primary" />
+                  </ListItemIcon>
+                  {PROFILE.name}
+                </ListItem>
+              </Link>
+            )}
             <ListItem button onClick={handleClick}>
               <ListItemIcon>
                 <SportsEsportsIcon color="primary" />
