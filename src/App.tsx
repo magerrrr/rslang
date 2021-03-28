@@ -6,7 +6,7 @@ import { Login } from './components/Login';
 import { OurTeam } from './components/OurTeam';
 import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
-import SpeakIt from "./components/SpeakIt";
+import SpeakIt from './components/SpeakIt';
 import {
   IconButton,
   Toolbar,
