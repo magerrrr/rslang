@@ -4,6 +4,7 @@ import { Container, Row } from 'react-bootstrap';
 import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
+import Levels from './components/Levels';
 import Controls from './components/Controls';
 import { request } from './helpers/SpeakItApi';
 import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
@@ -116,6 +117,7 @@ const SpeakIt = () => {
   return (
     <GameContainer>
       <Container>
+        <Levels />
         <WordBox
           activeImg={active.img}
           activeAudio={activeAudio}

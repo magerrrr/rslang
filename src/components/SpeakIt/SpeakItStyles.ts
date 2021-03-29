@@ -124,4 +124,16 @@ const ResultsTable = styled(Table)`
   }
 `;
 
+const Level = styled(Table)`
+  tbody tr:nth-of-type(odd) {
+    background-color: #ffe8ee;
+  }
+  tbody tr:nth-of-type(odd):hover {
+    background-color: #ffe8ee;
+  }
+  tbody tr:nth-of-type(even):hover {
+    background-color: #fff;
+  }
+`;
+
 export { GameContainer, Card, AudioIcon, ControlButton, PlayButton, Box, ResultsTable };
