@@ -26,15 +26,16 @@ const Card = styled.div`
     margin-top: 0;
     margin-bottom: 0;
   }
+  &.isActive {
+    box-shadow: 0 0 10px rgba(166, 50, 198);
+  }
   &.isGame {
     pointer-events: none;
   }
   &.isGuessed {
-    box-shadow: inset 0px 0px 0px 3px #64ffda;
     box-shadow: 0 0 10px #64ffda;
   }
   &.isNotGuessed {
-    box-shadow: inset 0px 0px 0px 3px #e57373;
     box-shadow: 0 0 10px #e57373;
   }
 `;
@@ -88,6 +89,12 @@ const PlayButton = styled(Button)`
     border-color: transparent !important;
     box-shadow: none !important;
   }
+  &.disabled,
+  &:disabled {
+    color: inherit;
+    background-color: #c9b1fc !important;
+    border-color: #007bff !important;
+  }
 `;
 
 const ControlButton = styled(PlayButton)`
@@ -97,6 +104,11 @@ const ControlButton = styled(PlayButton)`
   &:active,
   &:focus {
     background-color: rgba(166, 50, 198, 0.2) !important;
+  }
+  &.disabled,
+  &:disabled {
+    background-color: #ffe8ee !important;
+    border-color: #007bff !important;
   }
 `;
 

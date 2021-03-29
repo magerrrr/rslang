@@ -2,21 +2,9 @@ import * as React from 'react';
 import { ResultsTable } from '../SpeakItStyles';
 import { Modal, Button } from 'react-bootstrap';
 
-const Results = ({ words, setWords, setIsFinish, setGameWordIndex, setShowResult }: any) => {
+const Results = ({ words, continueGame, closeResult }: any) => {
   const wrongWords = words.filter((word: any) => !word.isGuessed);
   const rightWords = words.filter((word: any) => word.isGuessed);
-
-  const closeResult = () => {
-    setIsFinish(false);
-    setGameWordIndex(0);
-    words.map((item: any) => {
-      item.isGuessed = false;
-      item.isNotGuessed = false;
-      return item;
-    });
-    setShowResult(false);
-  };
-
   const tableWords = rightWords.length > wrongWords.length ? rightWords : wrongWords;
 
   return (
@@ -45,7 +33,13 @@ const Results = ({ words, setWords, setIsFinish, setGameWordIndex, setShowResult
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" color="#c9b1fc" onClick={closeResult}>
-            Close
+            рестарт
+          </Button>
+          <Button variant="secondary" color="#c9b1fc" onClick={continueGame}>
+            продолжить
+          </Button>
+          <Button variant="secondary" color="#c9b1fc" onClick={closeResult}>
+            статистика
           </Button>
         </Modal.Footer>
       </Modal>

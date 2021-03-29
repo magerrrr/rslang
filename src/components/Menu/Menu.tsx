@@ -173,7 +173,7 @@ export const Menu = (props: Props) => {
                 </Link>
                 <Link
                   component={RouterLink}
-                  to="/speakit"
+                  to="/games/speakit"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}

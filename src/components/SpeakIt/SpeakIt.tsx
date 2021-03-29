@@ -16,10 +16,11 @@ const activeInit = {
 };
 
 const wordsCount = 10;
+const gameMaxLevel = 6;
+const gameMaxPage = 30;
 
 const SpeakIt = () => {
   const [isFinish, setIsFinish] = useState(false);
-  const [showResult, setShowResult] = useState(false);
   const [words, setWords] = useState<any>([]);
   const [active, setActive] = useState(activeInit);
   const [activeAudio, setActiveAudio] = useState('');
@@ -74,12 +75,27 @@ const SpeakIt = () => {
     };
   }, [numGuessedWords]);
 
+  const cleanResult = () => {
+    setIsFinish(false);
+    setGameWordIndex(0);
+    words.map((item: any) => {
+      item.isGuessed = false;
+      item.isNotGuessed = false;
+      return item;
+    });
+  };
+
   const startGame = () => {
     setIsGameMode(true);
     setActive(activeInit);
-    setWords(words);
-    setGameWordIndex(0);
+    cleanResult();
     startRecording();
+  };
+
+  const continueGame = () => {
+    setGameLevel((level) => (level + 1 < gameMaxLevel ? level + 1 : 0));
+    setGamePage((page) => (page + 1 < gameMaxPage ? page + 1 : 0));
+    startGame();
   };
 
   const finishedGame = useCallback(() => {
@@ -100,7 +116,7 @@ const SpeakIt = () => {
     if (gameWordIndex === wordsCount) {
       finishedGame();
     }
-  }, [gameWordIndex, finishedGame]);
+  }, [gameWordIndex]);
 
   useEffect(() => {
     console.log(finalTranscript);
@@ -113,11 +129,6 @@ const SpeakIt = () => {
     const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
     try {
       const data = await request(url);
-      data.map((item: any) => {
-        item.isGuessed = false;
-        item.isNotGuessed = false;
-        return item;
-      });
       setWords(data.slice(wordsCount));
     } catch (e) {
       console.log(e.message);
@@ -157,16 +168,18 @@ const SpeakIt = () => {
           isGameMode={isGameMode}
           startGame={startGame}
           finishedGame={finishedGame}
-          setShowResult={setShowResult}
+          continueGame={continueGame}
         />
       </Container>
-      {isFinish || showResult ? (
+      {isFinish ? (
         <Results
           words={words}
           setWords={setWords}
           setIsFinish={setIsFinish}
-          setShowResult={setShowResult}
           setGameWordIndex={setGameWordIndex}
+          startGame={startGame}
+          continueGame={continueGame}
+          closeResult={cleanResult}
         />
       ) : (
         ''

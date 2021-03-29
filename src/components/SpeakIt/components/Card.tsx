@@ -17,7 +17,7 @@ const Card = ({
 }: any) => {
   const isActive = active.id === id;
 
-  function setCurrentItem(id: number, image: string, setActive: any, activeAudio: string) {
+  const setCurrentItem = (id: number, image: string, setActive: any, activeAudio: string) => {
     const audio = document.querySelector('audio') as any;
     if (isActive && audio) {
       audio.play();
@@ -29,7 +29,7 @@ const Card = ({
       });
       setActiveAudio(activeAudio);
     }
-  }
+  };
   return (
     <WordCard
       className={[

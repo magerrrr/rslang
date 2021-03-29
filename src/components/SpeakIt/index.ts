@@ -1,3 +1,3 @@
 import SpeakIt from './SpeakIt';
 
-export default SpeakIt;
+export { SpeakIt };
