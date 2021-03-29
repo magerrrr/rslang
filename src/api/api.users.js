@@ -5,10 +5,6 @@ import fetcher from './utils';
 const createNewUser = async (userData) => {
   const settings = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      'Access-Control-Allow-Origin': '*',
-    },
     body: userData,
   };
 
