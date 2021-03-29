@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Image } from 'react-bootstrap';
-import mainImage from '../../../../assets/speakit.png';
-import { Box } from '../../SpeakItStyles';
+import mainImage from '../../../assets/speakit.png';
+import { Box } from '../SpeakItStyles';
 
 const BACK_BASE_URL = 'https://raw.githubusercontent.com/anasidorovich/rslang-data/master';
 

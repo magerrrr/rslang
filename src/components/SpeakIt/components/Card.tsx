@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card as WordCard, AudioIcon } from './CardStyles';
+import { Card as WordCard, AudioIcon } from '../SpeakItStyles';
 
 const Card = ({
   word,
