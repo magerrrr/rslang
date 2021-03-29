@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PlayButton, ControlButton } from '../SpeakItStyles';
 import { Col, Row } from 'react-bootstrap';
 
-const Controls = ({ isGameMode, startGame, finishedGame }: any) => {
+const Controls = ({ isGameMode, startGame, finishedGame, setShowResult }: any) => {
   return (
     <Row className="justify-content-md-center">
       <Col md="auto">
@@ -29,7 +29,7 @@ const Controls = ({ isGameMode, startGame, finishedGame }: any) => {
         ''
       )}
       <Col md="auto">
-        <ControlButton onClick={() => {}} type="button" disabled={false}>
+        <ControlButton onClick={() => setShowResult(true)} type="button" disabled={false}>
           результаты
         </ControlButton>
       </Col>

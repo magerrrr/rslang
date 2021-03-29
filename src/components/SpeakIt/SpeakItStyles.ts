@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 
 import bgImage from '../../assets/speak-it-bg.svg';
 
@@ -54,4 +54,16 @@ const ControlButton = styled(PlayButton)`
   }
 `;
 
-export { GameContainer, ControlButton, PlayButton, Box };
+const ResultsTable = styled(Table)`
+  tbody tr:nth-of-type(odd) {
+    background-color: #ffe8ee;
+  }
+  tbody tr:nth-of-type(odd):hover {
+    background-color: #ffe8ee;
+  }
+  tbody tr:nth-of-type(even):hover {
+    background-color: #fff;
+  }
+`;
+
+export { GameContainer, ControlButton, PlayButton, Box, ResultsTable };

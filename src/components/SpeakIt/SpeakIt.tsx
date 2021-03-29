@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { PlayButton, ControlButton, GameContainer } from './SpeakItStyles';
+import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
 import Controls from './components/Controls';
 import { request } from './SpeakItApi';
+import Results from './components/Results';
 
 const activeInit = {
   id: false,
@@ -17,6 +19,7 @@ const wordsCount = 10;
 
 const SpeakIt = () => {
   const [isFinish, setIsFinish] = useState(false);
+  const [showResult, setShowResult] = useState(false);
   const [words, setWords] = useState<any>([]);
   const [active, setActive] = useState(activeInit);
   const [activeAudio, setActiveAudio] = useState('');
@@ -57,16 +60,39 @@ const SpeakIt = () => {
       newActive.id = id;
       newActive.img = image;
       newActive.wordTranslate = wordTranslate;
-
       setActive(newActive);
+      setGameWordIndex((gameWordIndex) => gameWordIndex + 1);
     }
   };
+
+  const saveStats = useCallback(async () => {
+    const date = new Date().toLocaleDateString();
+    const currentGameStats = {
+      date,
+      wrong: wordsCount - numGuessedWords,
+      right: numGuessedWords,
+    };
+  }, [numGuessedWords]);
+
+  const startGame = () => {
+    setIsGameMode(true);
+    setActive(activeInit);
+    setWords(words);
+    setGameWordIndex(0);
+    startRecording();
+  };
+
+  const finishedGame = useCallback(() => {
+    setIsFinish(true);
+    setIsGameMode(false);
+    stopRecording();
+    saveStats();
+  }, [saveStats]);
 
   useEffect(() => {
     if (speakWord !== null && gameWordIndex < wordsCount) {
       checkWord(speakWord);
       activateWord(gameWordIndex);
-      setGameWordIndex(gameWordIndex + 1);
     }
   }, [speakWord]);
 
@@ -74,7 +100,7 @@ const SpeakIt = () => {
     if (gameWordIndex === wordsCount) {
       finishedGame();
     }
-  }, [gameWordIndex]);
+  }, [gameWordIndex, finishedGame]);
 
   useEffect(() => {
     console.log(finalTranscript);
@@ -83,31 +109,14 @@ const SpeakIt = () => {
     }
   }, [finalTranscript]);
 
-  const startGame = () => {
-    setIsGameMode(true);
-    setActive({
-      ...active,
-      id: false,
-    });
-    setWords(words);
-    startRecording();
-  };
-
-  const finishedGame = () => {
-    setIsFinish(true);
-    setIsGameMode(false);
-    stopRecording();
-    //showResult()
-  };
-
   const getData = async (page: number, group: number) => {
     const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
-
     try {
       const data = await request(url);
       data.map((item: any) => {
         item.isGuessed = false;
         item.isNotGuessed = false;
+        return item;
       });
       setWords(data.slice(wordsCount));
     } catch (e) {
@@ -115,14 +124,12 @@ const SpeakIt = () => {
     }
   };
 
-  const init = async () => {
-    await getData(gamePage, gameLevel);
-  };
-
   useEffect(() => {
+    const init = async () => {
+      await getData(gamePage, gameLevel);
+    };
     init();
-    stopRecording();
-  }, []);
+  }, [gamePage, gameLevel]);
 
   return (
     <GameContainer>
@@ -146,8 +153,24 @@ const SpeakIt = () => {
             />
           ))}
         </Row>
-        <Controls isGameMode={isGameMode} startGame={startGame} finishedGame={finishedGame} />
+        <Controls
+          isGameMode={isGameMode}
+          startGame={startGame}
+          finishedGame={finishedGame}
+          setShowResult={setShowResult}
+        />
       </Container>
+      {isFinish || showResult ? (
+        <Results
+          words={words}
+          setWords={setWords}
+          setIsFinish={setIsFinish}
+          setShowResult={setShowResult}
+          setGameWordIndex={setGameWordIndex}
+        />
+      ) : (
+        ''
+      )}
     </GameContainer>
   );
 };
