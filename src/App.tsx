@@ -1,270 +1,31 @@
-import React, { useState } from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
+import React from 'react';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { PrivateRoute } from './components/PrivateRoute';
 import { Main } from './components/Main';
-import { Login } from './components/Login';
+import { SignUp } from './components/SignUp';
+import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';
-import { Signup } from './components/Signup';
 import { Profile } from './components/Profile';
-import SpeakIt from './components/SpeakIt';
-import {
-  IconButton,
-  Toolbar,
-  Typography,
-  AppBar,
-  Link,
-  Drawer,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-} from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import PersonIcon from '@material-ui/icons/Person';
-import HomeIcon from '@material-ui/icons/Home';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import GroupIcon from '@material-ui/icons/Group';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+import { Menu } from './components/Menu/Menu';
+import { ROUTES } from './shared/constants';
 
 import './App.css';
+import theme from './theme';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    appBar: {
-      boxShadow:
-        '0px 2px 4px -1px rgb(42 68 78 / 20%), 0px 4px 5px 0px rgb(42 68 78 / 14%), 0px 1px 10px 0px rgb(42 68 78 / 12%)',
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-      textTransform: 'uppercase',
-      fontWeight: 600,
-    },
-    list: {
-      width: 250,
-    },
-    nested: {
-      paddingLeft: theme.spacing(4),
-    },
-  }),
-);
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#2A444E',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-  },
-  typography: {
-    fontFamily: [
-      'Philosopher',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      'Segoe UI',
-      'Roboto',
-      'Oxygen',
-      'Ubuntu',
-      'Cantarell',
-      'Fira Sans',
-      '"Droid Sans"',
-      '"Helvetica Neue"',
-      'sans-serif',
-    ].join(','),
-    allVariants: {
-      color: '#2A444E',
-      fontWeight: 500,
-    },
-  },
-});
+const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP } = ROUTES;
 
 const App = () => {
-  const classes = useStyles();
-  const [shown, setShown] = useState(false);
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
   return (
     <Router>
       <MuiThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <AppBar position="static" color="transparent" className={classes.appBar}>
-            <Toolbar>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="menu"
-                onClick={() => setShown(true)}
-              >
-                <MenuIcon />
-              </IconButton>
-              <RouterLink to="/" style={{ textDecoration: 'none', color: 'white' }}>
-                <Typography variant="h6" className={classes.title}>
-                  Lang
-                </Typography>
-              </RouterLink>
-            </Toolbar>
-          </AppBar>
-          <Drawer open={shown} onClose={() => setShown(false)}>
-            <div className={classes.list}>
-              <List>
-                <Link
-                  component={RouterLink}
-                  to="/"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ListItem button onClick={() => {}}>
-                    <ListItemIcon>
-                      <HomeIcon color="primary" />
-                    </ListItemIcon>
-                    Домашняя
-                  </ListItem>
-                </Link>
-
-                <Link
-                  component={RouterLink}
-                  to="/our-team"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ListItem button onClick={() => {}}>
-                    <ListItemIcon>
-                      <GroupIcon color="primary" />
-                    </ListItemIcon>
-                    Наша Команда
-                  </ListItem>
-                </Link>
-
-                <Link
-                  component={RouterLink}
-                  to="/login"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ListItem button onClick={() => {}}>
-                    <ListItemIcon>
-                      <ExitToAppIcon color="primary" />
-                    </ListItemIcon>
-                    Войти
-                  </ListItem>
-                </Link>
-
-                <Divider />
-
-                <Link
-                  component={RouterLink}
-                  to="/profile"
-                  color="primary"
-                  variant="body1"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ListItem button onClick={() => {}}>
-                    <ListItemIcon>
-                      <PersonIcon color="primary" />
-                    </ListItemIcon>
-                    Профиль
-                  </ListItem>
-                </Link>
-                <ListItem button onClick={handleClick}>
-                  <ListItemIcon>
-                    <SportsEsportsIcon color="primary" />
-                  </ListItemIcon>
-                  <ListItemText primary="Мини-игры" />
-                  {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <Link
-                      component={RouterLink}
-                      to="/savannah"
-                      color="primary"
-                      variant="body1"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <StarBorder style={{ fill: '#dc622f' }} />
-                        </ListItemIcon>
-                        <ListItemText primary="Саванна" />
-                      </ListItem>
-                    </Link>
-                    <Link
-                      component={RouterLink}
-                      to="/speakit"
-                      color="primary"
-                      variant="body1"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <StarBorder style={{ fill: '#A632C6' }} />
-                        </ListItemIcon>
-                        <ListItemText primary="Скажи это" />
-                      </ListItem>
-                    </Link>
-                    <Link
-                      component={RouterLink}
-                      to="/audiochallendge"
-                      color="primary"
-                      variant="body1"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <StarBorder style={{ fill: '#1BD9DE' }} />
-                        </ListItemIcon>
-
-                        <ListItemText primary="Аудиовызов" />
-                      </ListItem>
-                    </Link>
-                    <Link
-                      component={RouterLink}
-                      to="/sprint"
-                      color="primary"
-                      variant="body1"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <ListItem button className={classes.nested}>
-                        <ListItemIcon>
-                          <StarBorder style={{ fill: '#32A2E5' }} />
-                        </ListItemIcon>
-                        <ListItemText primary="Спринт" />
-                      </ListItem>
-                    </Link>
-                  </List>
-                </Collapse>
-              </List>
-            </div>
-          </Drawer>
-        </div>
+        <Menu />
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/our-team" component={OurTeam} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/speakit" component={SpeakIt} />
+          <PrivateRoute path={PROFILE.route} component={Profile} />
+          <Route exact path={MAIN.route} component={Main} />
+          <Route path={TEAM.route} component={OurTeam} />
+          <Route path={SIGN_IN.route} component={SignIn} />
+          <Route path={SIGN_UP.route} component={SignUp} />
         </Switch>
       </MuiThemeProvider>
     </Router>
