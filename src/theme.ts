@@ -8,6 +8,10 @@ const theme = createMuiTheme({
       dark: '#002884',
       contrastText: '#fff',
     },
+    action: {
+      disabledBackground: '#9a8fb83b',
+      disabled: 'black',
+    },
   },
   typography: {
     fontFamily: [
