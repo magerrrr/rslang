@@ -1,23 +1,14 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
 import Controls from './components/Controls';
-import { request } from './SpeakItApi';
+import { request } from './helpers/SpeakItApi';
+import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
 import Results from './components/Results';
-
-const activeInit = {
-  id: false,
-  img: '',
-  wordTranslate: '',
-};
-
-const wordsCount = 10;
-const gameMaxLevel = 6;
-const gameMaxPage = 30;
+import { activeInit, wordsCount, gameMaxPage, gameMaxLevel } from './Constants';
 
 const SpeakIt = () => {
   const [isFinish, setIsFinish] = useState(false);
@@ -28,21 +19,8 @@ const SpeakIt = () => {
   const [gameWordIndex, setGameWordIndex] = useState(0);
   const [gamePage, setGamePage] = useState(0);
   const [gameLevel, setGameLevel] = useState(0);
-  const [speakWord, setSpeakWord] = useState(null);
+  const [speakWord, resetTranscript] = useGetSpeakWord();
   const [numGuessedWords, setNumGuessedWords] = useState(0);
-  const { finalTranscript, resetTranscript } = useSpeechRecognition();
-
-  const startRecording = () => {
-    SpeechRecognition.startListening({
-      continuous: true,
-      language: 'en-GB',
-    });
-  };
-
-  const stopRecording = () => {
-    SpeechRecognition.stopListening();
-    SpeechRecognition.abortListening();
-  };
 
   const checkWord = (word: any) => {
     if (word.toLowerCase() === words[gameWordIndex].word) {
@@ -117,13 +95,6 @@ const SpeakIt = () => {
       finishedGame();
     }
   }, [gameWordIndex]);
-
-  useEffect(() => {
-    console.log(finalTranscript);
-    if (finalTranscript !== '') {
-      setSpeakWord(finalTranscript);
-    }
-  }, [finalTranscript]);
 
   const getData = async (page: number, group: number) => {
     const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
