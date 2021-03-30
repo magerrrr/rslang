@@ -1,9 +1,10 @@
 import toggleFullscreen, { isFullscreen } from 'toggle-fullscreen';
 const activeClassName = 'fullscreen-enabled';
+const toggleClassName = ".fullscreen-toggler";
 
-const useFullScreen = (selector: string) => {
+const useFullScreen = () => {
   const onFullScreenChange = () => {
-    const element = document.querySelector(selector);
+    const element = document.querySelector(toggleClassName);
     if (element) {
       toggleFullscreen(element, () => {
         const isFullScreen = isFullscreen();
