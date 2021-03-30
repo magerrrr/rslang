@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import urls from './urls';
 import fetcher from './utils';
 
-const useWords = () => {
+const useAllWords = () => {
   const { data, error } = useSWR(urls.words.defaultRoute, fetcher);
 
   return {
@@ -22,4 +22,14 @@ const useWord = (id) => {
   };
 };
 
-export { useWords, useWord };
+const useWords = (page, group) => {
+  const { data, error } = useSWR(`${urls.words.defaultRoute}?page=${page}&group=${group}`, fetcher);
+
+  return {
+    word: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+};
+
+export { useAllWords, useWords, useWord };

@@ -7,13 +7,13 @@ import WordBox from './components/WordBox';
 import Card from './components/Card';
 import Levels from '../../components/Levels';
 import Controls from './components/Controls';
-import { request } from './helpers/SpeakItApi';
 import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
 import Results from './components/Results';
 import { activeInit, wordsCount } from './helpers/Constants';
 import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 import success from '../../assets/guessed.wav';
 import fail from '../../assets/fail.mp3';
+import api from '../../api';
 
 const SpeakIt = () => {
   const [isFinish, setIsFinish] = useState(false);
@@ -29,6 +29,7 @@ const SpeakIt = () => {
   const authorized = useCheckAuthenticate();
   const guessedSound = new Audio(success);
   const failSound = new Audio(fail);
+  const data = api.words.getWordsByLevel(gamePage, gameLevel);
 
   const checkWord = (word: any) => {
     if (word.toLowerCase() === words[gameWordIndex].word) {
@@ -81,8 +82,17 @@ const SpeakIt = () => {
   };
 
   const continueGame = () => {
-    setGameLevel((level) => (level + 1 < GAME_MAX_LEVEL ? level + 1 : 0));
-    setGamePage((page) => (page + 1 < GAME_MAX_PAGE ? page + 1 : 0));
+    let level = gameLevel;
+    let page = gamePage + 1;
+    if (page === GAME_MAX_PAGE) {
+      page = 0;
+      level = gameLevel + 1;
+      if (level === GAME_MAX_LEVEL) {
+        level = 0;
+      }
+    }
+    setGameLevel(level);
+    setGamePage(page);
     startGame();
   };
 
@@ -106,23 +116,12 @@ const SpeakIt = () => {
     }
   }, [gameWordIndex]);
 
-  const getData = async (page: number, group: number) => {
-    const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
-    try {
-      const data = await request(url);
-      setWords(data.slice(wordsCount));
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
   useEffect(() => {
-    const init = async () => {
-      await getData(gamePage, gameLevel);
-    };
-    init();
-    console.log(gameLevel);
-  }, [gamePage, gameLevel]);
+    if (!data.isLoading) {
+      const cloneData = [...data.word].slice(wordsCount);
+      setWords(cloneData);
+    }
+  }, [data.isLoading, data.word]);
 
   return (
     <GameContainer>
