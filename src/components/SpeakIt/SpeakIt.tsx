@@ -5,12 +5,13 @@ import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
-import Levels from './components/Levels';
+import Levels from '../../components/Levels';
 import Controls from './components/Controls';
 import { request } from './helpers/SpeakItApi';
 import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
 import Results from './components/Results';
-import { activeInit, wordsCount, gameMaxPage, gameMaxLevel } from './Constants';
+import { activeInit, wordsCount } from './helpers/Constants';
+import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 import success from '../../assets/guessed.wav';
 import fail from '../../assets/fail.mp3';
 
@@ -80,8 +81,8 @@ const SpeakIt = () => {
   };
 
   const continueGame = () => {
-    setGameLevel((level) => (level + 1 < gameMaxLevel ? level + 1 : 0));
-    setGamePage((page) => (page + 1 < gameMaxPage ? page + 1 : 0));
+    setGameLevel((level) => (level + 1 < GAME_MAX_LEVEL ? level + 1 : 0));
+    setGamePage((page) => (page + 1 < GAME_MAX_PAGE ? page + 1 : 0));
     startGame();
   };
 
