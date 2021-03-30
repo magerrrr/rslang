@@ -1,5 +1,5 @@
 import { signIn } from './api.auth';
-import { useWords, useWord } from './api.words';
+import { useAllWords, useWords, useWord } from './api.words';
 import {
   createNewUser,
   useGetUserData,
@@ -13,8 +13,9 @@ const api = {
     signIn,
   },
   words: {
-    getAllWords: useWords,
+    getAllWords: useAllWords,
     getWordById: useWord,
+    getWordsByLevel: useWords,
   },
   users: {
     createNewUser,
