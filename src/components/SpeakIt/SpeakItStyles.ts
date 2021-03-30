@@ -3,6 +3,7 @@ import { Button, Table } from 'react-bootstrap';
 
 import bgImage from '../../assets/speak-it-bg.svg';
 import audio from '../../assets/volume.svg';
+import arrow from '../../assets/down-filled-triangular-arrow.svg';
 
 const Card = styled.div`
   font-size: 18px;
@@ -70,6 +71,12 @@ const Box = styled.div`
   & img {
     max-width: 400px;
   }
+  @media (max-width: 400px) {
+    & img {
+      width: 280.5px;
+      height: 187px;
+    }
+  }
 `;
 
 const PlayButton = styled(Button)`
@@ -124,16 +131,34 @@ const ResultsTable = styled(Table)`
   }
 `;
 
-const Level = styled(Table)`
-  tbody tr:nth-of-type(odd) {
-    background-color: #ffe8ee;
-  }
-  tbody tr:nth-of-type(odd):hover {
-    background-color: #ffe8ee;
-  }
-  tbody tr:nth-of-type(even):hover {
-    background-color: #fff;
+const LevelsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  max-width: 500px;
+  margin: 10px auto;
+`;
+
+const Select = styled.select`
+  background: #fff url(${arrow}) right 0.75rem center/8px 10px no-repeat;
+  background-size: 14px;
+  border: 1px solid #ced4da;
+  box-shadow: 0 0 10px rgb(166 50 198 / 50%);
+  width: 100px;
+  margin: 15px;
+  &:focus {
+    border: 1px solid #ced4da;
+    box-shadow: 0 0 10px rgb(166 50 198 / 50%);
   }
 `;
 
-export { GameContainer, Card, AudioIcon, ControlButton, PlayButton, Box, ResultsTable };
+export {
+  GameContainer,
+  Card,
+  AudioIcon,
+  ControlButton,
+  PlayButton,
+  Box,
+  ResultsTable,
+  LevelsContainer,
+  Select,
+};

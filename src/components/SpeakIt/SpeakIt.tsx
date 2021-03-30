@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
@@ -10,6 +11,8 @@ import { request } from './helpers/SpeakItApi';
 import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
 import Results from './components/Results';
 import { activeInit, wordsCount, gameMaxPage, gameMaxLevel } from './Constants';
+import success from '../../assets/guessed.wav';
+import fail from '../../assets/fail.mp3';
 
 const SpeakIt = () => {
   const [isFinish, setIsFinish] = useState(false);
@@ -22,13 +25,18 @@ const SpeakIt = () => {
   const [gameLevel, setGameLevel] = useState(0);
   const [speakWord, resetTranscript] = useGetSpeakWord();
   const [numGuessedWords, setNumGuessedWords] = useState(0);
+  const authorized = useCheckAuthenticate();
+  const guessedSound = new Audio(success);
+  const failSound = new Audio(fail);
 
   const checkWord = (word: any) => {
     if (word.toLowerCase() === words[gameWordIndex].word) {
       words[gameWordIndex].isGuessed = true;
+      guessedSound.play();
       setNumGuessedWords(numGuessedWords + 1);
     } else {
       words[gameWordIndex].isNotGuessed = true;
+      failSound.play();
     }
     resetTranscript();
   };
@@ -112,18 +120,24 @@ const SpeakIt = () => {
       await getData(gamePage, gameLevel);
     };
     init();
+    console.log(gameLevel);
   }, [gamePage, gameLevel]);
 
   return (
     <GameContainer>
       <Container>
-        <Levels />
+        <Levels
+          setGameLevel={setGameLevel}
+          setGamePage={setGamePage}
+          gameLevel={gameLevel + 1}
+          gamePage={gamePage + 1}
+        />
         <WordBox
           activeImg={active.img}
           activeAudio={activeAudio}
           wordTranslate={active.wordTranslate}
         />
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-center">
           {words.map((item: any) => (
             <Card
               {...item}
@@ -142,6 +156,7 @@ const SpeakIt = () => {
           startGame={startGame}
           finishedGame={finishedGame}
           continueGame={continueGame}
+          cleanResult={cleanResult}
         />
       </Container>
       {isFinish ? (

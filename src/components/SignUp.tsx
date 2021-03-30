@@ -101,7 +101,9 @@ export const SignUp = (props: Props) => {
             buttonStyles={{ background: '#9a8fb8' }}
           />
 
-          <StyledButton onClick={handleSubmitSignUp}>Регистрация</StyledButton>
+          <StyledButton disabled onClick={handleSubmitSignUp}>
+            Регистрация
+          </StyledButton>
         </StyledForm>
       </FormContainer>
     </div>

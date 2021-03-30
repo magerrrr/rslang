@@ -2,20 +2,27 @@ import * as React from 'react';
 import { PlayButton, ControlButton } from '../SpeakItStyles';
 import { Col, Row } from 'react-bootstrap';
 
-const Controls = ({ isGameMode, startGame, continueGame, finishedGame }: any) => {
+const Controls = ({ isGameMode, startGame, continueGame, finishedGame, cleanResult }: any) => {
   return (
-    <Row className="justify-content-md-center">
-      <Col md="auto">
-        <ControlButton onClick={startGame} type="button" disabled={false}>
-          повторить
+    <Row className="justify-content-center">
+      <Col xs="auto" sm="auto">
+        <ControlButton
+          onClick={() => {
+            finishedGame();
+            cleanResult();
+          }}
+          type="button"
+          disabled={false}
+        >
+          рестарт
         </ControlButton>
       </Col>
-      <Col md="auto">
+      <Col xs="auto" sm="auto">
         <PlayButton onClick={startGame} type="button" disabled={isGameMode}>
           начать говорить
         </PlayButton>
       </Col>
-      <Col md="auto">
+      <Col xs="auto" sm="auto">
         <ControlButton onClick={finishedGame} type="button" disabled={!isGameMode}>
           результаты
         </ControlButton>
