@@ -1,11 +1,24 @@
 import * as React from 'react';
-import { ResultsTable } from '../SpeakItStyles';
+import { ResultsTable, ResultsAudioIcon } from '../SpeakItStyles';
 import { Modal, Button } from 'react-bootstrap';
 
-const Results = ({ words, continueGame, closeResult }: any) => {
+const Results = ({ words, continueGame, closeResult, setActiveAudio }: any) => {
   const wrongWords = words.filter((word: any) => !word.isGuessed);
   const rightWords = words.filter((word: any) => word.isGuessed);
   const tableWords = rightWords.length > wrongWords.length ? rightWords : wrongWords;
+
+  const Word = ({ item, audio }: any) => {
+    return (
+      <td style={{ position: 'relative' }}>
+        {item && item.word && (
+          <>
+            <ResultsAudioIcon onClick={() => setActiveAudio(audio)} />
+            <p style={{ margin: 6, marginLeft: 44 }}>{item.word}</p>
+          </>
+        )}
+      </td>
+    );
+  };
 
   return (
     <>
@@ -24,8 +37,8 @@ const Results = ({ words, continueGame, closeResult }: any) => {
             <tbody>
               {tableWords.map((item: any, i: number) => (
                 <tr key={tableWords[i].id}>
-                  <td>{(rightWords[i] && rightWords[i].word) || ''}</td>
-                  <td>{(wrongWords[i] && wrongWords[i].word) || ''}</td>
+                  <Word item={rightWords[i]} audio={item.audio} />
+                  <Word item={wrongWords[i]} audio={item.audio} />
                 </tr>
               ))}
             </tbody>

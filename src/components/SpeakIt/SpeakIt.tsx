@@ -31,30 +31,6 @@ const SpeakIt = () => {
   const failSound = new Audio(fail);
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
 
-  const checkWord = (word: any) => {
-    if (word.toLowerCase() === words[gameWordIndex].word) {
-      words[gameWordIndex].isGuessed = true;
-      guessedSound.play();
-      setNumGuessedWords(numGuessedWords + 1);
-    } else {
-      words[gameWordIndex].isNotGuessed = true;
-      failSound.play();
-    }
-    resetTranscript();
-  };
-
-  const activateWord = (i: number) => {
-    if (words && words[i] && Object.keys(words[i]).length > 0) {
-      const newActive = { ...active };
-      const { id, image, wordTranslate } = words[i];
-      newActive.id = id;
-      newActive.img = image;
-      newActive.wordTranslate = wordTranslate;
-      setActive(newActive);
-      setGameWordIndex((gameWordIndex) => gameWordIndex + 1);
-    }
-  };
-
   const saveStats = useCallback(async () => {
     const date = new Date().toLocaleDateString();
     const currentGameStats = {
@@ -104,6 +80,30 @@ const SpeakIt = () => {
   }, [saveStats]);
 
   useEffect(() => {
+    const checkWord = (word: any) => {
+      if (word.toLowerCase() === words[gameWordIndex].word) {
+        words[gameWordIndex].isGuessed = true;
+        guessedSound.play();
+        setNumGuessedWords((numGuessedWords) => numGuessedWords + 1);
+      } else {
+        words[gameWordIndex].isNotGuessed = true;
+        failSound.play();
+      }
+      resetTranscript();
+    };
+
+    const activateWord = (i: number) => {
+      if (words && words[i] && Object.keys(words[i]).length > 0) {
+        const newActive = { ...active };
+        const { id, image, wordTranslate } = words[i];
+        newActive.id = id;
+        newActive.img = image;
+        newActive.wordTranslate = wordTranslate;
+        setActive(newActive);
+        setGameWordIndex((gameWordIndex) => gameWordIndex + 1);
+      }
+    };
+
     if (speakWord !== null && gameWordIndex < wordsCount) {
       checkWord(speakWord);
       activateWord(gameWordIndex);
@@ -114,7 +114,7 @@ const SpeakIt = () => {
     if (gameWordIndex === wordsCount) {
       finishedGame();
     }
-  }, [gameWordIndex]);
+  }, [gameWordIndex, finishedGame]);
 
   useEffect(() => {
     if (!data.isLoading) {
@@ -168,6 +168,7 @@ const SpeakIt = () => {
           startGame={startGame}
           continueGame={continueGame}
           closeResult={cleanResult}
+          setActiveAudio={setActiveAudio}
         />
       ) : (
         ''

@@ -4,7 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 
 const Controls = ({ isGameMode, startGame, continueGame, finishedGame, cleanResult }: any) => {
   return (
-    <Row className="justify-content-center">
+    <Row className="justify-content-center mb-3">
       <Col xs="auto" sm="auto">
         <ControlButton
           onClick={() => {

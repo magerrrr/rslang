@@ -50,6 +50,14 @@ const AudioIcon = styled.span`
   background-size: contain;
 `;
 
+const ResultsAudioIcon = styled(AudioIcon)`
+  top: 12px;
+  left: 12px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+`;
+
 const GameContainer = styled.div`
   background-image: url(${bgImage});
   min-height: calc(100vh + 90px);
@@ -79,7 +87,7 @@ const Box = styled.div`
 `;
 
 const PlayButton = styled(Button)`
-  margin: 25px auto;
+  margin: 30px auto 0 auto;
   width: 200px;
   height: 40px;
   background-color: #c9b1fc;
@@ -130,4 +138,13 @@ const ResultsTable = styled(Table)`
   }
 `;
 
-export { GameContainer, Card, AudioIcon, ControlButton, PlayButton, Box, ResultsTable };
+export {
+  GameContainer,
+  Card,
+  AudioIcon,
+  ResultsAudioIcon,
+  ControlButton,
+  PlayButton,
+  Box,
+  ResultsTable,
+};
