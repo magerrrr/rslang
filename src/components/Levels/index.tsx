@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { LevelsContainer, Select } from './LevelsStyles';
-import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 
 const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
@@ -9,8 +9,8 @@ const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
 
   return (
     <LevelsContainer>
-      <Row noGutters className="align-items-center">
-        <h5 className="mt-2">Level:</h5>
+      <Col className="align-items-center">
+        <p>Level</p>
         <Select
           className="custom-select"
           value={gameLevel}
@@ -24,9 +24,9 @@ const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
             </option>
           ))}
         </Select>
-      </Row>
-      <Row noGutters className="align-items-center">
-        <h5 className="mt-2">Round:</h5>
+      </Col>
+      <Col className="align-items-center">
+        <p>Round</p>
         <Select
           className="custom-select mr-0"
           value={gamePage}
@@ -40,7 +40,7 @@ const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
             </option>
           ))}
         </Select>
-      </Row>
+      </Col>
     </LevelsContainer>
   );
 };
