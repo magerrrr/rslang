@@ -40,6 +40,7 @@ const SpeakIt = () => {
       wrong: wordsCount - numGuessedWords,
       right: numGuessedWords,
     };
+    console.log(currentGameStats);
   }, [numGuessedWords]);
 
   const cleanResult = () => {
@@ -66,6 +67,7 @@ const SpeakIt = () => {
     startGame();
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const finishedGame = useCallback(() => {
     setIsFinish(true);
     setIsGameMode(false);
@@ -108,6 +110,7 @@ const SpeakIt = () => {
       ignore = true;
     };
   }, [speakWord]);
+  /* eslint-disable react-hooks/exhaustive-deps */
 
   useEffect(() => {
     if (gameWordIndex === wordsCount) {
@@ -163,6 +166,7 @@ const SpeakIt = () => {
           startGame={startGame}
           continueGame={continueGame}
           closeResult={cleanResult}
+          authorized={authorized}
         />
       ) : (
         ''

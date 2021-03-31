@@ -33,8 +33,8 @@ const Results = ({ words, continueGame, closeResult }: any) => {
           <ResultsTable striped bordered hover responsive size="sm">
             <thead>
               <tr>
-                <th>Верно</th>
-                <th>Неверно</th>
+                <th>Верно: {rightWords.length}</th>
+                <th>Неверно: {wrongWords.length}</th>
               </tr>
             </thead>
             <tbody>
