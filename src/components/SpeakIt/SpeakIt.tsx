@@ -11,7 +11,7 @@ import Controls from './components/Controls';
 import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
 import Results from './components/Results';
 import { activeInit, wordsCount } from './helpers/Constants';
-import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
+import { getLevels } from './helpers/Game';
 import success from '../../assets/guessed.wav';
 import api from '../../api';
 
@@ -57,15 +57,7 @@ const SpeakIt = () => {
   };
 
   const continueGame = () => {
-    let level = gameLevel;
-    let page = gamePage + 1;
-    if (page === GAME_MAX_PAGE) {
-      page = 0;
-      level = gameLevel + 1;
-      if (level === GAME_MAX_LEVEL) {
-        level = 0;
-      }
-    }
+    const { level, page } = getLevels(gameLevel, gamePage);
     setGameLevel(level);
     setGamePage(page);
     startGame();

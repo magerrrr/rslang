@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useRef } from 'react';
 import { ResultsTable, ResultsAudioIcon } from '../SpeakItStyles';
 import { Modal, Button } from 'react-bootstrap';
 import useAudio from '../../../hooks/useAudio';
