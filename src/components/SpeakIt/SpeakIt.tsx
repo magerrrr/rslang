@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
+import useAudio from '../../hooks/useAudio';
 import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
 import Card from './components/Card';
@@ -12,14 +13,12 @@ import Results from './components/Results';
 import { activeInit, wordsCount } from './helpers/Constants';
 import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 import success from '../../assets/guessed.wav';
-import fail from '../../assets/fail.mp3';
 import api from '../../api';
 
 const SpeakIt = () => {
   const [isFinish, setIsFinish] = useState(false);
   const [words, setWords] = useState<any>([]);
   const [active, setActive] = useState(activeInit);
-  const [activeAudio, setActiveAudio] = useState('');
   const [isGameMode, setIsGameMode] = useState(false);
   const [gameWordIndex, setGameWordIndex] = useState(0);
   const [gamePage, setGamePage] = useState(0);
@@ -28,7 +27,7 @@ const SpeakIt = () => {
   const [numGuessedWords, setNumGuessedWords] = useState(0);
   const authorized = useCheckAuthenticate();
   const guessedSound = useRef(new Audio(success));
-  const failSound = useRef(new Audio(fail));
+  const [audio, playAudio] = useAudio();
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
 
   const saveStats = useCallback(async () => {
@@ -89,9 +88,6 @@ const SpeakIt = () => {
         words[wordIndex].isGuessed = true;
         guessedSound.current.play();
         setNumGuessedWords((numGuessedWords) => numGuessedWords + 1);
-      } else {
-        //words[wordIndex].isNotGuessed = true;
-        //failSound.current.play();
       }
       resetTranscript();
       return wordIndex;
@@ -140,11 +136,7 @@ const SpeakIt = () => {
           gameLevel={gameLevel + 1}
           gamePage={gamePage + 1}
         />
-        <WordBox
-          activeImg={active.img}
-          activeAudio={activeAudio}
-          wordTranslate={active.wordTranslate}
-        />
+        <WordBox activeImg={active.img} audio={audio} wordTranslate={active.wordTranslate} />
         <Row className="justify-content-center">
           {words.map((item: any) => (
             <Card
@@ -153,9 +145,8 @@ const SpeakIt = () => {
               audio={item.audio}
               active={active}
               setActive={setActive}
-              setActiveAudio={setActiveAudio}
+              setActiveAudio={playAudio}
               isGameMode={isGameMode}
-              activeAudio={activeAudio}
             />
           ))}
         </Row>
@@ -174,7 +165,6 @@ const SpeakIt = () => {
           startGame={startGame}
           continueGame={continueGame}
           closeResult={cleanResult}
-          setActiveAudio={setActiveAudio}
         />
       ) : (
         ''
