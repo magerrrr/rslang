@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import { GameContainer } from './SpeakItStyles';
@@ -27,8 +27,8 @@ const SpeakIt = () => {
   const [speakWord, resetTranscript] = useGetSpeakWord();
   const [numGuessedWords, setNumGuessedWords] = useState(0);
   const authorized = useCheckAuthenticate();
-  const guessedSound = new Audio(success);
-  const failSound = new Audio(fail);
+  const guessedSound = useRef(new Audio(success));
+  const failSound = useRef(new Audio(fail));
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
 
   const saveStats = useCallback(async () => {
@@ -80,16 +80,21 @@ const SpeakIt = () => {
   }, [saveStats]);
 
   useEffect(() => {
+    let ignore = false;
     const checkWord = (word: any) => {
-      if (word.toLowerCase() === words[gameWordIndex].word) {
-        words[gameWordIndex].isGuessed = true;
-        guessedSound.play();
+      const wordIndex = words.findIndex(
+        (item: any) => item.word.toLowerCase() === word.toLowerCase(),
+      );
+      if (wordIndex > -1) {
+        words[wordIndex].isGuessed = true;
+        guessedSound.current.play();
         setNumGuessedWords((numGuessedWords) => numGuessedWords + 1);
       } else {
-        words[gameWordIndex].isNotGuessed = true;
-        failSound.play();
+        //words[wordIndex].isNotGuessed = true;
+        //failSound.current.play();
       }
       resetTranscript();
+      return wordIndex;
     };
 
     const activateWord = (i: number) => {
@@ -104,10 +109,13 @@ const SpeakIt = () => {
       }
     };
 
-    if (speakWord !== null && gameWordIndex < wordsCount) {
-      checkWord(speakWord);
-      activateWord(gameWordIndex);
+    if (!ignore && speakWord !== null && gameWordIndex < wordsCount) {
+      const wordIndex = checkWord(speakWord);
+      activateWord(wordIndex);
     }
+    return () => {
+      ignore = true;
+    };
   }, [speakWord]);
 
   useEffect(() => {
@@ -121,7 +129,7 @@ const SpeakIt = () => {
       const cloneData = [...data.word].slice(wordsCount);
       setWords(cloneData);
     }
-  }, [data.isLoading, data.word]);
+  }, [data.isLoading, data.word, gamePage, gameLevel]);
 
   return (
     <GameContainer>
@@ -162,9 +170,7 @@ const SpeakIt = () => {
       {isFinish ? (
         <Results
           words={words}
-          setWords={setWords}
           setIsFinish={setIsFinish}
-          setGameWordIndex={setGameWordIndex}
           startGame={startGame}
           continueGame={continueGame}
           closeResult={cleanResult}

@@ -1,4 +1,4 @@
-export const baseURL = 'https://afternoon-falls-25894.herokuapp.com';
+export const baseURL = 'https://react-learnwords-app.herokuapp.com';
 
 const urls = {
   auth: {

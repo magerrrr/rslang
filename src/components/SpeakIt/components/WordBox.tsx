@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Image } from 'react-bootstrap';
 import mainImage from '../../../assets/speakit.png';
 import { Box } from '../SpeakItStyles';
-//import { baseURL } from '../../../api/urls';
-const baseURL = 'https://raw.githubusercontent.com/anasidorovich/rslang-data/master';
+import { baseURL } from '../../../api/urls';
 
 const WordBox = ({ activeImg, activeAudio, wordTranslate }: any) => {
   const image = activeImg ? `${baseURL}/${activeImg}` : mainImage;

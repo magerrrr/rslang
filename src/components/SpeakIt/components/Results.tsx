@@ -1,18 +1,26 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import { ResultsTable, ResultsAudioIcon } from '../SpeakItStyles';
 import { Modal, Button } from 'react-bootstrap';
+import { baseURL } from '../../../api/urls';
 
-const Results = ({ words, continueGame, closeResult, setActiveAudio }: any) => {
+const Results = ({ words, continueGame, closeResult }: any) => {
   const wrongWords = words.filter((word: any) => !word.isGuessed);
   const rightWords = words.filter((word: any) => word.isGuessed);
   const tableWords = rightWords.length > wrongWords.length ? rightWords : wrongWords;
+  const audio = useRef(null) as any;
 
-  const Word = ({ item, audio }: any) => {
+  const setActiveAudio = (activeAudio: any) => {
+    audio.current.src = `${baseURL}/${activeAudio}`;
+    audio.current.play();
+  };
+
+  const Word = ({ item }: any) => {
     return (
       <td style={{ position: 'relative' }}>
         {item && item.word && (
           <>
-            <ResultsAudioIcon onClick={() => setActiveAudio(audio)} />
+            <ResultsAudioIcon onClick={() => setActiveAudio(item.audio)} />
             <p style={{ margin: 6, marginLeft: 44 }}>{item.word}</p>
           </>
         )}
@@ -27,6 +35,7 @@ const Results = ({ words, continueGame, closeResult, setActiveAudio }: any) => {
           <Modal.Title>Результаты:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <audio ref={audio} />
           <ResultsTable striped bordered hover responsive size="sm">
             <thead>
               <tr>
@@ -37,8 +46,8 @@ const Results = ({ words, continueGame, closeResult, setActiveAudio }: any) => {
             <tbody>
               {tableWords.map((item: any, i: number) => (
                 <tr key={tableWords[i].id}>
-                  <Word item={rightWords[i]} audio={item.audio} />
-                  <Word item={wrongWords[i]} audio={item.audio} />
+                  <Word item={rightWords[i]} />
+                  <Word item={wrongWords[i]} />
                 </tr>
               ))}
             </tbody>
