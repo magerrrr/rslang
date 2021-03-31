@@ -1,6 +1,8 @@
 import * as React from 'react';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import useFullScreen from '../../hooks/useFullScreen';
 import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import useAudio from '../../hooks/useAudio';
 import { GameContainer } from './SpeakItStyles';
@@ -28,6 +30,7 @@ const SpeakIt = () => {
   const authorized = useCheckAuthenticate();
   const guessedSound = useRef(new Audio(success));
   const [audio, playAudio] = useAudio();
+  const onFullScreenChange = useFullScreen();
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
 
   const saveStats = useCallback(async () => {
@@ -122,33 +125,36 @@ const SpeakIt = () => {
   return (
     <GameContainer>
       <Container>
+        <FullscreenIcon onClick={onFullScreenChange} />
         <Levels
           setGameLevel={setGameLevel}
           setGamePage={setGamePage}
           gameLevel={gameLevel + 1}
           gamePage={gamePage + 1}
         />
-        <WordBox activeImg={active.img} audio={audio} wordTranslate={active.wordTranslate} />
-        <Row className="justify-content-center">
-          {words.map((item: any) => (
-            <Card
-              {...item}
-              key={item.id}
-              audio={item.audio}
-              active={active}
-              setActive={setActive}
-              setActiveAudio={playAudio}
-              isGameMode={isGameMode}
-            />
-          ))}
-        </Row>
-        <Controls
-          isGameMode={isGameMode}
-          startGame={startGame}
-          finishedGame={finishedGame}
-          continueGame={continueGame}
-          cleanResult={cleanResult}
-        />
+        <div className="fullscreen-toggler">
+          <WordBox activeImg={active.img} audio={audio} wordTranslate={active.wordTranslate} />
+          <Row className="justify-content-center">
+            {words.map((item: any) => (
+              <Card
+                {...item}
+                key={item.id}
+                audio={item.audio}
+                active={active}
+                setActive={setActive}
+                setActiveAudio={playAudio}
+                isGameMode={isGameMode}
+              />
+            ))}
+          </Row>
+          <Controls
+            isGameMode={isGameMode}
+            startGame={startGame}
+            finishedGame={finishedGame}
+            continueGame={continueGame}
+            cleanResult={cleanResult}
+          />
+        </div>
       </Container>
       {isFinish ? (
         <Results

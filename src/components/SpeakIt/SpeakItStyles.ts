@@ -62,6 +62,14 @@ const GameContainer = styled.div`
   background-image: url(${bgImage});
   min-height: calc(100vh + 90px);
   background-size: 100%;
+  svg {
+    position: absolute;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    fill: #c9b1fc;
+    cursor: pointer;
+  }
 `;
 
 const Box = styled.div`
