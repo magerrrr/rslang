@@ -14,7 +14,7 @@ import Sprint from './components/Sprint';
 import './App.css';
 import theme from './theme';
 
-const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP } = ROUTES;
+const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP, GAMES } = ROUTES;
 
 const App = () => {
   return (
@@ -27,6 +27,7 @@ const App = () => {
           <Route path={TEAM.route} component={OurTeam} />
           <Route path={SIGN_IN.route} component={SignIn} />
           <Route path={SIGN_UP.route} component={SignUp} />
+          <Route path={GAMES.subroutes.SPRINT.route} component={Sprint} />
         </Switch>
       </MuiThemeProvider>
     </Router>
