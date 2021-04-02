@@ -15,7 +15,7 @@ const LevelsContainer = styled.div`
     margin: 5px;
   }
   .col:first-child {
-    padding-left: 20px;
+    padding-left: 15px;
   }
 `;
 

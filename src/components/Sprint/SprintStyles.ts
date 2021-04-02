@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Button, Container } from 'react-bootstrap';
 
 import sprintBg from '../../assets/sprint/sprint-bg.svg';
-import pinkParrot from '../../assets/sprint/parrot-pink.png';
-import yellowParrot from '../../assets/sprint/parrot-yellow.png';
-import brownParrot from '../../assets/sprint/parrot-brown.png';
-import blueParrot from '../../assets/sprint/parrot-blue.png';
+import pinkParrot from '../../assets/sprint/blue1.png';
+import yellowParrot from '../../assets/sprint/bird2.png';
+import brownParrot from '../../assets/sprint/bird33.png';
+import blueParrot from '../../assets/sprint/red.png';
 import stick from '../../assets/sprint/stick.png';
 
 const BackGround = styled.div`
@@ -16,6 +16,7 @@ const BackGround = styled.div`
 
 const LeftControlButton = styled(Button)`
   font-size: 1.25rem;
+  line-height: 1.7;
   margin: 35px auto 0 auto;
   width: 170px;
   height: 53px;
@@ -193,15 +194,14 @@ const Countdown = styled.div`
 
 const GameHeading = styled(Container)`
   display: flex;
-  margin: 20px auto;
-  margin-top: 0;
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
   position: relative;
-  > div:first-child {
-    position: absolute;
-    left: 0;
-    top: 0;
+  flex-direction: column;
+  height: 400px;
+  > div {
+    margin: 2rem;
   }
   select {
     box-shadow: 0 0 10px rgb(50 162 229 / 50%);
@@ -234,33 +234,35 @@ const WordTranslated = styled(Word)`
 const Parrots = styled.div`
   position: relative;
   width: 250px;
-  height: 70px;
-  background: linear-gradient(40deg, rgb(210, 239, 26), rgb(178, 231, 12));
-  border-radius: 10px;
+  height: 90px;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-  background-image: url(${stick});
-  background-repeat: no-repeat;
-  background-position: bottom 10px right 20px;
+  margin-bottom: 0.5rem;
 
   .parrot {
     position: absolute;
+    background-size: contain;
+    width: 100% !important;
+    height: 100% !important;
+    background-repeat: no-repeat;
+    left: 30px !important;
+    top: 0 !important;
   }
   .parrot_blue {
     left: 30px;
     top: 5px;
     width: 53px;
     height: 62px;
-    background: url(${blueParrot}) no-repeat;
+    background-image: url(${blueParrot});
   }
 
   .parrot_yellow {
     width: 45px;
     height: 64px;
-    background: url(${yellowParrot}) no-repeat;
+    background-image: url(${yellowParrot});
     left: 80px;
     top: 4px;
   }
@@ -268,7 +270,7 @@ const Parrots = styled.div`
   .parrot_brown {
     width: 56px;
     height: 53px;
-    background: url(${brownParrot}) no-repeat;
+    background-image: url(${brownParrot});
     left: 127px;
     top: 12px;
   }
@@ -276,10 +278,21 @@ const Parrots = styled.div`
   .parrot_pink {
     width: 45px;
     height: 58px;
-    background: url(${pinkParrot}) no-repeat;
+    background-image: url(${pinkParrot});
     left: 176px;
     top: 11px;
   }
+`;
+
+const Series = styled.div`
+  height: 80px;
+  border-radius: 20px;
+  width: calc(100% + 10px);
+  margin-left: -5px;
+  margin-top: -5px;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 98%, 0 78%);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 98%, 0 78%);
+  background-color: pink;
 `;
 
 export {
@@ -297,4 +310,5 @@ export {
   WordTranslated,
   LeftControlButton,
   RightControlButton,
+  Series,
 };
