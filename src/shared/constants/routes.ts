@@ -37,7 +37,7 @@ export default Object.freeze({
       },
       SPRINT: {
         name: 'Спринт',
-        route: '/games/sprint/:page?/:group?',
+        route: '/games/sprint/:group?/:page?',
       },
     },
   },

@@ -10,7 +10,13 @@ import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
 import LivesContent from './Lives';
 import Results from './Results';
-import { getRandom, isCurrentTranslateCorrect, getLevels, getScorePoints } from './Helpers';
+import {
+  getRandom,
+  isCurrentTranslateCorrect,
+  getInitialLevels,
+  getLevels,
+  getScorePoints,
+} from './Helpers';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';
 import success from '../../assets/guessed.wav';
@@ -28,15 +34,17 @@ import {
 } from './SprintStyles';
 import Timer from './Timer';
 
+const POINTS_COUNT = 3;
 const CORRECT_WORD_CHANCE = 50;
 const GUESS_FROM_QUANTITY = 100 / CORRECT_WORD_CHANCE;
 
 const Sprint = () => {
   const { page } = useParams();
   const { group } = useParams();
+  const initialLevels = getInitialLevels(group, page);
   const [isFinish, setIsFinish] = useState(false);
-  const [gamePage, setGamePage] = useState(0);
-  const [gameLevel, setGameLevel] = useState(0);
+  const [gamePage, setGamePage] = useState(initialLevels.page || 0);
+  const [gameLevel, setGameLevel] = useState(initialLevels.level || 0);
   const [isPlay, setIsPlay] = useState(false);
   const [score, setScore] = useState(0);
   const [clickAnswerCounter, setClickAnswerCounter] = useState({
@@ -102,7 +110,7 @@ const Sprint = () => {
         ...clickAnswerCounter,
         correctAnswer: clickAnswerCounter.correctAnswer + 1,
       });
-      pointsFactor = Math.floor(lives / 3) + 1;
+      pointsFactor = Math.floor(lives / POINTS_COUNT) + 1;
       setLives((lives) => lives + 1);
     } else {
       failSound.play();

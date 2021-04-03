@@ -1,5 +1,20 @@
 import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 
+export const getInitialLevels = (gameLevel: string, gamePage: string) => {
+  let level = parseInt(gameLevel, 10);
+  let page = parseInt(gamePage, 10);
+  if (page >= GAME_MAX_PAGE) {
+    page = 0;
+  }
+  if (level >= GAME_MAX_LEVEL) {
+      level = 0;
+  }
+  return {
+    level,
+    page,
+  };
+};
+
 export const getLevels = (gameLevel: number, gamePage: number) => {
   let level = gameLevel;
   let page = gamePage + 1;
