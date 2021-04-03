@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import { Container } from 'react-bootstrap';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import useFullScreen from '../../hooks/useFullScreen';
 import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
@@ -43,6 +45,7 @@ const Sprint = () => {
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
+  const onFullScreenChange = useFullScreen();
 
   const restartGame = () => {
     setIsFinish(false);
@@ -171,8 +174,9 @@ const Sprint = () => {
   }, [data.isLoading, data.word]);
 
   return (
-    <BackGround>
-      <Timer className="disabled" isTimerRun={isPlay} onTimeLeft={handleTimeLeft} />
+    <BackGround className="fullscreen-toggler">
+      <FullscreenIcon onClick={onFullScreenChange} />
+      <Timer isTimerRun={isPlay} onTimeLeft={handleTimeLeft} />
       <Point>Очки: {score}</Point>
       <GameContainer>
         <Container fluid="md">
