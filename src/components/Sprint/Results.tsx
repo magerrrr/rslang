@@ -3,7 +3,7 @@ import { ResultsTable, ResultsAudioIcon } from './SprintStyles';
 import { Modal, Button } from 'react-bootstrap';
 import useAudio from '../../hooks/useAudio';
 
-const Results = ({ words, continueGame, closeResult }: any) => {
+const Results = ({ words, restartGame, continueGame, closeResult }: any) => {
   const wrongWords = words.filter((word: any) => !word.isGuessed);
   const rightWords = words.filter((word: any) => word.isGuessed);
   const tableWords = rightWords.length > wrongWords.length ? rightWords : wrongWords;
@@ -48,7 +48,7 @@ const Results = ({ words, continueGame, closeResult }: any) => {
           </ResultsTable>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" color="#c9b1fc" onClick={closeResult}>
+          <Button variant="secondary" color="#c9b1fc" onClick={restartGame}>
             рестарт
           </Button>
           <Button variant="secondary" color="#c9b1fc" onClick={continueGame}>

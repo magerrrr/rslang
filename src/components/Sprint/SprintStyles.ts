@@ -285,10 +285,10 @@ const ResultsAudioIcon = styled(AudioIcon)`
 
 const ResultsTable = styled(Table)`
   tbody tr:nth-of-type(odd) {
-    background-color: #ffe8ee;
+    background-color: rgb(236, 206, 226, 0.6);
   }
   tbody tr:nth-of-type(odd):hover {
-    background-color: #ffe8ee;
+    background-color: #eccee2;
   }
   tbody tr:nth-of-type(even):hover {
     background-color: #fff;

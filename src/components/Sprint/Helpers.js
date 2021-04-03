@@ -1,3 +1,21 @@
+import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
+
+export const getLevels = (gameLevel: number, gamePage: number) => {
+  let level = gameLevel;
+  let page = gamePage + 1;
+  if (page === GAME_MAX_PAGE) {
+    page = 0;
+    level = gameLevel + 1;
+    if (level === GAME_MAX_LEVEL) {
+      level = 0;
+    }
+  }
+  return {
+    level,
+    page,
+  };
+};
+
 export function getRandom (arr, n) {
   const result = new Array(n);
   let len = arr.length;
@@ -11,14 +29,19 @@ export function getRandom (arr, n) {
   return result;
 }
 
-export function isCurrentTranslateCorrect (wordsObject, currentWord) {
+export function isCurrentTranslateCorrect (wordsObject, currentWord, answer) {
   if (wordsObject.length) {
     const findWord = wordsObject.find((item) => {
       return item.word === currentWord.enWord;
     });
 
     if (findWord) {
-      return findWord.wordTranslate === currentWord.ruWord;
+      const correctAnswer = findWord.wordTranslate === currentWord.ruWord;
+      const guessed = correctAnswer === answer;
+      findWord.isGuessed = guessed;
+      return guessed;
     }
   }
 };
+
+

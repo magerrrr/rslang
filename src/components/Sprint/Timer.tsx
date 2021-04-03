@@ -1,25 +1,27 @@
 import { Countdown } from './SprintStyles';
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useCountDown from 'react-countdown-hook';
 const initialTime = 60 * 1000;
 const interval = 1000;
 const convertMsToSeconds = (ms: number) => (ms / 1000).toFixed(0);
 
 const Timer = ({ isTimerRun, onTimeLeft }: any) => {
+  const [isStart, setIsStart] = useState(false);
   const [timeLeft, { start }] = useCountDown(initialTime, interval);
 
   useEffect(() => {
     if (isTimerRun) {
       start();
+      setIsStart(true);
     }
   }, [isTimerRun, start]);
 
   useEffect(() => {
-    if (timeLeft === 0) {
+    if (isStart && timeLeft === 0) {
       onTimeLeft();
     }
-  }, [timeLeft, onTimeLeft]);
+  }, [timeLeft, onTimeLeft, isStart]);
 
   return (
     <>

@@ -5,7 +5,8 @@ import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
 import LivesContent from './Lives';
-import { getRandom, isCurrentTranslateCorrect } from './Helpers';
+import Results from './Results';
+import { getRandom, isCurrentTranslateCorrect, getLevels } from './Helpers';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';
 import success from '../../assets/guessed.wav';
@@ -27,6 +28,7 @@ const CORRECT_WORD_CHANCE = 50;
 const GUESS_FROM_QUANTITY = 100 / CORRECT_WORD_CHANCE;
 
 const Sprint = () => {
+  const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(0);
   const [gameLevel, setGameLevel] = useState(0);
   const [isPlay, setIsPlay] = useState(false);
@@ -41,6 +43,27 @@ const Sprint = () => {
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
+
+  const restartGame = () => {
+    setIsFinish(false);
+    setIsPlay(true);
+  };
+
+  const continueGame = () => {
+    setIsFinish(false);
+    const { level, page } = getLevels(gameLevel, gamePage);
+    setGameLevel(level);
+    setGamePage(page);
+    setIsPlay(true);
+  };
+
+  const cleanResult = () => {
+    words.map((item: any) => {
+      item.isGuessed = false;
+      return item;
+    });
+    setIsFinish(false);
+  };
 
   const newRound = (words: any) => {
     const gameRoundWords = getRandom(words, GUESS_FROM_QUANTITY);
@@ -59,7 +82,7 @@ const Sprint = () => {
   }, [words]);
 
   const scoreCounter = (answer: boolean) => {
-    const isCorrectAnswer = isCurrentTranslateCorrect(words, currentWord) === answer;
+    const isCorrectAnswer = isCurrentTranslateCorrect(words, currentWord, answer);
 
     let pointsFactor = 1;
 
@@ -119,8 +142,7 @@ const Sprint = () => {
   };
 
   const handleTimeLeft = useCallback(() => {
-    setIsPlay(false);
-    setLives(0);
+    setIsFinish(true);
   }, []);
 
   useEffect(() => {
@@ -133,6 +155,14 @@ const Sprint = () => {
   useEffect(() => {
     getNextWord();
   }, [words, getNextWord]);
+
+  useEffect(() => {
+    setLives(0);
+    setScore(0);
+    if (isFinish) {
+      setIsPlay(false);
+    }
+  }, [isFinish]);
 
   useEffect(() => {
     if (!data.isLoading) {
@@ -183,6 +213,16 @@ const Sprint = () => {
                 </LeftControlButton>
               </GameHeading>
             </Box>
+          )}
+          {isFinish ? (
+            <Results
+              words={words}
+              restartGame={restartGame}
+              continueGame={continueGame}
+              closeResult={cleanResult}
+            />
+          ) : (
+            ''
           )}
         </Container>
       </GameContainer>
