@@ -22,5 +22,3 @@ export function isCurrentTranslateCorrect (wordsObject, currentWord) {
     }
   }
 };
-
-export default { getRandom, isCurrentTranslateCorrect };

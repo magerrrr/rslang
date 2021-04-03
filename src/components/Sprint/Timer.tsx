@@ -13,21 +13,21 @@ const Timer = ({ isTimerRun, onTimeLeft }: any) => {
     if (isTimerRun) {
       start();
     }
-  }, [isTimerRun]);
+  }, [isTimerRun, start]);
 
   useEffect(() => {
     if (timeLeft === 0) {
       onTimeLeft();
     }
-  }, [timeLeft]);
+  }, [timeLeft, onTimeLeft]);
 
   return (
     <>
-      <Countdown>
+      <Countdown className="disabled">
         <div className="timer_line"></div>
         <div className="timer_body">
           <div className="timer_counter">
-            <span id="timer">60</span>
+            <span id="timer">{convertMsToSeconds(timeLeft)}</span>
           </div>
         </div>
       </Countdown>

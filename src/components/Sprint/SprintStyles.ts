@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Table } from 'react-bootstrap';
 
 import sprintBg from '../../assets/sprint/sprint-bg.svg';
-import pinkParrot from '../../assets/sprint/blue1.png';
-import yellowParrot from '../../assets/sprint/bird2.png';
-import brownParrot from '../../assets/sprint/bird33.png';
-import blueParrot from '../../assets/sprint/red.png';
-import stick from '../../assets/sprint/stick.png';
+import parrot1 from '../../assets/sprint/bird1.png';
+import parrot2 from '../../assets/sprint/bird2.png';
+import parrot3 from '../../assets/sprint/bird3.png';
+import parrot4 from '../../assets/sprint/bird4.png';
+import audio from '../../assets/sprint/sound.svg';
 
 const BackGround = styled.div`
   background-image: url(${sprintBg});
@@ -75,19 +75,6 @@ const LifeLess = styled(Life)`
   );
 `;
 
-const Round = styled.div`
-  font-size: 1.25rem;
-  font-weight: 600;
-  width: 112px;
-  p {
-    font-size: 1.25rem;
-    font-weight: 600;
-    width: calc(100px - 10px);
-    text-align: center;
-    margin: 5px;
-  }
-`;
-
 const Countdown = styled.div`
   width: 90px;
   height: 90px;
@@ -110,6 +97,13 @@ const Countdown = styled.div`
     z-index: 3;
     background-color: white;
     animation: mask_left 60s steps(1, end) forwards;
+  }
+  &.disabled .timer_line,
+  &.disabled .timer_line::after,
+  &.disabled::before,
+  &.disabled::after {
+    animation: none !important;
+    background-color: transparent;
   }
 
   &::after {
@@ -250,49 +244,55 @@ const Parrots = styled.div`
     background-repeat: no-repeat;
     left: 30px !important;
     top: 0 !important;
+    &.hide {
+      display: none;
+    }
   }
-  .parrot_blue {
-    left: 30px;
-    top: 5px;
-    width: 53px;
-    height: 62px;
-    background-image: url(${blueParrot});
-  }
-
-  .parrot_yellow {
-    width: 45px;
-    height: 64px;
-    background-image: url(${yellowParrot});
-    left: 80px;
-    top: 4px;
+  .parrot_1 {
+    background-image: url(${parrot1});
   }
 
-  .parrot_brown {
-    width: 56px;
-    height: 53px;
-    background-image: url(${brownParrot});
-    left: 127px;
-    top: 12px;
+  .parrot_2 {
+    background-image: url(${parrot2});
   }
 
-  .parrot_pink {
-    width: 45px;
-    height: 58px;
-    background-image: url(${pinkParrot});
-    left: 176px;
-    top: 11px;
+  .parrot_3 {
+    background-image: url(${parrot3});
+  }
+
+  .parrot_4 {
+    background-image: url(${parrot4});
   }
 `;
 
-const Series = styled.div`
-  height: 80px;
-  border-radius: 20px;
-  width: calc(100% + 10px);
-  margin-left: -5px;
-  margin-top: -5px;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 98%, 0 78%);
-  clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 98%, 0 78%);
-  background-color: pink;
+const AudioIcon = styled.span`
+  position: absolute;
+  top: 22px;
+  left: 20px;
+  width: 26px;
+  height: 26px;
+  background-image: url(${audio});
+  background-size: contain;
+`;
+
+const ResultsAudioIcon = styled(AudioIcon)`
+  top: 12px;
+  left: 12px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+`;
+
+const ResultsTable = styled(Table)`
+  tbody tr:nth-of-type(odd) {
+    background-color: #ffe8ee;
+  }
+  tbody tr:nth-of-type(odd):hover {
+    background-color: #ffe8ee;
+  }
+  tbody tr:nth-of-type(even):hover {
+    background-color: #fff;
+  }
 `;
 
 export {
@@ -301,14 +301,15 @@ export {
   Box,
   Life,
   LifeLess,
-  Round,
   Countdown,
   GameHeading,
   Point,
   Parrots,
   Word,
   WordTranslated,
+  AudioIcon,
+  ResultsAudioIcon,
   LeftControlButton,
   RightControlButton,
-  Series,
+  ResultsTable,
 };

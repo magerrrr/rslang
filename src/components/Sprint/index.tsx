@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Col } from 'react-bootstrap';
+import * as React from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { Container } from 'react-bootstrap';
 import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
+import LivesContent from './Lives';
 import { getRandom, isCurrentTranslateCorrect } from './Helpers';
 import api from '../../api';
-import { LeftControlButton, RightControlButton } from './SprintStyles';
+import { LeftControlButton } from './SprintStyles';
+import success from '../../assets/guessed.wav';
+import fail from '../../assets/fail.mp3';
 
 import {
   BackGround,
   GameContainer,
   Box,
-  Life,
-  LifeLess,
-  Round,
   GameHeading,
   Point,
   Parrots,
   WordTranslated,
   Word,
-  Series,
 } from './SprintStyles';
 import Timer from './Timer';
 
@@ -30,27 +30,24 @@ const Sprint = () => {
   const [gamePage, setGamePage] = useState(0);
   const [gameLevel, setGameLevel] = useState(0);
   const [isPlay, setIsPlay] = useState(false);
-  const [isPlayAndNewRaund, setIsPlayAndNewRaund] = useState(false);
   const [score, setScore] = useState(0);
   const [clickAnswerCounter, setClickAnswerCounter] = useState({
     correctAnswer: 0,
     unCorrectAnswer: 0,
   });
-
-  const [arrayStatisticAllGames, setarrayStatisticAllGames] = useState([]);
-  const [levels, setLevels] = useState(0);
-
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState({}) as any;
-  const [combo, setCombo] = useState(0);
+  const [lives, setLives] = useState(0);
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
+  const successSound = new Audio(success);
+  const failSound = new Audio(fail);
 
   const newRound = (words: any) => {
     const gameRoundWords = getRandom(words, GUESS_FROM_QUANTITY);
     return gameRoundWords;
   };
 
-  const getNextWord = () => {
+  const getNextWord = useCallback(() => {
     if (words.length) {
       const roundWords = newRound(words);
 
@@ -59,34 +56,31 @@ const Sprint = () => {
 
       setCurrentWord({ enWord, ruWord });
     }
-  };
+  }, [words]);
 
   const scoreCounter = (answer: boolean) => {
     const isCorrectAnswer = isCurrentTranslateCorrect(words, currentWord) === answer;
 
-    let kkkkombo = 0;
+    let pointsFactor = 1;
 
     if (isCorrectAnswer) {
+      successSound.play();
       setClickAnswerCounter({
         ...clickAnswerCounter,
         correctAnswer: clickAnswerCounter.correctAnswer + 1,
       });
-      if (combo < 4) {
-        kkkkombo = combo + 1;
-      }
-      if (combo === 4) {
-        kkkkombo = combo;
-      }
+      pointsFactor = Math.floor(lives / 3) + 1;
+      setLives((lives) => lives + 1);
     } else {
+      failSound.play();
+      setLives(0);
       setClickAnswerCounter({
         ...clickAnswerCounter,
         unCorrectAnswer: clickAnswerCounter.unCorrectAnswer + 1,
       });
     }
 
-    setCombo(kkkkombo);
-
-    switch (kkkkombo) {
+    switch (pointsFactor) {
       case 1:
         setScore(score + 10);
         break;
@@ -104,6 +98,7 @@ const Sprint = () => {
         break;
 
       default:
+        setScore(score + 80);
         break;
     }
   };
@@ -123,9 +118,10 @@ const Sprint = () => {
     }
   };
 
-  const handleTimeLeft = () => {
+  const handleTimeLeft = useCallback(() => {
     setIsPlay(false);
-  };
+    setLives(0);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyPress);
@@ -136,7 +132,7 @@ const Sprint = () => {
 
   useEffect(() => {
     getNextWord();
-  }, [words]);
+  }, [words, getNextWord]);
 
   useEffect(() => {
     if (!data.isLoading) {
@@ -146,23 +142,21 @@ const Sprint = () => {
 
   return (
     <BackGround>
-      <Timer isTimerRun={isPlay} onTimeLeft={handleTimeLeft} />
+      <Timer className="disabled" isTimerRun={isPlay} onTimeLeft={handleTimeLeft} />
       <Point>Очки: {score}</Point>
       <GameContainer>
         <Container fluid="md">
           {isPlay ? (
             <Box>
               <div className="d-flex justify-content-center p-2 bd-highlight mt-2">
-                <Life className="m-2" />
-                <LifeLess className="m-2" />
-                <LifeLess className="m-2" />
+                <LivesContent lives={lives} />
               </div>
               <div className="d-flex justify-content-center p-2 bd-highlight mt-4">
                 <Parrots>
-                  <div className="parrot parrot_blue" id="parrot-blue"></div>
-                  <div className="parrot parrot_yellow hide" id="parrot-yellow"></div>
-                  <div className="parrot parrot_brown hide" id="parrot-brown"></div>
-                  <div className="parrot parrot_pink hide" id="parrot-pink"></div>
+                  <div className={`parrot parrot_1`}></div>
+                  <div className={`parrot parrot_2 ${lives <= 3 && 'hide'}`}></div>
+                  <div className={`parrot parrot_3 ${lives <= 6 && 'hide'}`}></div>
+                  <div className={`parrot parrot_4 ${lives <= 9 && 'hide'}`}></div>
                 </Parrots>
               </div>
               <Divider className="mt-4 mb-3" variant="middle" />
