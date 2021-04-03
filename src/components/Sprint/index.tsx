@@ -183,9 +183,9 @@ const Sprint = () => {
               <div className="d-flex justify-content-center p-2 bd-highlight mt-4">
                 <Parrots>
                   <div className={`parrot parrot_1`}></div>
-                  <div className={`parrot parrot_2 ${lives <= 3 && 'hide'}`}></div>
-                  <div className={`parrot parrot_3 ${lives <= 6 && 'hide'}`}></div>
-                  <div className={`parrot parrot_4 ${lives <= 9 && 'hide'}`}></div>
+                  <div className={`parrot parrot_2 ${lives <= POINTS_COUNT && 'hide'}`}></div>
+                  <div className={`parrot parrot_3 ${lives <= POINTS_COUNT * (POINTS_COUNT - 1) && 'hide'}`}></div>
+                  <div className={`parrot parrot_4 ${lives <= POINTS_COUNT * POINTS_COUNT && 'hide'}`}></div>
                 </Parrots>
               </div>
               <Divider className="mt-4 mb-3" variant="middle" />
