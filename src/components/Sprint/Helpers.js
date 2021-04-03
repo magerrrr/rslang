@@ -44,4 +44,19 @@ export function isCurrentTranslateCorrect (wordsObject, currentWord, answer) {
   }
 };
 
+export const getScorePoints = (pointsFactor: any) => {
+    switch (pointsFactor) {
+      case 1:
+        return 10;
+      case 2:
+        return 20;
+      case 3:
+        return 40;
+      case 4:
+        return 80;
+      default:
+        return 80;
+    }
+};
+
 

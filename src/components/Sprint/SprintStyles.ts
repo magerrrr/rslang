@@ -6,7 +6,7 @@ import parrot1 from '../../assets/sprint/bird1.png';
 import parrot2 from '../../assets/sprint/bird2.png';
 import parrot3 from '../../assets/sprint/bird3.png';
 import parrot4 from '../../assets/sprint/bird4.png';
-import audio from '../../assets/sprint/sound.svg';
+import audio from '../../assets/sprint/audio.svg';
 
 const BackGround = styled.div`
   background-image: url(${sprintBg});
@@ -286,7 +286,7 @@ const AudioIcon = styled.span`
 const ResultsAudioIcon = styled(AudioIcon)`
   top: 12px;
   left: 12px;
-  width: 22px;
+  width: 21px;
   height: 22px;
   cursor: pointer;
 `;
@@ -296,7 +296,7 @@ const ResultsTable = styled(Table)`
     background-color: rgb(236, 206, 226, 0.6);
   }
   tbody tr:nth-of-type(odd):hover {
-    background-color: #eccee2;
+    background-color: rgb(236, 206, 226, 0.6);
   }
   tbody tr:nth-of-type(even):hover {
     background-color: #fff;

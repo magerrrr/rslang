@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import useFullScreen from '../../hooks/useFullScreen';
+import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
 import LivesContent from './Lives';
 import Results from './Results';
-import { getRandom, isCurrentTranslateCorrect, getLevels } from './Helpers';
+import { getRandom, isCurrentTranslateCorrect, getLevels, getScorePoints } from './Helpers';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';
 import success from '../../assets/guessed.wav';
@@ -30,6 +32,8 @@ const CORRECT_WORD_CHANCE = 50;
 const GUESS_FROM_QUANTITY = 100 / CORRECT_WORD_CHANCE;
 
 const Sprint = () => {
+  const { page } = useParams();
+  const { group } = useParams();
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(0);
   const [gameLevel, setGameLevel] = useState(0);
@@ -42,7 +46,10 @@ const Sprint = () => {
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState({}) as any;
   const [lives, setLives] = useState(0);
-  const data = api.words.getWordsByLevel(gamePage, gameLevel);
+  const isAuthorized = useCheckAuthenticate();
+  const data = isAuthorized
+    ? api.words.getWordsByLevel(page, group)
+    : api.words.getWordsByLevel(gamePage, gameLevel);
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
   const onFullScreenChange = useFullScreen();
@@ -106,27 +113,7 @@ const Sprint = () => {
       });
     }
 
-    switch (pointsFactor) {
-      case 1:
-        setScore(score + 10);
-        break;
-
-      case 2:
-        setScore(score + 20);
-        break;
-
-      case 3:
-        setScore(score + 40);
-        break;
-
-      case 4:
-        setScore(score + 80);
-        break;
-
-      default:
-        setScore(score + 80);
-        break;
-    }
+    setScore((score) => score + getScorePoints(pointsFactor));
   };
 
   const handleSelect = (isCorrect: boolean) => {
