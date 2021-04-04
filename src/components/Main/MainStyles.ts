@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 import mainBg from '../../assets/main.svg';
 import howBg from '../../assets/howto.svg';
@@ -67,9 +67,29 @@ const Games = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
+const Game = styled(Card)`
+  border-radius: 20px;
+  img {
+    border-radius: 20px;
+  }
+`;
 
 const ImageContainer = styled(Middle)`
   height: calc(100vw / 1.46);
 `;
 
-export { Intro, HowTo, HowToTitle, HowToRow, ImageContainer, HowToText, Games };
+const GamesContainer = styled(Middle)`
+  height: calc(100vw / 1.46);
+`;
+
+export {
+  Intro,
+  HowTo,
+  HowToTitle,
+  HowToRow,
+  ImageContainer,
+  HowToText,
+  Games,
+  GamesContainer,
+  Game,
+};
