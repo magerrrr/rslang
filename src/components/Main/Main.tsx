@@ -1,19 +1,25 @@
 import * as React from 'react';
-import { Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import {
   Intro,
   HowTo,
   HowToRow,
+  Title,
   HowToTitle,
   ImageContainer,
   HowToText,
   Games,
-  Game,
-  GamesContainer,
+  Game1,
+  Game2,
+  Game3,
+  Game4,
 } from './MainStyles';
-import english from '../../assets/english.jpg';
-import challenge from '../../assets/challenge.png';
-import speak from '../../assets/speakit.jpg';
+import english from '../../assets/img/english.jpg';
+import challenge from '../../assets/img/challenge.png';
+import speak from '../../assets/img/speakit.jpg';
+import sprint from '../../assets/img/sprint.png';
+import savannah from '../../assets/img/savannah.jpg';
+
 type Props = {};
 
 export const Main = (props: Props) => {
@@ -58,26 +64,42 @@ export const Main = (props: Props) => {
       </HowTo>
       <Games>
         <Container style={{ height: '100%' }}>
-          <Row style={{ alignItems: 'center', height: '100%' }} className="ml-auto mr-auto mt-4">
-            <div className="d-flex ml-auto mr-auto" style={{ width: '80%' }}>
+          <Title>Игры</Title>
+          <HowToRow
+            style={{ alignItems: 'center', height: '100%' }}
+            className="ml-auto mr-auto mt-4"
+          >
+            <div className="d-flex ml-auto mr-auto" style={{ maxWidth: 900 }}>
               <Col xs={5} lg={5} className="mr-auto">
-                <Game>
+                <Game1>
                   <Card.Img variant="top" src={challenge} />
                   <Card.Body>
                     <Card.Title>Аудиовызов</Card.Title>
                   </Card.Body>
-                </Game>
+                </Game1>
+                <Game2>
+                  <Card.Img variant="top" src={sprint} />
+                  <Card.Body>
+                    <Card.Title>Спринт</Card.Title>
+                  </Card.Body>
+                </Game2>
               </Col>
               <Col xs={7} lg={7}>
-                <Game>
+                <Game3>
                   <Card.Img variant="top" src={speak} />
                   <Card.Body>
                     <Card.Title>Скажи это</Card.Title>
                   </Card.Body>
-                </Game>
+                </Game3>
+                <Game4>
+                  <Card.Img variant="top" src={savannah} />
+                  <Card.Body>
+                    <Card.Title>Саванна</Card.Title>
+                  </Card.Body>
+                </Game4>
               </Col>
             </div>
-          </Row>{' '}
+          </HowToRow>
         </Container>
       </Games>
     </>

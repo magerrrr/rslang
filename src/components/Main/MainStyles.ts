@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 
-import mainBg from '../../assets/main.svg';
-import howBg from '../../assets/howto.svg';
-import games from '../../assets/games.svg';
+import mainBg from '../../assets/img/main.svg';
+import howBg from '../../assets/img/howto.svg';
+import games from '../../assets/img/games.svg';
 
 const Intro = styled.div`
   background-image: url(${mainBg});
@@ -47,14 +47,19 @@ const HowTo = styled.div`
   background-size: cover;
 `;
 
-const HowToTitle = styled.div`
+const Title = styled.div`
   font-size: 2rem;
-  padding-top: 8vw;
   text-align: center;
+  padding-top: 8vw;
+  padding-bottom: 3vw;
+`;
+
+const HowToTitle = styled(Title)`
+  padding-bottom: 0;
 `;
 
 const HowToRow = styled(Row)`
-  margin-top: calc(-8vw - 48px);
+  margin-top: calc(-8vw - 48px) !important;
 `;
 
 const HowToText = styled(Middle)`
@@ -69,8 +74,47 @@ const Games = styled.div`
 `;
 const Game = styled(Card)`
   border-radius: 20px;
+  margin-bottom: 50px;
   img {
     border-radius: 20px;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+  .card-body {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+  }
+  .card-title {
+    font-weight: 600;
+  }
+`;
+const Game1 = styled(Game)`
+  width: 355px;
+  height: 241px;
+`;
+
+const Game2 = styled(Game)`
+  width: 360px;
+  height: 312px;
+  margin-bottom: 0;
+`;
+
+const Game3 = styled(Game)`
+  width: 525px;
+  height: 305px;
+`;
+
+const Game4 = styled(Game)`
+  margin-top: -1px;
+  width: 500px;
+  height: 249px;
+  margin-bottom: 0;
+  margin-left: 22px;
+  .card-body {
+    left: 20px;
   }
 `;
 
@@ -85,6 +129,7 @@ const GamesContainer = styled(Middle)`
 export {
   Intro,
   HowTo,
+  Title,
   HowToTitle,
   HowToRow,
   ImageContainer,
@@ -92,4 +137,8 @@ export {
   Games,
   GamesContainer,
   Game,
+  Game1,
+  Game2,
+  Game3,
+  Game4,
 };
