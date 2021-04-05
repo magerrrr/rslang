@@ -1,6 +1,6 @@
 export default Object.freeze({
   MAIN: {
-    name: 'Домашняя',
+    name: 'Главная',
     route: '/',
   },
   PROFILE: {

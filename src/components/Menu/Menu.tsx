@@ -23,7 +23,11 @@ import PersonIcon from '@material-ui/icons/Person';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+import PhoneIcon from '@material-ui/icons/Phone';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import PetsIcon from '@material-ui/icons/Pets';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
+
 import { ROUTES } from '../../shared/constants';
 
 import useStyles from './style';
@@ -166,7 +170,7 @@ export const Menu = (props: Props) => {
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#dc622f' }} />
+                      <PetsIcon style={{ fill: '#dc622f' }} />
                     </ListItemIcon>
                     <ListItemText primary="Саванна" />
                   </ListItem>
@@ -180,7 +184,7 @@ export const Menu = (props: Props) => {
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#A632C6' }} />
+                      <RecordVoiceOverIcon style={{ fill: '#A632C6' }} />
                     </ListItemIcon>
                     <ListItemText primary="Скажи это" />
                   </ListItem>
@@ -194,7 +198,7 @@ export const Menu = (props: Props) => {
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#1BD9DE' }} />
+                      <PhoneIcon style={{ fill: '#1BD9DE' }} />
                     </ListItemIcon>
 
                     <ListItemText primary="Аудиовызов" />
@@ -209,7 +213,7 @@ export const Menu = (props: Props) => {
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#32A2E5' }} />
+                      <DirectionsRunIcon style={{ fill: '#32A2E5' }} />
                     </ListItemIcon>
                     <ListItemText primary="Спринт" />
                   </ListItem>

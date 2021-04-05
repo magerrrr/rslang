@@ -107,8 +107,10 @@ const Member = styled(Row)`
   }
 `;
 const Game = styled(Card)`
+  border: none;
   border-radius: 20px;
   margin-bottom: 50px;
+  box-shadow: rgb(0 0 0 / 25%) 0px 14px 28px, rgb(0 0 0 / 22%) 0px 10px 10px;
   img {
     border-radius: 20px;
     object-fit: cover;
