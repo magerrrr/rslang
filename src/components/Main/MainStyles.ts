@@ -68,6 +68,15 @@ const Middle = styled(Col)`
     margin-right: auto;
     transform: translate(0, -50%);
   }
+  @media (max-width: 767px) {
+    height: 280px;
+    p {
+      margin-top: 1rem;
+    }
+  }
+  @media (max-width: 767px) {
+    height: 400px;
+  }
 `;
 
 const HowTo = styled.div`
@@ -75,16 +84,16 @@ const HowTo = styled.div`
   height: calc(100vw / 1.45);
   background-repeat: no-repeat;
   background-size: cover;
+  @media (max-width: 767px) {
+    height: auto;
+    min-height: calc(100vw / 1.45);
+  }
 `;
 
 const Title = styled.div`
   font-size: 2rem;
   text-align: center;
   padding: 20px;
-`;
-
-const HowToTitle = styled(Title)`
-  padding-bottom: 0;
 `;
 
 const HowToRow = styled(Row)`
@@ -103,6 +112,23 @@ const Games = styled.div`
   height: calc(100vw / 1.62);
   background-repeat: no-repeat;
   background-size: cover;
+  @media (max-width: 992px) {
+    height: auto;
+    .card {
+      margin-bottom: 30px !important;
+    }
+  }
+  @media (min-width: 1320px) {
+    .container {
+      max-width: 960px;
+      height: 90%;
+    }
+  }
+  @media (max-width: 1321px) {
+    .container {
+      max-width: 800px;
+    }
+  }
 `;
 
 const Team = styled.div`
@@ -111,12 +137,11 @@ const Team = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
-const TeamContainer = styled(Container)`
+const FlexContainer = styled(Container)`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 830px;
   .team-col {
     margin-top: -100px;
   }
@@ -146,6 +171,7 @@ const Game = styled(Card)`
   border-radius: 20px;
   margin-bottom: 50px;
   box-shadow: rgb(0 0 0 / 25%) 0px 14px 28px, rgb(0 0 0 / 22%) 0px 10px 10px;
+
   img {
     border-radius: 20px;
     object-fit: cover;
@@ -161,37 +187,70 @@ const Game = styled(Card)`
   .card-title {
     font-weight: 600;
   }
+
+  @media (max-width: 400px) {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    width: 280px !important;
+    height: calc(280px * 0.67887) !important;
+  }
+`;
+
+const GameCol = styled(Col)`
+  @media (max-width: 992px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Game1 = styled(Game)`
   width: 355px;
   height: 241px;
+  @media (max-width: 1320px) {
+    width: 280px;
+    height: calc(280px * 0.67887);
+  }
 `;
 
 const Game2 = styled(Game)`
   width: 360px;
   height: 312px;
   margin-bottom: 0;
+
+  @media (max-width: 1320px) {
+    width: 300px;
+    height: calc(300px * 0.86666);
+  }
 `;
 
 const Game3 = styled(Game)`
-  width: 525px;
+  width: 522px;
   height: 305px;
+  @media (max-width: 1320px) {
+    width: 414px;
+    height: calc(414px * 0.58095);
+  }
 `;
 
 const Game4 = styled(Game)`
   margin-top: -1px;
-  width: 500px;
+  width: 501px;
   height: 249px;
   margin-bottom: 0;
   margin-left: 22px;
   .card-body {
     left: 20px;
   }
+  @media (max-width: 1320px) {
+    width: 391.5px;
+    height: calc(416px * 0.498);
+  }
 `;
 
 const ImageContainer = styled(Middle)`
-  height: 560px;
+  height: 56vw;
   @media (max-width: 767px) {
     display: none;
   }
@@ -202,14 +261,14 @@ export {
   HowTo,
   Title,
   Team,
-  TeamContainer,
+  FlexContainer,
   Member,
-  HowToTitle,
   HowToRow,
   GamesRow,
   ImageContainer,
   HowToText,
   Games,
+  GameCol,
   Game1,
   Game2,
   Game3,

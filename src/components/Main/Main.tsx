@@ -4,12 +4,12 @@ import {
   Intro,
   HowTo,
   Team,
-  TeamContainer,
+  FlexContainer,
   Member,
   HowToRow,
+  GameCol,
   GamesRow,
   Title,
-  HowToTitle,
   ImageContainer,
   HowToText,
   Games,
@@ -40,7 +40,6 @@ export const Main = (props: Props) => {
               <p>Выучить английский с LANG!</p>
             </Col>
           </Row>
-
           <Row>
             <Col xs={8} lg={6} sm={12} md={8} className="ml-auto mr-auto mt-4">
               <ul className="pl-0">
@@ -53,7 +52,7 @@ export const Main = (props: Props) => {
         </Container>
       </Intro>
       <HowTo>
-        <TeamContainer style={{ maxWidth: 1000, height: '100%' }}>
+        <FlexContainer>
           <HowToRow>
             <Col xs={12}>
               <Title className="p-5">Как пользоваться приложением</Title>
@@ -70,15 +69,15 @@ export const Main = (props: Props) => {
               </p>
             </HowToText>
           </HowToRow>
-        </TeamContainer>
+        </FlexContainer>
       </HowTo>
       <Games>
-        <Container style={{ maxWidth: 960, height: '90%' }}>
+        <Container>
           <GamesRow className="ml-auto mr-auto mt-4">
             <Col xs={12} lg={12}>
               <Title>Игры</Title>
             </Col>
-            <Col xs={5} lg={5} className="mr-auto">
+            <GameCol xs={12} md={12} sm={12} lg={5} className="mr-auto">
               <Game1>
                 <Card.Img variant="top" src={challenge} />
                 <Card.Body>
@@ -91,8 +90,8 @@ export const Main = (props: Props) => {
                   <Card.Title>Спринт</Card.Title>
                 </Card.Body>
               </Game2>
-            </Col>
-            <Col xs={7} lg={7}>
+            </GameCol>
+            <GameCol xs={12} md={12} sm={12} lg={7}>
               <Game3>
                 <Card.Img variant="top" src={speak} />
                 <Card.Body>
@@ -105,12 +104,12 @@ export const Main = (props: Props) => {
                   <Card.Title>Саванна</Card.Title>
                 </Card.Body>
               </Game4>
-            </Col>
+            </GameCol>
           </GamesRow>
         </Container>
       </Games>
       <Team>
-        <TeamContainer>
+        <FlexContainer style={{ maxWidth: 860, height: '100%' }}>
           <Row>
             <Col xs={12} sm={12} className="team-col">
               <Title>Команда</Title>
@@ -160,7 +159,7 @@ export const Main = (props: Props) => {
               </Member>
             </Col>
           </Row>
-        </TeamContainer>
+        </FlexContainer>
       </Team>
     </>
   );
