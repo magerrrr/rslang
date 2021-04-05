@@ -14,11 +14,13 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
+    "bootstrap": "^4.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-images-upload": "^1.2.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-bootstrap": "^1.5.2",
     "styled-components": "^5.2.1",
     "swr": "^0.5.4",
     "toggle-fullscreen": "^0.4.2",
@@ -28,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --config prettier.config.js --write src/**/*.ts src/**/*.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -47,5 +50,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "node-sass": "^5.0.0",
+    "prettier": "2.2.1",
+    "sass-loader": "^11.0.1"
   }
 }
