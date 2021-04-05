@@ -3,7 +3,10 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import {
   Intro,
   HowTo,
+  Team,
+  Member,
   HowToRow,
+  GamesRow,
   Title,
   HowToTitle,
   ImageContainer,
@@ -19,6 +22,10 @@ import challenge from '../../assets/img/challenge.png';
 import speak from '../../assets/img/speakit.jpg';
 import sprint from '../../assets/img/sprint.png';
 import savannah from '../../assets/img/savannah.jpg';
+import kirill from '../../assets/img/team/kira.jpg';
+import inna from '../../assets/img/team/inna.jpg';
+import sergey from '../../assets/img/team/sergey.jpg';
+import ana from '../../assets/img/team/photo.jpg';
 
 type Props = {};
 
@@ -65,10 +72,7 @@ export const Main = (props: Props) => {
       <Games>
         <Container style={{ height: '100%' }}>
           <Title>Игры</Title>
-          <HowToRow
-            style={{ alignItems: 'center', height: '100%' }}
-            className="ml-auto mr-auto mt-4"
-          >
+          <GamesRow className="ml-auto mr-auto mt-4">
             <div className="d-flex ml-auto mr-auto" style={{ maxWidth: 900 }}>
               <Col xs={5} lg={5} className="mr-auto">
                 <Game1>
@@ -99,9 +103,60 @@ export const Main = (props: Props) => {
                 </Game4>
               </Col>
             </div>
-          </HowToRow>
+          </GamesRow>
         </Container>
       </Games>
+      <Team>
+        <Container style={{ maxWidth: 830 }}>
+          <HowToTitle>Создатели</HowToTitle>
+          <Row>
+            <Col xs={6} sm={6}>
+              <Member>
+                <Col xs={4} sm={4} className="mr-auto">
+                  <img src={kirill} alt="kirill" />
+                </Col>
+                <Col xs={7} sm={7} className="card-body">
+                  <h5 className="card-title">Кирилл</h5>
+                  This is a wider card with supporting text below as a natural lead-in to additional
+                  content.
+                </Col>
+              </Member>
+              <Member>
+                <Col xs={4} sm={4} className="mr-auto">
+                  <img src={inna} alt="inna" />
+                </Col>
+                <Col xs={7} sm={7} className="card-body">
+                  <h5 className="card-title">Инна</h5>
+                  This is a wider card with supporting text below as a natural lead-in to additional
+                  content.
+                </Col>
+              </Member>
+            </Col>
+            <Col xs={6} sm={6}>
+              <Member>
+                <Col xs={4} sm={4} className="mr-auto">
+                  <img src={sergey} alt="sergey" />
+                </Col>
+                <Col xs={7} sm={7} className="card-body">
+                  <h5 className="card-title">Сергей</h5>
+                  This is a wider card with supporting text below as a natural lead-in to additional
+                  content.
+                </Col>
+              </Member>
+              <Member>
+                <Col xs={4} sm={4} className="mr-auto">
+                  <img src={ana} alt="ana" />
+                </Col>
+                <Col xs={7} sm={7} className="card-body">
+                  <h5 className="card-title">Анастасия</h5>
+                  This is a wider card with supporting text below as a natural lead-in to additional
+                  content.
+                </Col>
+              </Member>
+            </Col>
+          </Row>
+        </Container>
+      </Team>
     </>
   );
 };

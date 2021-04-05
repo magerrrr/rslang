@@ -3,7 +3,8 @@ import { Row, Col, Card } from 'react-bootstrap';
 
 import mainBg from '../../assets/img/main.svg';
 import howBg from '../../assets/img/howto.svg';
-import games from '../../assets/img/games.svg';
+import gamesBg from '../../assets/img/games.svg';
+import teamBg from '../../assets/img/creators.svg';
 
 const Intro = styled.div`
   background-image: url(${mainBg});
@@ -62,15 +63,48 @@ const HowToRow = styled(Row)`
   margin-top: calc(-8vw - 48px) !important;
 `;
 
+const GamesRow = styled(HowToRow)`
+  align-items: center;
+  height: 100%;
+`;
+
 const HowToText = styled(Middle)`
   height: calc(100vw / 1.45);
 `;
 
 const Games = styled.div`
-  background-image: url(${games});
+  background-image: url(${gamesBg});
   height: calc(100vw / 1.46);
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+const Team = styled.div`
+  background-image: url(${teamBg});
+  height: calc(100vw / 1.85);
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const Member = styled(Row)`
+  background-color: #fff;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
+  margin-bottom: 40px;
+  margin-left: 0;
+  margin-right: 0;
+  img {
+    padding: 30px;
+    padding-left: 15px;
+    height: 192px;
+    width: 170px;
+    object-fit: cover;
+  }
+  .card-body {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 `;
 const Game = styled(Card)`
   border-radius: 20px;
@@ -91,6 +125,7 @@ const Game = styled(Card)`
     font-weight: 600;
   }
 `;
+
 const Game1 = styled(Game)`
   width: 355px;
   height: 241px;
@@ -122,21 +157,18 @@ const ImageContainer = styled(Middle)`
   height: calc(100vw / 1.46);
 `;
 
-const GamesContainer = styled(Middle)`
-  height: calc(100vw / 1.46);
-`;
-
 export {
   Intro,
   HowTo,
   Title,
+  Team,
+  Member,
   HowToTitle,
   HowToRow,
+  GamesRow,
   ImageContainer,
   HowToText,
   Games,
-  GamesContainer,
-  Game,
   Game1,
   Game2,
   Game3,
