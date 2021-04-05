@@ -4,6 +4,7 @@ import {
   Intro,
   HowTo,
   Team,
+  TeamContainer,
   Member,
   HowToRow,
   GamesRow,
@@ -35,13 +36,13 @@ export const Main = (props: Props) => {
       <Intro>
         <Container>
           <Row>
-            <Col xs={6} lg={6} className="ml-auto mr-auto mt-5">
+            <Col lg={6} sm={12} md={8} xs={8} className="ml-auto mr-auto mt-5">
               <p>Выучить английский с LANG!</p>
             </Col>
           </Row>
 
           <Row>
-            <Col xs={6} lg={6} className="ml-auto mr-auto mt-4">
+            <Col xs={8} lg={6} sm={12} md={8} className="ml-auto mr-auto mt-4">
               <ul className="pl-0">
                 <li>&mdash; Погружение в языковую среду</li>
                 <li>&mdash; Постепенное усложнение учебного материала</li>
@@ -52,13 +53,15 @@ export const Main = (props: Props) => {
         </Container>
       </Intro>
       <HowTo>
-        <Container>
-          <HowToTitle>Как пользоваться приложением</HowToTitle>
+        <TeamContainer style={{ maxWidth: 1000, height: '100%' }}>
           <HowToRow>
+            <Col xs={12}>
+              <Title className="p-5">Как пользоваться приложением</Title>
+            </Col>
             <ImageContainer xs={6} lg={6}>
-              <img src={english} alt="nn" />
+              <img src={english} alt="english" />
             </ImageContainer>
-            <HowToText xs={5} lg={5} className="ml-auto">
+            <HowToText xs={12} lg={5} md={5}>
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -67,49 +70,51 @@ export const Main = (props: Props) => {
               </p>
             </HowToText>
           </HowToRow>
-        </Container>
+        </TeamContainer>
       </HowTo>
       <Games>
-        <Container style={{ height: '100%' }}>
-          <Title>Игры</Title>
+        <Container style={{ maxWidth: 960, height: '90%' }}>
           <GamesRow className="ml-auto mr-auto mt-4">
-            <div className="d-flex ml-auto mr-auto" style={{ maxWidth: 900 }}>
-              <Col xs={5} lg={5} className="mr-auto">
-                <Game1>
-                  <Card.Img variant="top" src={challenge} />
-                  <Card.Body>
-                    <Card.Title>Аудиовызов</Card.Title>
-                  </Card.Body>
-                </Game1>
-                <Game2>
-                  <Card.Img variant="top" src={sprint} />
-                  <Card.Body>
-                    <Card.Title>Спринт</Card.Title>
-                  </Card.Body>
-                </Game2>
-              </Col>
-              <Col xs={7} lg={7}>
-                <Game3>
-                  <Card.Img variant="top" src={speak} />
-                  <Card.Body>
-                    <Card.Title>Скажи это</Card.Title>
-                  </Card.Body>
-                </Game3>
-                <Game4>
-                  <Card.Img variant="top" src={savannah} />
-                  <Card.Body>
-                    <Card.Title>Саванна</Card.Title>
-                  </Card.Body>
-                </Game4>
-              </Col>
-            </div>
+            <Col xs={12} lg={12}>
+              <Title>Игры</Title>
+            </Col>
+            <Col xs={5} lg={5} className="mr-auto">
+              <Game1>
+                <Card.Img variant="top" src={challenge} />
+                <Card.Body>
+                  <Card.Title>Аудиовызов</Card.Title>
+                </Card.Body>
+              </Game1>
+              <Game2>
+                <Card.Img variant="top" src={sprint} />
+                <Card.Body>
+                  <Card.Title>Спринт</Card.Title>
+                </Card.Body>
+              </Game2>
+            </Col>
+            <Col xs={7} lg={7}>
+              <Game3>
+                <Card.Img variant="top" src={speak} />
+                <Card.Body>
+                  <Card.Title>Скажи это</Card.Title>
+                </Card.Body>
+              </Game3>
+              <Game4>
+                <Card.Img variant="top" src={savannah} />
+                <Card.Body>
+                  <Card.Title>Саванна</Card.Title>
+                </Card.Body>
+              </Game4>
+            </Col>
           </GamesRow>
         </Container>
       </Games>
       <Team>
-        <Container style={{ maxWidth: 830 }}>
-          <HowToTitle>Создатели</HowToTitle>
+        <TeamContainer>
           <Row>
+            <Col xs={12} sm={12} className="team-col">
+              <Title>Команда</Title>
+            </Col>
             <Col xs={6} sm={6}>
               <Member>
                 <Col xs={4} sm={4} className="mr-auto">
@@ -155,7 +160,7 @@ export const Main = (props: Props) => {
               </Member>
             </Col>
           </Row>
-        </Container>
+        </TeamContainer>
       </Team>
     </>
   );

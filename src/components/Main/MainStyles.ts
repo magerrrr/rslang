@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Container } from 'react-bootstrap';
 
 import mainBg from '../../assets/img/main.svg';
 import howBg from '../../assets/img/howto.svg';
@@ -8,7 +8,8 @@ import teamBg from '../../assets/img/creators.svg';
 
 const Intro = styled.div`
   background-image: url(${mainBg});
-  height: calc(100vw / 1.68);
+  min-height: calc(100vw / 1.68);
+  height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -26,17 +27,45 @@ const Intro = styled.div`
   ul {
     list-style-type: none;
     margin: 0;
-    width: 500px;
+    width: 460px;
+  }
+  @media (max-width: 992px) {
+    .row:first-child .col-md-8 {
+      margin-top: 0 !important;
+    }
+  }
+  @media (max-width: 400px) {
+    p {
+      font-size: 2rem;
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    p {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    ul {
+      width: 100%;
+    }
   }
 `;
 
 const Middle = styled(Col)`
   position: relative;
+  margin-top: -8rem;
   img,
   p {
     position: absolute;
-    width: 100%;
+    width: 90%;
     top: 50%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
     transform: translate(0, -50%);
   }
 `;
@@ -51,8 +80,7 @@ const HowTo = styled.div`
 const Title = styled.div`
   font-size: 2rem;
   text-align: center;
-  padding-top: 8vw;
-  padding-bottom: 3vw;
+  padding: 20px;
 `;
 
 const HowToTitle = styled(Title)`
@@ -60,7 +88,7 @@ const HowToTitle = styled(Title)`
 `;
 
 const HowToRow = styled(Row)`
-  margin-top: calc(-8vw - 48px) !important;
+  width: 100%;
 `;
 
 const GamesRow = styled(HowToRow)`
@@ -68,13 +96,11 @@ const GamesRow = styled(HowToRow)`
   height: 100%;
 `;
 
-const HowToText = styled(Middle)`
-  height: calc(100vw / 1.45);
-`;
+const HowToText = styled(Middle)``;
 
 const Games = styled.div`
   background-image: url(${gamesBg});
-  height: calc(100vw / 1.46);
+  height: calc(100vw / 1.62);
   background-repeat: no-repeat;
   background-size: cover;
 `;
@@ -85,7 +111,16 @@ const Team = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
-
+const TeamContainer = styled(Container)`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 830px;
+  .team-col {
+    margin-top: -100px;
+  }
+`;
 const Member = styled(Row)`
   background-color: #fff;
   max-width: 400px;
@@ -156,7 +191,10 @@ const Game4 = styled(Game)`
 `;
 
 const ImageContainer = styled(Middle)`
-  height: calc(100vw / 1.46);
+  height: 560px;
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export {
@@ -164,6 +202,7 @@ export {
   HowTo,
   Title,
   Team,
+  TeamContainer,
   Member,
   HowToTitle,
   HowToRow,
