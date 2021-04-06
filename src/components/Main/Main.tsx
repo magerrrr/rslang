@@ -6,11 +6,10 @@ import {
   Team,
   FlexContainer,
   Member,
-  HowToRow,
+  HowToTitle,
   GameCol,
   GamesRow,
   Title,
-  ImageContainer,
   HowToText,
   Games,
   Game1,
@@ -53,27 +52,27 @@ export const Main = (props: Props) => {
       </Intro>
       <HowTo>
         <FlexContainer>
-          <HowToRow>
+          <Row className="justify-content-center">
             <Col xs={12}>
-              <Title className="p-5">Как пользоваться приложением</Title>
+              <HowToTitle>Как пользоваться приложением</HowToTitle>
             </Col>
-            <ImageContainer xs={6} lg={6}>
-              <img src={english} alt="english" />
-            </ImageContainer>
-            <HowToText xs={12} lg={5} md={5}>
-              <p>
+            <Col xs={6} lg={6} className="d-none d-md-block">
+              <img src={english} alt="english" width="100%" />
+            </Col>
+            <Col xs={12} lg={5} md={5}>
+              <HowToText>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
                 unknown printer took a galley of type and scrambled it to make a type specimen book.
                 It has survived not only five centuries, but also the leap into electronic{' '}
-              </p>
-            </HowToText>
-          </HowToRow>
+              </HowToText>
+            </Col>
+          </Row>
         </FlexContainer>
       </HowTo>
       <Games>
         <Container>
-          <GamesRow className="ml-auto mr-auto mt-4">
+          <GamesRow className="ml-auto mr-auto">
             <Col xs={12} lg={12}>
               <Title>Игры</Title>
             </Col>
