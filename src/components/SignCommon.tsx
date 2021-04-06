@@ -1,4 +1,4 @@
-import { Button, withStyles } from '@material-ui/core';
+import { Button, Link, withStyles } from '@material-ui/core';
 import styled from 'styled-components';
 
 const FormContainer = styled.div`
@@ -45,9 +45,35 @@ label: {
 },
 })(Button);
 
+
+const linkStyles:any = {
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: 5,
+    border: 0,
+    color: '#c1b3f1',
+    height: 36,
+    padding: '0 30px',
+    width: '100%',
+    marginTop: 10,
+    textTransform: 'capitalize',
+    cursor: 'pointer',
+  }
+};
+
+const StyledLink = withStyles(linkStyles)((props:any) => {
+  const { children, ...other } = props;
+
+  return (
+    <Link {...other}>{children}</Link>
+  )
+});
+
 export {
   FormContainer,
   StyledForm,
   StyledInput,
   StyledButton,
+  StyledLink,
 }

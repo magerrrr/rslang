@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { Link } from '@material-ui/core';
 import { ROUTES } from '../shared/constants';
 
 import api from '../api';
@@ -9,6 +8,7 @@ import {
   StyledForm,
   StyledInput,
   StyledButton,
+  StyledLink,
 } from './SignCommon';
 
 type Props = {};
@@ -41,28 +41,28 @@ export const SignIn = (props: Props) => {
     >
       <FormContainer>
         <StyledForm autoComplete="off">
-          <label>
-            <StyledInput 
-              type="text" 
+          <StyledInput 
+              type='text' 
               value={email} 
-              onChange={(event) => setEmail(event.target.value)} 
-            />
-          </label>
-          <label>
-            <StyledInput
-              type="password"
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder='Email'
+          />
+          <StyledInput
+              type='password'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
+              placeholder='Password'
+          />
           <StyledButton onClick={handleSignIn}>Войти</StyledButton>
-          <Link
-              component={RouterLink}
-              to={SIGN_UP.route}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-          >Зарегистрироваться</Link>  
+          <>
+            <StyledLink
+                component={RouterLink}
+                to={SIGN_UP.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+            >Зарегистрироваться</StyledLink>
+          </>
         </StyledForm>
       </FormContainer>
     </div>
