@@ -4,7 +4,6 @@ import {
   Intro,
   HowTo,
   Team,
-  FlexContainer,
   Member,
   HowToTitle,
   GameCol,
@@ -51,7 +50,7 @@ export const Main = (props: Props) => {
         </Container>
       </Intro>
       <HowTo>
-        <FlexContainer>
+        <Container>
           <Row className="justify-content-center">
             <Col xs={12}>
               <HowToTitle>Как пользоваться приложением</HowToTitle>
@@ -68,7 +67,7 @@ export const Main = (props: Props) => {
               </HowToText>
             </Col>
           </Row>
-        </FlexContainer>
+        </Container>
       </HowTo>
       <Games>
         <Container>
@@ -108,49 +107,49 @@ export const Main = (props: Props) => {
         </Container>
       </Games>
       <Team>
-        <FlexContainer style={{ maxWidth: 860, height: '100%' }}>
-          <Row>
+        <Container style={{ maxWidth: 860, height: '100%' }}>
+          <Row className="justify-content-center">
             <Col xs={12} sm={12} className="team-col">
               <Title>Команда</Title>
             </Col>
-            <Col xs={6} sm={6}>
+            <Col xs={12} md={6} lg={6} sm={12}>
               <Member>
-                <Col xs={4} sm={4} className="mr-auto">
+                <Col xs={12} sm={4} className="mr-auto">
                   <img src={kirill} alt="kirill" />
                 </Col>
-                <Col xs={7} sm={7} className="card-body">
+                <Col xs={12} sm={7} className="card-body">
                   <h5 className="card-title">Кирилл</h5>
                   This is a wider card with supporting text below as a natural lead-in to additional
                   content.
                 </Col>
               </Member>
               <Member>
-                <Col xs={4} sm={4} className="mr-auto">
+                <Col xs={12} sm={4} className="mr-auto">
                   <img src={inna} alt="inna" />
                 </Col>
-                <Col xs={7} sm={7} className="card-body">
+                <Col xs={12} sm={7} className="card-body">
                   <h5 className="card-title">Инна</h5>
                   This is a wider card with supporting text below as a natural lead-in to additional
                   content.
                 </Col>
               </Member>
             </Col>
-            <Col xs={6} sm={6}>
+            <Col xs={12} md={6} lg={6} sm={12}>
               <Member>
-                <Col xs={4} sm={4} className="mr-auto">
+                <Col xs={12} sm={4} className="mr-auto">
                   <img src={sergey} alt="sergey" />
                 </Col>
-                <Col xs={7} sm={7} className="card-body">
+                <Col xs={12} sm={7} className="card-body">
                   <h5 className="card-title">Сергей</h5>
                   This is a wider card with supporting text below as a natural lead-in to additional
                   content.
                 </Col>
               </Member>
               <Member>
-                <Col xs={4} sm={4} className="mr-auto">
+                <Col xs={12} sm={4} className="mr-auto">
                   <img src={ana} alt="ana" />
                 </Col>
-                <Col xs={7} sm={7} className="card-body">
+                <Col xs={12} sm={7} className="card-body">
                   <h5 className="card-title">Анастасия</h5>
                   This is a wider card with supporting text below as a natural lead-in to additional
                   content.
@@ -158,7 +157,7 @@ export const Main = (props: Props) => {
               </Member>
             </Col>
           </Row>
-        </FlexContainer>
+        </Container>
       </Team>
     </>
   );

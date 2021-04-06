@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 
 import mainBg from '../../assets/img/main.svg';
 import howBg from '../../assets/img/howto.svg';
@@ -57,6 +57,7 @@ const Intro = styled.div`
 const Section = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -72,6 +73,8 @@ const HowTo = styled(Section)`
   @media (max-width: 767px) {
     height: auto;
     min-height: calc(100vw / 1.45);
+    padding-top: 120px;
+    padding-bottom: 60px;
   }
 `;
 
@@ -109,7 +112,9 @@ const Games = styled(Section)`
     height: auto;
     .card {
       margin-bottom: 30px !important;
+      margin-left: 0;
     }
+  }
   }
   @media (min-width: 1320px) {
     .container {
@@ -122,20 +127,22 @@ const Games = styled(Section)`
       max-width: 800px;
     }
   }
+  @media (max-width: 767px) {
+      padding-top: 40px;
+    }
 `;
 
 const Team = styled(Section)`
   background-image: url(${teamBg});
   height: calc(100vw / 1.85);
-`;
-
-const FlexContainer = styled(Container)`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   .team-col {
     margin-top: -60px;
+  }
+
+  @media (max-width: 1024px) {
+    height: auto;
+    min-height: calc(100vw / 1.85);
+    padding-top: 100px;
   }
 `;
 
@@ -147,18 +154,32 @@ const Member = styled(Row)`
   margin-bottom: 40px;
   margin-left: 0;
   margin-right: 0;
+  @media (max-width: 576px) {
+    width: 238px;
+  }
   img {
     padding: 30px;
     padding-left: 15px;
     height: 192px;
     width: 170px;
     object-fit: cover;
+    @media (max-width: 576px) {
+      height: 192px;
+      width: 207px;
+      padding-right: 15px;
+      padding-bottom: 0;
+    }
   }
   .card-body {
     padding-top: 30px;
     padding-bottom: 30px;
   }
+  @media (max-width: 1024px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
+
 const Game = styled(Card)`
   border: none;
   border-radius: 20px;
@@ -186,6 +207,13 @@ const Game = styled(Card)`
     margin-left: 0 !important;
     width: 280px !important;
     height: calc(280px * 0.67887) !important;
+  }
+  @media (min-width: 401px) and (max-width: 767px) {
+    width: 300px !important;
+    height: 200px !important;
+    img {
+      object-position: top;
+    }
   }
 `;
 
@@ -248,7 +276,6 @@ export {
   HowToTitle,
   Title,
   Team,
-  FlexContainer,
   Member,
   GamesRow,
   HowToText,
