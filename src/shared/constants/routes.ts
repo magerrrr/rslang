@@ -41,4 +41,12 @@ export default Object.freeze({
       },
     },
   },
+  E_BOOK: {
+    name: 'Электронный учебник',
+    route: '/e-book',
+  },
+  DICTIONARY: {
+    name: 'Словарь',
+    route: '/dictionary',
+  }
 });

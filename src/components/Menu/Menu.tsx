@@ -27,6 +27,8 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import PetsIcon from '@material-ui/icons/Pets';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
+import BookIcon from '@material-ui/icons/Book';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 import { ROUTES } from '../../shared/constants';
 
@@ -35,7 +37,7 @@ import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 
 type Props = {};
 
-const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP } = ROUTES;
+const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP, E_BOOK, DICTIONARY } = ROUTES;
 
 export const Menu = (props: Props) => {
   const classes = useStyles();
@@ -157,6 +159,43 @@ export const Menu = (props: Props) => {
                 </ListItem>
               </Link>
             )}
+
+            {isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={E_BOOK.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <BookIcon color="primary" />
+                  </ListItemIcon>
+                  {E_BOOK.name}
+                </ListItem>
+              </Link>
+            )}
+
+            {isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={DICTIONARY.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <MenuBookIcon color="primary" />
+                  </ListItemIcon>
+                  {DICTIONARY.name}
+                </ListItem>
+              </Link>
+            )}
+
             <ListItem button onClick={() => setOpen(!open)}>
               <ListItemIcon>
                 <SportsEsportsIcon color="primary" />
