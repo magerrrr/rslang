@@ -140,7 +140,7 @@ export const Main = (props: Props) => {
         </Container>
       </Games>
       <Team>
-        <Container style={{ maxWidth: 860, height: '100%' }}>
+        <Container>
           <Row className="justify-content-center">
             <Col xs={12} sm={12} className="team-col">
               <Title>Команда</Title>
@@ -201,10 +201,10 @@ export const Main = (props: Props) => {
                 </Col>
               </Member>
               <Member>
-                <Col xs={12} sm={4} className="mr-auto">
+                <Col xs={12} sm={4} md={4} lg={4} className="mr-auto">
                   <img src={ana} alt="ana" />
                 </Col>
-                <Col xs={12} sm={7} className="card-body">
+                <Col xs={12} sm={7} md={7} lg={7} className="card-body">
                   <Link
                     style={{ textDecoration: 'none' }}
                     target="_blank"

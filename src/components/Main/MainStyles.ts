@@ -116,7 +116,7 @@ const Games = styled(Section)`
     }
   }
   }
-  @media (min-width: 1320px) {
+  @media (min-width: 1321px) {
     .container {
       max-width: 960px;
       height: 90%;
@@ -139,10 +139,20 @@ const Team = styled(Section)`
     margin-top: -60px;
   }
 
+  @media (min-width: 1025px) {
+    .container {
+      max-width: 860px;
+    }
+  }
+
   @media (max-width: 1024px) {
     height: auto;
     min-height: calc(100vw / 1.85);
     padding-top: 100px;
+
+    .container {
+      max-width: 530px;
+    }
   }
 `;
 
@@ -154,16 +164,13 @@ const Member = styled(Row)`
   margin-bottom: 40px;
   margin-left: 0;
   margin-right: 0;
-  @media (max-width: 576px) {
-    width: 238px;
-  }
   img {
     padding: 30px;
     padding-left: 15px;
     height: 192px;
     width: 170px;
     object-fit: cover;
-    @media (max-width: 576px) {
+    @media (max-width: 1024px) {
       height: 192px;
       width: 207px;
       padding-right: 15px;
@@ -173,6 +180,13 @@ const Member = styled(Row)`
   .card-body {
     padding-top: 30px;
     padding-bottom: 30px;
+  }
+  @media (max-width: 1024px) {
+    width: 238px;
+    .col-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
   }
   @media (max-width: 1024px) {
     margin-left: auto;
@@ -208,9 +222,9 @@ const Game = styled(Card)`
     width: 280px !important;
     height: calc(280px * 0.67887) !important;
   }
-  @media (min-width: 401px) and (max-width: 767px) {
-    width: 300px !important;
-    height: 200px !important;
+  @media (min-width: 401px) and (max-width: 768px) {
+    width: 300px;
+    height: 200px;
     img {
       object-position: top;
     }
@@ -227,29 +241,35 @@ const GameCol = styled(Col)`
 `;
 
 const Game1 = styled(Game)`
-  width: 355px;
-  height: 241px;
-  @media (max-width: 1320px) {
+  @media (min-width: 1321px) {
+    width: 355px;
+    height: 241px;
+  }
+  @media (min-width: 768px) and (max-width: 1321px) {
     width: 280px;
     height: calc(280px * 0.67887);
   }
 `;
 
 const Game2 = styled(Game)`
-  width: 360px;
-  height: 312px;
   margin-bottom: 0;
+  @media (min-width: 1321px) {
+    width: 360px;
+    height: 312px;
+  }
 
-  @media (max-width: 1320px) {
+  @media (min-width: 768px) and (max-width: 1321px) {
     width: 300px;
     height: calc(300px * 0.86666);
   }
 `;
 
 const Game3 = styled(Game)`
-  width: 522px;
-  height: 305px;
-  @media (max-width: 1320px) {
+  @media (min-width: 1321px) {
+    width: 522px;
+    height: 305px;
+  }
+  @media (min-width: 768px) and (max-width: 1321px) {
     width: 414px;
     height: calc(414px * 0.58095);
   }
@@ -257,14 +277,16 @@ const Game3 = styled(Game)`
 
 const Game4 = styled(Game)`
   margin-top: -1px;
-  width: 501px;
-  height: 249px;
   margin-bottom: 0;
   margin-left: 22px;
   .card-body {
     left: 20px;
   }
-  @media (max-width: 1320px) {
+  @media (min-width: 1321px) {
+    width: 501px;
+    height: 249px;
+  }
+  @media (min-width: 768px) and (max-width: 1321px) {
     width: 391.5px;
     height: calc(416px * 0.498);
   }
