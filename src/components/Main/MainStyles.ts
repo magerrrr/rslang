@@ -115,7 +115,6 @@ const Games = styled(Section)`
       margin-left: 0;
     }
   }
-  }
   @media (min-width: 1321px) {
     .container {
       max-width: 960px;
@@ -128,8 +127,8 @@ const Games = styled(Section)`
     }
   }
   @media (max-width: 767px) {
-      padding-top: 40px;
-    }
+    padding-top: 40px;
+  }
 `;
 
 const Team = styled(Section)`
@@ -258,7 +257,7 @@ const Game2 = styled(Game)`
     height: 312px;
   }
 
-  @media (min-width: 768px) and (max-width: 1321px) {
+  @media (min-width: 768px) and (max-width: 1320px) {
     width: 300px;
     height: calc(300px * 0.86666);
   }
@@ -269,7 +268,7 @@ const Game3 = styled(Game)`
     width: 522px;
     height: 305px;
   }
-  @media (min-width: 768px) and (max-width: 1321px) {
+  @media (min-width: 768px) and (max-width: 1320px) {
     width: 414px;
     height: calc(414px * 0.58095);
   }
