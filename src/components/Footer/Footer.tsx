@@ -10,7 +10,7 @@ export const Footer = (props: Props) => {
   return (
     <>
       <S.Footer>
-        <Container className="align-items-center">
+        <Container fluid={true} className="align-items-center pr-4 pl-4">
           <div className="d-flex align-items-center mt-4">
             <div className="mr-auto">
               <Link href="https://rs.school/js/" target="_blank" rel="noopener noreferrer">

@@ -8,7 +8,6 @@ import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';
 import { Profile } from './components/Profile';
 import { Menu } from './components/Menu/Menu';
-import { Footer } from './components/Footer/Footer';
 import { ROUTES } from './shared/constants';
 
 import './App.css';
@@ -28,7 +27,6 @@ const App = () => {
           <Route path={SIGN_IN.route} component={SignIn} />
           <Route path={SIGN_UP.route} component={SignUp} />
         </Switch>
-        <Footer />
       </MuiThemeProvider>
     </Router>
   );

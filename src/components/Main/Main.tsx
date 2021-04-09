@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Footer } from '../Footer/Footer';
 import {
   Intro,
   HowTo,
@@ -88,7 +89,6 @@ export const Main = (props: Props) => {
               >
                 <Game1>
                   <Card.Img variant="top" src={challenge} />
-
                   <Card.Body>
                     <Card.Title>Аудиовызов</Card.Title>
                   </Card.Body>
@@ -163,7 +163,6 @@ export const Main = (props: Props) => {
                   content.
                 </Col>
               </Member>
-
               <Member>
                 <Col xs={12} sm={4} className="mr-auto">
                   <img src={inna} alt="inna" />
@@ -221,6 +220,7 @@ export const Main = (props: Props) => {
           </Row>
         </Container>
       </Team>
+      <Footer />
     </>
   );
 };
