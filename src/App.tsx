@@ -2,7 +2,7 @@ import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './components/PrivateRoute';
-import { Main } from './components/Main';
+import { Main } from './components/Main/Main';
 import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';

@@ -7,6 +7,15 @@ import {
   deleteUser,
   useGetNewUserTokens,
 } from './api.users';
+import {
+  useGetAllUserWords,
+  createUserWord,
+  useGetUserWordById,
+  updateUserWord,
+  deleteUserWord,
+} from './api.usersWords';
+import { upsertUserStatistics, useGetUserStatistics } from './api.usersStatistics';
+import { useGetUserSettings, upsertUserSettings } from './api.usersSettings';
 
 const api = {
   auth: {
@@ -23,6 +32,21 @@ const api = {
     updateUser,
     deleteUser,
     getNewUserTokens: useGetNewUserTokens,
+  },
+  usersWords: {
+    getAllUserWords: useGetAllUserWords,
+    createUserWord,
+    getUserWordById: useGetUserWordById,
+    updateUserWord,
+    deleteUserWord,
+  },
+  usersStatistic: {
+    getStatistics: useGetUserStatistics,
+    updateStatistics: upsertUserStatistics,
+  },
+  usersSettings: {
+    getSettings: useGetUserSettings,
+    updateSettings: upsertUserSettings,
   },
 };
 
