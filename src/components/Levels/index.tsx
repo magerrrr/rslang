@@ -3,7 +3,7 @@ import { LevelsContainer, Select } from './LevelsStyles';
 import { Col } from 'react-bootstrap';
 import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 
-const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
+const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage, isAuthorized }: any) => {
   const levels = Array.from({ length: GAME_MAX_LEVEL }, (_, i) => i + 1);
   const rounds = Array.from({ length: GAME_MAX_PAGE }, (_, i) => i + 1);
 
@@ -14,6 +14,7 @@ const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
         <Select
           className="custom-select"
           value={gameLevel}
+          disabled={isAuthorized}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             setGameLevel(parseInt(e.target.value, 10) - 1)
           }
@@ -30,6 +31,7 @@ const Levels = ({ gameLevel, gamePage, setGameLevel, setGamePage }: any) => {
         <Select
           className="custom-select mr-0"
           value={gamePage}
+          disabled={isAuthorized}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             setGamePage(parseInt(e.target.value, 10) - 1)
           }

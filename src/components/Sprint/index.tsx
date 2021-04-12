@@ -35,13 +35,12 @@ import {
 import Timer from './Timer';
 
 const POINTS_COUNT = 3;
-const CORRECT_WORD_CHANCE = 50;
-const GUESS_FROM_QUANTITY = 100 / CORRECT_WORD_CHANCE;
 
 const Sprint = () => {
   const { page } = useParams();
   const { group } = useParams();
-  const initialLevels = getInitialLevels(group, page);
+  const isAuthorized = useCheckAuthenticate();
+  const initialLevels = isAuthorized ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(initialLevels.page || 0);
   const [gameLevel, setGameLevel] = useState(initialLevels.level || 0);
@@ -199,6 +198,7 @@ const Sprint = () => {
             <Box>
               <GameHeading fluid="md">
                 <Levels
+                  isAuthorized={isAuthorized}
                   gamePage={gamePage + 1}
                   gameLevel={gameLevel + 1}
                   setGamePage={setGamePage}
