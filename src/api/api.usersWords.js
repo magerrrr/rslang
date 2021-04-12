@@ -27,11 +27,11 @@ const createUserWord = async (userId, wordId, word) => {
   };
 
   try {
-    const createNewUserResponse = await fetch(
+    const createUserWordResponse = await fetch(
       urls.usersWords.byUserIdAndWordId(userId, wordId),
       settings,
     );
-    return await createNewUserResponse.json();
+    return await createUserWordResponse.json();
   } catch (error) {
     return error;
   }
@@ -65,11 +65,11 @@ const updateUserWord = async (userId, wordId, word) => {
   };
 
   try {
-    const createNewUserResponse = await fetch(
+    const updateUserWordResponse = await fetch(
       urls.usersWords.byUserIdAndWordId(userId, wordId),
       settings,
     );
-    return await createNewUserResponse.json();
+    return await updateUserWordResponse.json();
   } catch (error) {
     return error;
   }
@@ -88,11 +88,11 @@ const deleteUserWord = async (userId, wordId) => {
   };
 
   try {
-    const createNewUserResponse = await fetch(
+    const deleteUserResponse = await fetch(
       urls.usersWords.byUserIdAndWordId(userId, wordId),
       settings,
     );
-    return await createNewUserResponse.json();
+    return await deleteUserResponse.json();
   } catch (error) {
     return error;
   }
