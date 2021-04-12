@@ -14,7 +14,7 @@ import {
   updateUserWord,
   deleteUserWord,
 } from './api.usersWords';
-import { upsertUserStatistics, useGetUserStatistics } from './api.usersStatistic';
+import { upsertUserStatistics, useGetUserStatistics } from './api.usersStatistics';
 import { useGetUserSettings, upsertUserSettings } from './api.usersSettings';
 
 const api = {
