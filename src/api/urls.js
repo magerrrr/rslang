@@ -13,6 +13,10 @@ const urls = {
     byId: (id) => `${baseURL}/users/${id}`,
     byIdWithToken: (id) => `${baseURL}/users/${id}/tokens`,
   },
+  usersWords: {
+    byId: (id) => `${baseURL}/users/${id}/words`,
+    byUserIdAndWordId: (userId, wordId) => `${baseURL}/users/${userId}/words/${wordId}`,
+  },
 };
 
 export default urls;
