@@ -15,6 +15,8 @@ import {
   deleteUserWord,
 } from './api.usersWords';
 
+import { upsertUserStatistics, useGetUserStatistics } from './api.usersStatistic';
+
 const api = {
   auth: {
     signIn,
@@ -37,6 +39,10 @@ const api = {
     getUserWordById: useGetUserWordById,
     updateUserWord,
     deleteUserWord,
+  },
+  usersStatistic: {
+    getStatistics: useGetUserStatistics,
+    updateStatistics: upsertUserStatistics,
   },
 };
 
