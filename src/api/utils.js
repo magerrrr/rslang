@@ -10,6 +10,7 @@ const fetcher = async (url, token) => {
       },
     };
     const response = await fetch(url, settings);
+
     return await response.json();
   }
 };
