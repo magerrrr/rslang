@@ -27,8 +27,8 @@ const upsertUserStatistics = async (userId, statistics) => {
   };
 
   try {
-    const createNewUserResponse = await fetch(urls.usersStatistics.byId(userId), settings);
-    return await createNewUserResponse.json();
+    const updateUserStatisticsResponse = await fetch(urls.usersStatistics.byId(userId), settings);
+    return await updateUserStatisticsResponse.json();
   } catch (error) {
     return error;
   }
