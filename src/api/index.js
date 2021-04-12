@@ -14,8 +14,8 @@ import {
   updateUserWord,
   deleteUserWord,
 } from './api.usersWords';
-
 import { upsertUserStatistics, useGetUserStatistics } from './api.usersStatistic';
+import { useGetUserSettings, upsertUserSettings } from './api.usersSettings';
 
 const api = {
   auth: {
@@ -43,6 +43,10 @@ const api = {
   usersStatistic: {
     getStatistics: useGetUserStatistics,
     updateStatistics: upsertUserStatistics,
+  },
+  usersSettings: {
+    getSettings: useGetUserSettings,
+    updateSettings: upsertUserSettings,
   },
 };
 
