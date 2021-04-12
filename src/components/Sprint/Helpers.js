@@ -1,8 +1,8 @@
 import { GAME_MAX_LEVEL, GAME_MAX_PAGE } from '../../shared/constants';
 
 export const getInitialLevels = (gameLevel: string, gamePage: string) => {
-  let level = parseInt(gameLevel, 10);
-  let page = parseInt(gamePage, 10);
+  let level = parseInt(gameLevel, 10) || 0;
+  let page = parseInt(gamePage, 10) || 0;
   if (page >= GAME_MAX_PAGE) {
     page = 0;
   }
@@ -31,20 +31,11 @@ export const getLevels = (gameLevel: number, gamePage: number) => {
   };
 };
 
-export function getRandom (arr, n) {
-  const result = new Array(n);
-  let len = arr.length;
-  const taken = new Array(len);
-  if (n > len) throw new RangeError('getRandom: more elements taken than available');
-  while (n--) {
-    const x = Math.floor(Math.random() * len);
-    result[n] = arr[x in taken ? taken[x] : x];
-    taken[x] = --len in taken ? taken[len] : len;
-  }
-  return result;
+export const getRandom = (arr) => {
+   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-export function isCurrentTranslateCorrect (wordsObject, currentWord, answer) {
+export const isCurrentTranslateCorrect = (wordsObject, currentWord, answer) => {
   if (wordsObject.length) {
     const findWord = wordsObject.find((item) => {
       return item.word === currentWord.enWord;

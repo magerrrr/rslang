@@ -42,8 +42,8 @@ const Sprint = () => {
   const isAuthorized = useCheckAuthenticate();
   const initialLevels = isAuthorized ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
-  const [gamePage, setGamePage] = useState(initialLevels.page || 0);
-  const [gameLevel, setGameLevel] = useState(initialLevels.level || 0);
+  const [gamePage, setGamePage] = useState(initialLevels.page);
+  const [gameLevel, setGameLevel] = useState(initialLevels.level);
   const [isPlay, setIsPlay] = useState(false);
   const [score, setScore] = useState(0);
   const [clickAnswerCounter, setClickAnswerCounter] = useState({
@@ -53,10 +53,8 @@ const Sprint = () => {
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState({}) as any;
   const [lives, setLives] = useState(0);
-  const isAuthorized = useCheckAuthenticate();
-  const data = isAuthorized
-    ? api.words.getWordsByLevel(page, group)
-    : api.words.getWordsByLevel(gamePage, gameLevel);
+
+  const data = api.words.getWordsByLevel(gamePage, gameLevel);
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
   const onFullScreenChange = useFullScreen();
@@ -82,19 +80,18 @@ const Sprint = () => {
     setIsFinish(false);
   };
 
-  const newRound = (words: any) => {
-    const gameRoundWords = getRandom(words, GUESS_FROM_QUANTITY);
-    return gameRoundWords;
-  };
-
   const getNextWord = useCallback(() => {
     if (words.length) {
-      const roundWords = newRound(words);
-
-      const enWord = roundWords[0].word;
-      const ruWord = getRandom(roundWords, 1)[0].wordTranslate;
-
-      setCurrentWord({ enWord, ruWord });
+      const restWords = words.filter((word: any) => !word.isGuessed);
+      if (restWords.length > 0) {
+        const nextWord = getRandom(restWords);
+        const enWord = nextWord.word;
+        const ruWord =
+          Math.random() < 0.5 ? getRandom(words).wordTranslate : nextWord.wordTranslate;
+        setCurrentWord({ enWord, ruWord });
+      } else {
+        setIsFinish(true);
+      }
     }
   }, [words]);
 
@@ -183,8 +180,14 @@ const Sprint = () => {
                 <Parrots>
                   <div className={`parrot parrot_1`}></div>
                   <div className={`parrot parrot_2 ${lives <= POINTS_COUNT && 'hide'}`}></div>
-                  <div className={`parrot parrot_3 ${lives <= POINTS_COUNT * (POINTS_COUNT - 1) && 'hide'}`}></div>
-                  <div className={`parrot parrot_4 ${lives <= POINTS_COUNT * POINTS_COUNT && 'hide'}`}></div>
+                  <div
+                    className={`parrot parrot_3 ${
+                      lives <= POINTS_COUNT * (POINTS_COUNT - 1) && 'hide'
+                    }`}
+                  ></div>
+                  <div
+                    className={`parrot parrot_4 ${lives <= POINTS_COUNT * POINTS_COUNT && 'hide'}`}
+                  ></div>
                 </Parrots>
               </div>
               <Divider className="mt-4 mb-3" variant="middle" />
