@@ -201,7 +201,7 @@ const Sprint = () => {
             <Box>
               <GameHeading fluid="md">
                 <Levels
-                  isAuthorized={isAuthorized}
+                  isDisabled={page && group}
                   gamePage={gamePage + 1}
                   gameLevel={gameLevel + 1}
                   setGamePage={setGamePage}
