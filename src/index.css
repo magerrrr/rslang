@@ -1,3 +1,7 @@
+html {
+  position: relative;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -6,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2a444e;
+  margin-bottom: calc(100px + 3rem);
 }
 
 code {
