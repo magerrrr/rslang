@@ -20,6 +20,9 @@ const urls = {
   usersStatistics: {
     byId: (userId) => `${baseURL}/users/${userId}/statistics`,
   },
+  usersSettings: {
+    byId: (userId) => `${baseURL}/users/${userId}/settings`,
+  },
 };
 
 export default urls;
