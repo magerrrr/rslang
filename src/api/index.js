@@ -7,6 +7,13 @@ import {
   deleteUser,
   useGetNewUserTokens,
 } from './api.users';
+import {
+  useGetAllUserWords,
+  createUserWord,
+  useGetUserWordById,
+  updateUserWord,
+  deleteUserWord,
+} from './api.usersWords';
 
 const api = {
   auth: {
@@ -23,6 +30,13 @@ const api = {
     updateUser,
     deleteUser,
     getNewUserTokens: useGetNewUserTokens,
+  },
+  usersWords: {
+    getAllUserWords: useGetAllUserWords,
+    createUserWord,
+    getUserWordById: useGetUserWordById,
+    updateUserWord,
+    deleteUserWord,
   },
 };
 
