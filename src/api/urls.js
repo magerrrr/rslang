@@ -17,6 +17,9 @@ const urls = {
     byId: (id) => `${baseURL}/users/${id}/words`,
     byUserIdAndWordId: (userId, wordId) => `${baseURL}/users/${userId}/words/${wordId}`,
   },
+  usersStatistics: {
+    byId: (userId) => `${baseURL}/users/${userId}/statistics`,
+  },
 };
 
 export default urls;
