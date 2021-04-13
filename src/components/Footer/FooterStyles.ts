@@ -31,6 +31,7 @@ const TeamContainer = styled.div`
 `;
 
 const Copyright = styled.div`
+  text-transform: uppercase;
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 1rem;

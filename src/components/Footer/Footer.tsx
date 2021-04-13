@@ -34,7 +34,7 @@ export const Footer = (props: Props) => {
             </S.TeamContainer>
           </div>
         </Container>
-        <S.Copyright>@2021</S.Copyright>
+        <S.Copyright>© 2021 team-28</S.Copyright>
       </S.Footer>
     </>
   );
