@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import useFullScreen from '../../hooks/useFullScreen';
 import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
+import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
 import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
@@ -16,6 +17,7 @@ import {
   getInitialLevels,
   getLevels,
   getScorePoints,
+  getInitialStats,
 } from './Helpers';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';
@@ -35,11 +37,17 @@ import {
 import Timer from './Timer';
 
 const POINTS_COUNT = 3;
+const initialStatsData = {
+  isLoading: false,
+  statistics: null,
+};
 
 const Sprint = () => {
-  const { page } = useParams();
-  const { group } = useParams();
+  const { page } = useParams<any>();
+  const { group } = useParams<any>();
   const isAuthorized = useCheckAuthenticate();
+  const userId = useGetCurrentUserId();
+
   const initialLevels = isAuthorized ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(initialLevels.page);
@@ -48,13 +56,16 @@ const Sprint = () => {
   const [score, setScore] = useState(0);
   const [clickAnswerCounter, setClickAnswerCounter] = useState({
     correctAnswer: 0,
-    unCorrectAnswer: 0,
+    inCorrectAnswer: 0,
   });
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState({}) as any;
   const [lives, setLives] = useState(0);
-
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
+  const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
+
+  const [stats, setStats] = useState<any>();
+
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
   const onFullScreenChange = useFullScreen();
@@ -82,7 +93,7 @@ const Sprint = () => {
 
   const getNextWord = useCallback(() => {
     if (words.length) {
-      const restWords = words.filter((word: any) => !word.isGuessed);
+      const restWords = words.filter((word: any) => word.isGuessed == null);
       if (restWords.length > 0) {
         const nextWord = getRandom(restWords);
         const enWord = nextWord.word;
@@ -113,7 +124,7 @@ const Sprint = () => {
       setLives(0);
       setClickAnswerCounter({
         ...clickAnswerCounter,
-        unCorrectAnswer: clickAnswerCounter.unCorrectAnswer + 1,
+        inCorrectAnswer: clickAnswerCounter.inCorrectAnswer + 1,
       });
     }
 
@@ -151,18 +162,56 @@ const Sprint = () => {
   }, [words, getNextWord]);
 
   useEffect(() => {
+    api.usersStatistic.updateStatistics(userId, stats);
+  }, [userId, stats]);
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    const setStatistic = () => {
+      const date = new Date().toLocaleDateString();
+      const guessed = words.filter((word: any) => word.isGuessed);
+      const currentGameStats = {
+        date,
+        success: guessed.length,
+        fail: words.length - guessed.length,
+        series: 0,
+      };
+
+      setStats((prevStat: any) => {
+        const learnedWords = clickAnswerCounter.correctAnswer + clickAnswerCounter.inCorrectAnswer;
+        const optional = prevStat.optional || {};
+        const sprintData = optional['sprint'] || {};
+        sprintData.items = sprintData.items || [];
+        sprintData.items.push(currentGameStats);
+        optional['sprint'] = sprintData;
+        return {
+          learnedWords: prevStat.learnedWords + learnedWords,
+          optional: optional,
+        };
+      });
+    };
     setLives(0);
     setScore(0);
     if (isFinish) {
       setIsPlay(false);
+      if (userId) {
+        setStatistic();
+      }
     }
   }, [isFinish]);
+  /* eslint-disable react-hooks/exhaustive-deps */
 
   useEffect(() => {
     if (!data.isLoading) {
       setWords(data.word);
     }
   }, [data.isLoading, data.word]);
+
+  useEffect(() => {
+    if (!statsData.isLoading) {
+      setStats(getInitialStats(statsData.statistics));
+    }
+  }, [statsData.isLoading, statsData.statistics]);
 
   return (
     <BackGround className="fullscreen-toggler">
