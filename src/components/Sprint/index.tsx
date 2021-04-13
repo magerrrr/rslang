@@ -48,7 +48,7 @@ const Sprint = () => {
   const isAuthorized = useCheckAuthenticate();
   const userId = useGetCurrentUserId();
 
-  const initialLevels = isAuthorized ? getInitialLevels(group, page) : { page: 0, level: 0 };
+  const initialLevels = userId ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(initialLevels.page);
   const [gameLevel, setGameLevel] = useState(initialLevels.level);
@@ -85,7 +85,7 @@ const Sprint = () => {
 
   const cleanResult = () => {
     words.map((item: any) => {
-      item.isGuessed = false;
+      delete item.isGuessed;
       return item;
     });
     setIsFinish(false);
@@ -202,8 +202,9 @@ const Sprint = () => {
   /* eslint-disable react-hooks/exhaustive-deps */
 
   useEffect(() => {
-    if (!data.isLoading) {
-      setWords(data.word);
+    if (!isFinish && !data.isLoading) {
+      const clonedData = [...data.word] as any;
+      setWords(clonedData);
     }
   }, [data.isLoading, data.word]);
 
@@ -216,7 +217,7 @@ const Sprint = () => {
   return (
     <BackGround className="fullscreen-toggler">
       <FullscreenIcon onClick={onFullScreenChange} />
-      <Timer isTimerRun={isPlay} onTimeLeft={handleTimeLeft} />
+      <Timer isTimerRun={isPlay} onTimeLeft={handleTimeLeft} stopTimer={isFinish} />
       <Point>Очки: {score}</Point>
       <GameContainer>
         <Container fluid="md">

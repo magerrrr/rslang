@@ -23,6 +23,7 @@ const useWord = (id) => {
 };
 
 const useWords = (page, group) => {
+  console.log("getp");
   const { data, error } = useSWR(`${urls.words.defaultRoute}?page=${page}&group=${group}`, fetcher);
 
   return {

@@ -8,16 +8,20 @@ const interval = 1000;
 
 const convertMsToSeconds = (ms: number) => (ms / 1000).toFixed(0);
 
-const Timer = ({ isTimerRun, onTimeLeft }: any) => {
+const Timer = ({ isTimerRun, onTimeLeft, stopTimer }: any) => {
   const [isStart, setIsStart] = useState(false);
-  const [timeLeft, { start }] = useCountDown(initialTime, interval);
+  const [timeLeft, { start, reset }] = useCountDown(initialTime, interval);
 
   useEffect(() => {
     if (isTimerRun) {
       start();
       setIsStart(true);
     }
-  }, [isTimerRun, start]);
+        if (stopTimer) {
+          reset();
+          setIsStart(false);
+        }
+  }, [isTimerRun, start, stopTimer, reset]);
 
   useEffect(() => {
     if (isStart && timeLeft === 0) {

@@ -10,8 +10,8 @@ import audio from '../../assets/sprint/audio.svg';
 
 const BackGround = styled.div`
   background-image: url(${sprintBg});
-  min-height: calc(100vh + 90px);
-  background-size: 100%;
+  height: calc(100vw / 1.45);
+  background-size: cover;
   svg {
     position: absolute;
     right: 25px;
@@ -19,6 +19,10 @@ const BackGround = styled.div`
     height: 40px;
     fill: #b2ceff;
     cursor: pointer;
+  }
+  @media (max-width: 1024px) {
+      height: auto;
+      min-height: calc(100vw / 1.45);
   }
 `;
 
