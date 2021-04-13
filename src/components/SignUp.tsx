@@ -64,7 +64,7 @@ export const SignUp = (props: Props) => {
             <StyledInput
               type="text"
               name="email"
-              placeholder="E-mail"
+              placeholder="Е-мейл"
               value={signUpData.email}
               onChange={inputChangeHandler}
             />
@@ -74,7 +74,7 @@ export const SignUp = (props: Props) => {
             <StyledInput
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Пароль"
               value={signUpData.password}
               onChange={inputChangeHandler}
             />
