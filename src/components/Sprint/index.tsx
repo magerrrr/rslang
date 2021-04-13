@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import useFullScreen from '../../hooks/useFullScreen';
 import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
+import useUserWord from '../../hooks/useUserWord';
 import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
@@ -46,12 +47,6 @@ const initialAnswerCounter = {
   correctAnswer: 0,
   inCorrectAnswer: 0,
 };
-const sendWordData = {
-  difficulty: 'onlearn',
-  optional: {
-    lastDate: new Date().toDateString(),
-  },
-};
 
 const Sprint = () => {
   const { page } = useParams<any>();
@@ -73,15 +68,9 @@ const Sprint = () => {
   const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
 
   const [stats, setStats] = useState<any>();
-  const [word, setWord] = useState<any>({ id: -1 });
+  const setWord = useUserWord<number | null>(userId);
 
-  api.usersWords.createUserWord(userId, word.id, sendWordData);
-  const userWord = api.usersWords.getUserWordById(userId, word.id);
-  if (userWord && userWord.word && userWord.word.difficulty === 'hard') {
-    api.usersWords.updateUserWord(userId, userWord.word.wordId, sendWordData);
-  }
-
-  //console.log(api.usersWords.getAllUserWords(userId));
+  console.log(api.usersWords.getAllUserWords(userId));
 
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
