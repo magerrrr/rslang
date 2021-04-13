@@ -206,7 +206,7 @@ export const Menu = (props: Props) => {
                 </Link>
                 <Link
                   component={RouterLink}
-                  to="/sprint"
+                  to="/games/sprint"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
