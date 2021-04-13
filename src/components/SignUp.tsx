@@ -48,6 +48,7 @@ export const SignUp = (props: Props) => {
 
   return (
     <Wrapper>
+      <h1>Регистрация</h1>
       <FormContainer>
         <StyledForm autoComplete="off">
           <StyledLabel>
@@ -108,6 +109,7 @@ export const SignUp = (props: Props) => {
 };
 
 const Wrapper = styled.div`
+  padding-top: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
