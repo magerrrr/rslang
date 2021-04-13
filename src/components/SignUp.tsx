@@ -80,18 +80,25 @@ export const SignUp = (props: Props) => {
             />
           </StyledLabel>
 
-          <ImageUploader
-            onChange={onDrop}
-            withIcon={true}
-            singleImage={true}
-            label="Максимальный размер фото 4мб"
-            buttonText="Загрузите Ваше фото"
-            imgExtension={['.jpg', '.png']}
-            maxFileSize={4194304}
-            fileSizeError="Размер фотографии слишком большой"
-            fileTypeError="Этот формат не поддерживается"
-            buttonStyles={{ background: '#9a8fb8' }}
-          />
+          {avatar ? (
+            <ImageSelected>
+              <span>Аватар выбран</span>
+              <DeleteButton onClick={() => setAvatar(null)}>Удалить</DeleteButton>
+            </ImageSelected>
+          ) : (
+            <ImageUploader
+              onChange={onDrop}
+              withIcon={true}
+              singleImage={true}
+              label="Максимальный размер фото 4мб"
+              buttonText="Загрузите Ваше фото"
+              imgExtension={['.jpg', '.png']}
+              maxFileSize={4194304}
+              fileSizeError="Размер фотографии слишком большой"
+              fileTypeError="Этот формат не поддерживается"
+              buttonStyles={{ background: '#9a8fb8' }}
+            />
+          )}
 
           <StyledButton onClick={handleSubmitSignUp}>Регистрация</StyledButton>
         </StyledForm>
@@ -106,6 +113,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const ImageSelected = styled.div`
+  height: 173px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 0;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px 0 rgb(0 0 0 / 5%);
 `;
 
 const FormContainer = styled.div`
@@ -138,6 +157,20 @@ const StyledInput = styled.input`
     outline-color: #a196ca;
   }
 `;
+
+const DeleteButton = withStyles({
+  root: {
+    background: 'linear-gradient(45deg,  #bd1646 30%, #dc2b2b 90%)',
+    boxShadow: '0 3px 5px 2px rgb(136 121 148 / 30%)',
+    borderRadius: 5,
+    border: 0,
+    color: 'white',
+    height: 24,
+  },
+  label: {
+    textTransform: 'uppercase',
+  },
+})(Button);
 
 const StyledButton = withStyles({
   root: {
