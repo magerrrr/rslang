@@ -12,7 +12,7 @@ import LivesContent from './Lives';
 import Results from './Results';
 import {
   getRandom,
-  isCurrentTranslateCorrect,
+  getCurrentWordTranslate,
   getInitialLevels,
   getLevels,
   getScorePoints,
@@ -46,6 +46,12 @@ const initialAnswerCounter = {
   correctAnswer: 0,
   inCorrectAnswer: 0,
 };
+const sendWordData = {
+  difficulty: 'onlearn',
+  optional: {
+    lastDate: new Date().toDateString(),
+  },
+};
 
 const Sprint = () => {
   const { page } = useParams<any>();
@@ -67,6 +73,15 @@ const Sprint = () => {
   const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
 
   const [stats, setStats] = useState<any>();
+  const [word, setWord] = useState<any>({ id: -1 });
+
+  api.usersWords.createUserWord(userId, word.id, sendWordData);
+  const userWord = api.usersWords.getUserWordById(userId, word.id);
+  if (userWord && userWord.word && userWord.word.difficulty === 'hard') {
+    api.usersWords.updateUserWord(userId, userWord.word.wordId, sendWordData);
+  }
+
+  //console.log(api.usersWords.getAllUserWords(userId));
 
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
@@ -117,10 +132,11 @@ const Sprint = () => {
     }
   }, [words]);
 
-  const scoreCounter = (answer: boolean) => {
-    const isCorrectAnswer = isCurrentTranslateCorrect(words, currentWord, answer);
+  const scoreCounter = async (answer: boolean) => {
+    const currentWordTranslate = getCurrentWordTranslate(words, currentWord, answer);
+    userId && setWord(currentWordTranslate);
     let pointsFactor = 1;
-    if (isCorrectAnswer) {
+    if (currentWordTranslate.isGuessed) {
       successSound.play();
       setCorrectAnswerCounter((series) => increaseSeries(series));
       setClickAnswerCounter((prevCounter) => {
@@ -142,6 +158,7 @@ const Sprint = () => {
         };
       });
     }
+
     setScore((score) => score + getScorePoints(pointsFactor));
   };
 
