@@ -58,7 +58,7 @@ export const SignUp = (props: Props) => {
     >
       <FormContainer>
         <StyledForm autoComplete="off">
-          <label>
+          <StyledLabel>
             <StyledInput
               type="text"
               name="name"
@@ -66,9 +66,9 @@ export const SignUp = (props: Props) => {
               value={signUpData.name}
               onChange={inputChangeHandler}
             />
-          </label>
+          </StyledLabel>
 
-          <label>
+          <StyledLabel>
             <StyledInput
               type="text"
               name="email"
@@ -76,9 +76,9 @@ export const SignUp = (props: Props) => {
               value={signUpData.email}
               onChange={inputChangeHandler}
             />
-          </label>
+          </StyledLabel>
 
-          <label>
+          <StyledLabel>
             <StyledInput
               type="password"
               name="password"
@@ -86,7 +86,7 @@ export const SignUp = (props: Props) => {
               value={signUpData.password}
               onChange={inputChangeHandler}
             />
-          </label>
+          </StyledLabel>
 
           <ImageUploader
             onChange={onDrop}
@@ -104,7 +104,7 @@ export const SignUp = (props: Props) => {
           <StyledButton onClick={handleSubmitSignUp}>Регистрация</StyledButton>
         </StyledForm>
       </FormContainer>
-    </div>
+    </Wrapper>
   );
 };
 
@@ -119,6 +119,10 @@ const FormContainer = styled.div`
 `;
 
 const StyledForm = styled.form`
+  width: 100%;
+`;
+
+const StyledLabel = styled.label`
   width: 100%;
 `;
 
