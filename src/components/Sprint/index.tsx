@@ -70,8 +70,6 @@ const Sprint = () => {
   const [stats, setStats] = useState<any>();
   const setWord = useUserWord<number | null>(userId);
 
-  console.log(api.usersWords.getAllUserWords(userId));
-
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
   const onFullScreenChange = useFullScreen();
