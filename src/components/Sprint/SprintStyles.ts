@@ -67,6 +67,10 @@ const Box = styled.div`
   border-radius: 20px;
   margin: 0 auto;
   padding: 5px;
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 600px;
+  }
 `;
 
 const Life = styled.div`
