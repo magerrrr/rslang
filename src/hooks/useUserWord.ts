@@ -8,7 +8,7 @@ const sendWordData = {
   },
 };
 
-const useUserWord = (userId: number | null) => {
+const useUserWord = (userId: any) => {
   const [word, setWord] = useState<any>({ id: -1 });
 
   api.usersWords.createUserWord(userId, word.id, sendWordData);

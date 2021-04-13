@@ -68,7 +68,7 @@ const Sprint = () => {
   const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
 
   const [stats, setStats] = useState<any>();
-  const setWord = useUserWord<number | null>(userId);
+  const setWord = useUserWord(userId);
 
   const successSound = new Audio(success);
   const failSound = new Audio(fail);
