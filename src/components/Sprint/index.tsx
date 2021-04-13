@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import useFullScreen from '../../hooks/useFullScreen';
-import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
 import Levels from '../../components/Levels';
 import Divider from '@material-ui/core/Divider';
@@ -18,7 +17,9 @@ import {
   getLevels,
   getScorePoints,
   getInitialStats,
+  getStatistics,
 } from './Helpers';
+import { increaseSeries, resetSeries, maxSeries } from './SeriesHelper';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';
 import success from '../../assets/guessed.wav';
@@ -41,26 +42,27 @@ const initialStatsData = {
   isLoading: false,
   statistics: null,
 };
+const initialAnswerCounter = {
+  correctAnswer: 0,
+  inCorrectAnswer: 0,
+};
 
 const Sprint = () => {
   const { page } = useParams<any>();
   const { group } = useParams<any>();
-  const isAuthorized = useCheckAuthenticate();
   const userId = useGetCurrentUserId();
-
   const initialLevels = userId ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(initialLevels.page);
   const [gameLevel, setGameLevel] = useState(initialLevels.level);
   const [isPlay, setIsPlay] = useState(false);
   const [score, setScore] = useState(0);
-  const [clickAnswerCounter, setClickAnswerCounter] = useState({
-    correctAnswer: 0,
-    inCorrectAnswer: 0,
-  });
+  const [clickAnswerCounter, setClickAnswerCounter] = useState(initialAnswerCounter);
+  const [correctAnswerCounter, setCorrectAnswerCounter] = useState([0]);
   const [words, setWords] = useState([]);
   const [currentWord, setCurrentWord] = useState({}) as any;
   const [lives, setLives] = useState(0);
+
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
   const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
 
@@ -70,12 +72,20 @@ const Sprint = () => {
   const failSound = new Audio(fail);
   const onFullScreenChange = useFullScreen();
 
+  const cleanStats = () => {
+    setCorrectAnswerCounter([0]);
+    setClickAnswerCounter(initialAnswerCounter);
+    initStats();
+  };
+
   const restartGame = () => {
+    cleanStats();
     setIsFinish(false);
     setIsPlay(true);
   };
 
   const continueGame = () => {
+    cleanStats();
     setIsFinish(false);
     const { level, page } = getLevels(gameLevel, gamePage);
     setGameLevel(level);
@@ -88,6 +98,7 @@ const Sprint = () => {
       delete item.isGuessed;
       return item;
     });
+    cleanStats();
     setIsFinish(false);
   };
 
@@ -108,26 +119,29 @@ const Sprint = () => {
 
   const scoreCounter = (answer: boolean) => {
     const isCorrectAnswer = isCurrentTranslateCorrect(words, currentWord, answer);
-
     let pointsFactor = 1;
-
     if (isCorrectAnswer) {
       successSound.play();
-      setClickAnswerCounter({
-        ...clickAnswerCounter,
-        correctAnswer: clickAnswerCounter.correctAnswer + 1,
+      setCorrectAnswerCounter((series) => increaseSeries(series));
+      setClickAnswerCounter((prevCounter) => {
+        return {
+          ...prevCounter,
+          correctAnswer: clickAnswerCounter.correctAnswer + 1,
+        };
       });
       pointsFactor = Math.floor(lives / POINTS_COUNT) + 1;
       setLives((lives) => lives + 1);
     } else {
       failSound.play();
       setLives(0);
-      setClickAnswerCounter({
-        ...clickAnswerCounter,
-        inCorrectAnswer: clickAnswerCounter.inCorrectAnswer + 1,
+      setCorrectAnswerCounter((series) => resetSeries(series));
+      setClickAnswerCounter((prevCounter) => {
+        return {
+          ...prevCounter,
+          inCorrectAnswer: clickAnswerCounter.inCorrectAnswer + 1,
+        };
       });
     }
-
     setScore((score) => score + getScorePoints(pointsFactor));
   };
 
@@ -162,7 +176,7 @@ const Sprint = () => {
   }, [words, getNextWord]);
 
   useEffect(() => {
-    api.usersStatistic.updateStatistics(userId, stats);
+    userId && stats && api.usersStatistic.updateStatistics(userId, stats);
   }, [userId, stats]);
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -174,20 +188,13 @@ const Sprint = () => {
         date,
         success: guessed.length,
         fail: words.length - guessed.length,
-        series: 0,
+        series: maxSeries(correctAnswerCounter),
       };
 
       setStats((prevStat: any) => {
-        const learnedWords = clickAnswerCounter.correctAnswer + clickAnswerCounter.inCorrectAnswer;
-        const optional = prevStat.optional || {};
-        const sprintData = optional['sprint'] || {};
-        sprintData.items = sprintData.items || [];
-        sprintData.items.push(currentGameStats);
-        optional['sprint'] = sprintData;
-        return {
-          learnedWords: prevStat.learnedWords + learnedWords,
-          optional: optional,
-        };
+        const { correctAnswer, inCorrectAnswer } = clickAnswerCounter;
+        const learnedWords = correctAnswer + inCorrectAnswer;
+        return getStatistics(prevStat, currentGameStats, learnedWords, 'sprint');
       });
     };
     setLives(0);
@@ -208,10 +215,14 @@ const Sprint = () => {
     }
   }, [data.isLoading, data.word]);
 
-  useEffect(() => {
+  const initStats = () => {
     if (!statsData.isLoading) {
       setStats(getInitialStats(statsData.statistics));
     }
+  };
+
+  useEffect(() => {
+    initStats();
   }, [statsData.isLoading, statsData.statistics]);
 
   return (

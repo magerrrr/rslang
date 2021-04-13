@@ -21,8 +21,8 @@ const BackGround = styled.div`
     cursor: pointer;
   }
   @media (max-width: 1024px) {
-      height: auto;
-      min-height: calc(100vw / 1.45);
+    height: auto;
+    min-height: calc(100vw / 1.45);
   }
 `;
 

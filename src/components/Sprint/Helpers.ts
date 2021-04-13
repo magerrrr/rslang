@@ -80,3 +80,19 @@ export const getScorePoints = (pointsFactor: any) => {
       return 80;
   }
 };
+export const getStatistics = (
+  stats: any,
+  gameStats: any,
+  learnedWords: number,
+  gameName: string,
+) => {
+  const optional = stats.optional || {};
+  const sprintData = optional[gameName] || {};
+  sprintData.items = sprintData.items || [];
+  sprintData.items.push(gameStats);
+  optional[gameName] = sprintData;
+  return {
+    learnedWords: stats.learnedWords + learnedWords,
+    optional: optional,
+  };
+};

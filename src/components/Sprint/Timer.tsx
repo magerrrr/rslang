@@ -17,10 +17,10 @@ const Timer = ({ isTimerRun, onTimeLeft, stopTimer }: any) => {
       start();
       setIsStart(true);
     }
-        if (stopTimer) {
-          reset();
-          setIsStart(false);
-        }
+    if (stopTimer) {
+      reset();
+      setIsStart(false);
+    }
   }, [isTimerRun, start, stopTimer, reset]);
 
   useEffect(() => {
