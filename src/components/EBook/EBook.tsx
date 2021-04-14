@@ -19,7 +19,7 @@ import challenge from '../../assets/img/challenge.png';
 import speak from '../../assets/img/speakit.jpg';
 import sprint from '../../assets/img/sprint.png';
 import savannah from '../../assets/img/savannah.jpg';
-import Footer from '../Footer';
+import { Footer } from '../Footer/Footer';
 
 import { spacing } from '@material-ui/system';
 

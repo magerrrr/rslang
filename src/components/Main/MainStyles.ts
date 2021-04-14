@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 
 import mainBg from '../../assets/img/main.svg';
 import howBg from '../../assets/img/howto.svg';
@@ -9,7 +9,7 @@ import teamBg from '../../assets/img/creators.svg';
 const Intro = styled.div`
   background-image: url(${mainBg});
   min-height: calc(100vw / 1.68);
-  height: 100vh;
+  height: calc(100vh - 64px);
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -54,71 +54,68 @@ const Intro = styled.div`
   }
 `;
 
-const Middle = styled(Col)`
-  position: relative;
-  margin-top: -8rem;
-  img,
-  p {
-    position: absolute;
-    width: 90%;
-    top: 50%;
-    right: 0;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    transform: translate(0, -50%);
-  }
-  @media (max-width: 767px) {
-    height: 280px;
-    p {
-      margin-top: 1rem;
-    }
-  }
-  @media (max-width: 767px) {
-    height: 400px;
+const Section = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .container {
+    display: flex;
+    align-items: center;
   }
 `;
 
-const HowTo = styled.div`
+const HowTo = styled(Section)`
   background-image: url(${howBg});
   height: calc(100vw / 1.45);
-  background-repeat: no-repeat;
-  background-size: cover;
   @media (max-width: 767px) {
     height: auto;
     min-height: calc(100vw / 1.45);
+    padding-top: 120px;
+    padding-bottom: 60px;
   }
 `;
 
 const Title = styled.div`
   font-size: 2rem;
   text-align: center;
-  padding: 20px;
+  padding-bottom: 20px;
+  @media (min-width: 1140px) {
+    padding-bottom: 40px;
+  }
 `;
 
-const HowToRow = styled(Row)`
+const HowToTitle = styled(Title)`
+  padding-bottom: 8vw;
+  margin-top: -60px;
+`;
+
+const GamesRow = styled(Row)`
+  align-items: center;
   width: 100%;
 `;
 
-const GamesRow = styled(HowToRow)`
-  align-items: center;
-  height: 100%;
+const HowToText = styled.p`
+  @media (max-width: 767px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 
-const HowToText = styled(Middle)``;
-
-const Games = styled.div`
+const Games = styled(Section)`
   background-image: url(${gamesBg});
   height: calc(100vw / 1.62);
-  background-repeat: no-repeat;
-  background-size: cover;
+
   @media (max-width: 992px) {
     height: auto;
     .card {
       margin-bottom: 30px !important;
+      margin-left: 0;
     }
   }
-  @media (min-width: 1320px) {
+  @media (min-width: 1321px) {
     .container {
       max-width: 960px;
       height: 90%;
@@ -129,23 +126,35 @@ const Games = styled.div`
       max-width: 800px;
     }
   }
-`;
-
-const Team = styled.div`
-  background-image: url(${teamBg});
-  height: calc(100vw / 1.85);
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-const FlexContainer = styled(Container)`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .team-col {
-    margin-top: -100px;
+  @media (max-width: 767px) {
+    padding-top: 40px;
   }
 `;
+
+const Team = styled(Section)`
+  background-image: url(${teamBg});
+  height: calc(100vw / 1.85);
+  .team-col {
+    margin-top: -60px;
+  }
+
+  @media (min-width: 1025px) {
+    .container {
+      max-width: 860px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    height: auto;
+    min-height: calc(100vw / 1.85);
+    padding-top: 100px;
+
+    .container {
+      max-width: 530px;
+    }
+  }
+`;
+
 const Member = styled(Row)`
   background-color: #fff;
   max-width: 400px;
@@ -160,12 +169,30 @@ const Member = styled(Row)`
     height: 192px;
     width: 170px;
     object-fit: cover;
+    @media (max-width: 1024px) {
+      height: 192px;
+      width: 207px;
+      padding-right: 15px;
+      padding-bottom: 0;
+    }
   }
   .card-body {
     padding-top: 30px;
     padding-bottom: 30px;
   }
+  @media (max-width: 1024px) {
+    width: 238px;
+    .col-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+  @media (max-width: 1024px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
+
 const Game = styled(Card)`
   border: none;
   border-radius: 20px;
@@ -194,6 +221,13 @@ const Game = styled(Card)`
     width: 280px !important;
     height: calc(280px * 0.67887) !important;
   }
+  @media (min-width: 401px) and (max-width: 768px) {
+    width: 300px;
+    height: 200px;
+    img {
+      object-position: top;
+    }
+  }
 `;
 
 const GameCol = styled(Col)`
@@ -206,29 +240,35 @@ const GameCol = styled(Col)`
 `;
 
 const Game1 = styled(Game)`
-  width: 355px;
-  height: 241px;
-  @media (max-width: 1320px) {
+  @media (min-width: 1321px) {
+    width: 355px;
+    height: 241px;
+  }
+  @media (min-width: 768px) and (max-width: 1321px) {
     width: 280px;
     height: calc(280px * 0.67887);
   }
 `;
 
 const Game2 = styled(Game)`
-  width: 360px;
-  height: 312px;
   margin-bottom: 0;
+  @media (min-width: 1321px) {
+    width: 360px;
+    height: 312px;
+  }
 
-  @media (max-width: 1320px) {
+  @media (min-width: 768px) and (max-width: 1320px) {
     width: 300px;
     height: calc(300px * 0.86666);
   }
 `;
 
 const Game3 = styled(Game)`
-  width: 522px;
-  height: 305px;
-  @media (max-width: 1320px) {
+  @media (min-width: 1321px) {
+    width: 522px;
+    height: 305px;
+  }
+  @media (min-width: 768px) and (max-width: 1320px) {
     width: 414px;
     height: calc(414px * 0.58095);
   }
@@ -236,36 +276,29 @@ const Game3 = styled(Game)`
 
 const Game4 = styled(Game)`
   margin-top: -1px;
-  width: 501px;
-  height: 249px;
   margin-bottom: 0;
   margin-left: 22px;
   .card-body {
     left: 20px;
   }
-  @media (max-width: 1320px) {
+  @media (min-width: 1321px) {
+    width: 501px;
+    height: 249px;
+  }
+  @media (min-width: 768px) and (max-width: 1321px) {
     width: 391.5px;
     height: calc(416px * 0.498);
-  }
-`;
-
-const ImageContainer = styled(Middle)`
-  height: 56vw;
-  @media (max-width: 767px) {
-    display: none;
   }
 `;
 
 export {
   Intro,
   HowTo,
+  HowToTitle,
   Title,
   Team,
-  FlexContainer,
   Member,
-  HowToRow,
   GamesRow,
-  ImageContainer,
   HowToText,
   Games,
   GameCol,
