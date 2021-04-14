@@ -82,8 +82,6 @@ export const Main = (props: Props) => {
             </Col>
             <GameCol xs={12} md={12} sm={12} lg={5} className="mr-auto">
               <Link
-                target="_blank"
-                rel="noopener noreferrer"
                 component={RouterLink}
                 to={GAMES.subroutes.AUDIO_CHALLENGE.route}
               >
@@ -95,8 +93,6 @@ export const Main = (props: Props) => {
                 </Game1>
               </Link>
               <Link
-                target="_blank"
-                rel="noopener noreferrer"
                 component={RouterLink}
                 to={GAMES.subroutes.SPRINT.route}
               >
@@ -110,8 +106,6 @@ export const Main = (props: Props) => {
             </GameCol>
             <GameCol xs={12} md={12} sm={12} lg={7}>
               <Link
-                target="_blank"
-                rel="noopener noreferrer"
                 component={RouterLink}
                 to={GAMES.subroutes.SPEAK_IT.route}
               >
@@ -123,8 +117,6 @@ export const Main = (props: Props) => {
                 </Game3>
               </Link>
               <Link
-                target="_blank"
-                rel="noopener noreferrer"
                 component={RouterLink}
                 to={GAMES.subroutes.SAVANNAH.route}
               >
