@@ -119,7 +119,7 @@ const Sprint = () => {
     }
   }, [words]);
 
-  const scoreCounter = async (answer: boolean) => {
+  const scoreCounter = (answer: boolean) => {
     const currentWordTranslate = getCurrentWordTranslate(words, currentWord, answer);
     userId && setWord(currentWordTranslate);
     let pointsFactor = 1;

@@ -39,8 +39,8 @@ const createUserWord = async (userId, wordId, word) => {
 
 const useGetUserWordById = (userId, wordId) => {
   const token = localStorage.getItem('token');
-  const { data, error } = useSWR(
-    [urls.usersWords.byUserIdAndWordId(userId, wordId), token],
+  const { data, error } = useSWR(() => userId && wordId ?
+    [urls.usersWords.byUserIdAndWordId(userId, wordId), token] : null,
     fetcher,
   );
 

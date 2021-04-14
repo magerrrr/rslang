@@ -9,10 +9,11 @@ const sendWordData = {
 };
 
 const useUserWord = (userId: any) => {
-  const [word, setWord] = useState<any>({ id: -1 });
+  const [word, setWord] = useState<any>();
+  const wordId = word && word.id;
 
-  api.usersWords.createUserWord(userId, word.id, sendWordData);
-  const userWord = api.usersWords.getUserWordById(userId, word.id);
+  wordId && api.usersWords.createUserWord(userId, wordId, sendWordData);
+  const userWord = api.usersWords.getUserWordById(userId, wordId);
   if (userWord && userWord.word && userWord.word.difficulty === 'hard') {
     api.usersWords.updateUserWord(userId, userWord.word.wordId, sendWordData);
   }
