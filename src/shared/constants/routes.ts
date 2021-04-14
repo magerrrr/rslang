@@ -7,9 +7,17 @@ export default Object.freeze({
     name: 'Профиль',
     route: '/profile',
   },
-  TEAM: {
-    name: 'Наша Команда',
-    route: '/our-team',
+  TEXTBOOK: {
+    name: 'Электронный учебник',
+    route: '/textbook',
+  },
+  WORDBOOK: {
+    name: 'Словарь',
+    route: '/wordbook',
+  },
+  STATS: {
+    name: 'Статистка',
+    route: '/statistics',
   },
   SIGN_IN: {
     name: 'Войти',
