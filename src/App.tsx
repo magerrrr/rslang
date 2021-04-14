@@ -7,7 +7,7 @@ import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
 import { OurTeam } from './components/OurTeam';
 import { Profile } from './components/Profile';
-import { EBook } from './components/EBook';
+import { EBook } from './components/EBook/EBook';
 import { Dictionary } from './components/Dictionary';
 import { Menu } from './components/Menu/Menu';
 import { ROUTES } from './shared/constants';

@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Box from '@material-ui/core/Box';
+//import useAudio from '../../../hooks/useAudio';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -35,7 +36,7 @@ function createData(soundURL: string,  word:string, transcription:string, wordTr
     wordTranslate, 
     textExample,
     textExampleTranslate
-   };
+  };
 }
 
 
@@ -56,7 +57,8 @@ export default function CustomizedTables(props:any) {
     textExampleTranslate: word.textExampleTranslate,
   }));
   
-
+  //const [audio, playAudio] = useAudio();
+  
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -64,20 +66,21 @@ export default function CustomizedTables(props:any) {
           {rows.map((row:any) => (
             <StyledTableRow key={row.word}>
               <StyledTableCell component="th" scope="row">
+                <VolumeUpIcon/>
                 {row.soundURL}
               </StyledTableCell>
               <StyledTableCell align="center">
                 <Box
                   display="flex"
                   flexDirection="column"
-                >
+                  >
                   <span>{row.word}</span>
                   <span>{row.transcription}</span>
                   <span>{row.wordTranslate}</span>
                 </Box>
               </StyledTableCell>
-              <StyledTableCell align="right"><div dangerouslySetInnerHTML={{__html: row.textExample}}></div></StyledTableCell>
-              <StyledTableCell align="right">{row.textExampleTranslate}</StyledTableCell>
+              <StyledTableCell align="center"><div dangerouslySetInnerHTML={{__html: row.textExample}}></div></StyledTableCell>
+              <StyledTableCell align="center">{row.textExampleTranslate}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
