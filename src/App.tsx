@@ -9,7 +9,8 @@ import { OurTeam } from './components/OurTeam';
 import { Profile } from './components/Profile';
 import { Menu } from './components/Menu/Menu';
 import { SpeakIt } from './components/SpeakIt';
-import Sprint from './components/Sprint';
+import { ScrollToTop } from './ScrollToTop';
+import { Sprint } from './components/Sprint';
 import { ROUTES } from './shared/constants';
 
 import './App.css';
@@ -20,6 +21,7 @@ const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP, GAMES } = ROUTES;
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <MuiThemeProvider theme={theme}>
         <Menu />
         <Switch>

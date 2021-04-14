@@ -297,4 +297,4 @@ const Sprint = () => {
   );
 };
 
-export default Sprint;
+export { Sprint };
