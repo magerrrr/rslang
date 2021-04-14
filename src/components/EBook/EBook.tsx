@@ -148,12 +148,8 @@ export const EBook = (props: Props) => {
               </Link>
             </Col>
         </Row>
-        <Row>
-          <Col>
-            <Footer/>
-          </Col>
-        </Row>
       </Container>
+      <Footer/>
     </>
   );
 };
