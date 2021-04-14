@@ -38,17 +38,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(soundURL: string,  word:string, transcription:string, wordTranslate:string, textExample:string, textExampleTranslate:string) {
-  return { 
-    soundURL, 
-    transcription, 
-    word, 
-    wordTranslate, 
-    textExample,
-    textExampleTranslate
-  };
-}
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -69,31 +58,33 @@ export default function CustomizedTables(props:any) {
   const [audio, playAudio] = useAudio();
   
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableBody>
-          <audio ref={audio} />
-          {items.map((item:any) => (
-            <StyledTableRow key={item.word}>
-              <StyledTableCell component="th" scope="row">
-                <AudioIcon onClick={() => playAudio(item.soundURL)}/>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  >
-                  <span>{item.word}</span>
-                  <span>{item.transcription}</span>
-                  <span>{item.wordTranslate}</span>
-                </Box>
-              </StyledTableCell>
-              <StyledTableCell align="center"><div dangerouslySetInnerHTML={{__html: item.textExample}}></div></StyledTableCell>
-              <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <audio ref={audio} />
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableBody>
+            {items.map((item:any) => (
+              <StyledTableRow key={item.word}>
+                <StyledTableCell component="th" scope="row">
+                  <AudioIcon onClick={() => playAudio(item.soundURL)}/>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    >
+                    <span>{item.word}</span>
+                    <span>{item.transcription}</span>
+                    <span>{item.wordTranslate}</span>
+                  </Box>
+                </StyledTableCell>
+                <StyledTableCell align="center"><div dangerouslySetInnerHTML={{__html: item.textExample}}></div></StyledTableCell>
+                <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

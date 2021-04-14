@@ -146,7 +146,7 @@ export const Menu = (props: Props) => {
             {isAuthenticated && (
               <Link
                 component={RouterLink}
-                to={TEXTBOOK.route}
+                to={'/textbook'}
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}

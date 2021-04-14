@@ -9,7 +9,7 @@ export default Object.freeze({
   },
   TEXTBOOK: {
     name: 'Электронный учебник',
-    route: '/textbook',
+    route: '/textbook/:group?/:page?',
   },
   WORDBOOK: {
     name: 'Словарь',

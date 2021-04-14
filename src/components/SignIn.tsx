@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { ROUTES } from '../shared/constants';
+import { useHistory } from 'react-router-dom';
 
 import api from '../api';
 

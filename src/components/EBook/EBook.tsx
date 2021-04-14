@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ROUTES } from '../../shared/constants';
-import { baseURL } from '../../api/urls';
-import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
 import api from '../../api';
 import { Container, Row, Col } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
@@ -14,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import CustomizedTables from '../Table';
 import Pagination from '@material-ui/lab/Pagination';
 import { Link as RouterLink } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
 import challenge from '../../assets/img/challenge.png';
 import speak from '../../assets/img/speakit.jpg';
 import sprint from '../../assets/img/sprint.png';
@@ -52,8 +49,11 @@ const paneStyles = {
 
 export const EBook = (props: Props) => {
   const history = useHistory();
-  const [ currentPage, setPage ] = useState<number>(0);
-  const [ currentLevel, setLevel ] = useState<number>(0);
+  const { page } = useParams<any>();
+  const { group } = useParams<any>();
+
+  const [ currentPage, setPage ] = useState<number>(page || 0);
+  const [ currentLevel, setLevel ] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
   const data = api.words.getWordsByLevel(currentPage, currentLevel);
   
@@ -63,7 +63,8 @@ export const EBook = (props: Props) => {
       const cloneData = [...data.word];
       setWords(cloneData);
     }
-  }, [data.isLoading, data.word, currentPage, currentLevel]);
+    history.push(`/textbook/${currentLevel}/${currentPage}`);
+  }, [data.isLoading, data.word, currentPage, currentLevel, history]);
 
   const levelControls = [...Array(6).keys()].map((level) => 
     <Button key={level} size='medium' onClick={() => setLevel(level)}>Level {level}</Button>
@@ -96,7 +97,7 @@ export const EBook = (props: Props) => {
           <Col xs={3}>
             <Link 
                 component={RouterLink}
-                to={`/savannah/${currentLevel}/${currentPage}`}
+                to={`/games/savannah/${currentLevel}/${currentPage}`}
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
@@ -109,7 +110,7 @@ export const EBook = (props: Props) => {
             <Col xs={3}>
               <Link
                 component={RouterLink}
-                to={`/speakit/${currentLevel}/${currentPage}`}
+                to={`/games/speakit/${currentLevel}/${currentPage}`}
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
@@ -122,7 +123,7 @@ export const EBook = (props: Props) => {
             <Col xs={3}>
               <Link
                 component={RouterLink}
-                to={`/audiochallendge/${currentLevel}/${currentPage}`}
+                to={`/games/audiochallendge/${currentLevel}/${currentPage}`}
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
@@ -135,7 +136,7 @@ export const EBook = (props: Props) => {
             <Col xs={3}>
               <Link
                 component={RouterLink}
-                to={`/sprint/${currentLevel}/${currentPage}`}
+                to={`/games/sprint/${currentLevel}/${currentPage}`}
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
