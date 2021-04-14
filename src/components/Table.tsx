@@ -6,9 +6,19 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Box from '@material-ui/core/Box';
 import useAudio from '../hooks/useAudio';
+import audio from '../assets/speak-it/volume.svg';
+import styled from 'styled-components';
+
+const AudioIcon = styled.span`
+  display: block;
+  width: 26px;
+  height: 26px;
+  background-image: url(${audio});
+  background-size: contain;
+  cursor: pointer;
+`;
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -39,7 +49,6 @@ function createData(soundURL: string,  word:string, transcription:string, wordTr
   };
 }
 
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -67,7 +76,7 @@ export default function CustomizedTables(props:any) {
           {items.map((item:any) => (
             <StyledTableRow key={item.word}>
               <StyledTableCell component="th" scope="row">
-                <VolumeUpIcon onClick={() => playAudio(item.soundURL)}/>
+                <AudioIcon onClick={() => playAudio(item.soundURL)}/>
               </StyledTableCell>
               <StyledTableCell align="center">
                 <Box
