@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Box from '@material-ui/core/Box';
-//import useAudio from '../../../hooks/useAudio';
+import useAudio from '../hooks/useAudio';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables(props:any) {
   const classes = useStyles();
-  const rows = props.words.map((word:any) => ({
+  const items = props.words.map((word:any) => ({
     soundURL: word.audio, 
     transcription: word.transcription, 
     word: word.word, 
@@ -57,30 +57,29 @@ export default function CustomizedTables(props:any) {
     textExampleTranslate: word.textExampleTranslate,
   }));
   
-  //const [audio, playAudio] = useAudio();
+  const [audio, playAudio] = useAudio();
   
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableBody>
-          {rows.map((row:any) => (
-            <StyledTableRow key={row.word}>
+          {items.map((item:any) => (
+            <StyledTableRow key={item.word}>
               <StyledTableCell component="th" scope="row">
-                <VolumeUpIcon/>
-                {row.soundURL}
+                <VolumeUpIcon onClick={() => {}/*playAudio(item.soundURL)*/}/>
               </StyledTableCell>
               <StyledTableCell align="center">
                 <Box
                   display="flex"
                   flexDirection="column"
                   >
-                  <span>{row.word}</span>
-                  <span>{row.transcription}</span>
-                  <span>{row.wordTranslate}</span>
+                  <span>{item.word}</span>
+                  <span>{item.transcription}</span>
+                  <span>{item.wordTranslate}</span>
                 </Box>
               </StyledTableCell>
-              <StyledTableCell align="center"><div dangerouslySetInnerHTML={{__html: row.textExample}}></div></StyledTableCell>
-              <StyledTableCell align="center">{row.textExampleTranslate}</StyledTableCell>
+              <StyledTableCell align="center"><div dangerouslySetInnerHTML={{__html: item.textExample}}></div></StyledTableCell>
+              <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

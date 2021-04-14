@@ -21,8 +21,6 @@ import sprint from '../../assets/img/sprint.png';
 import savannah from '../../assets/img/savannah.jpg';
 import { Footer } from '../Footer/Footer';
 
-import { spacing } from '@material-ui/system';
-
 type Props = {};
 
 const paneStyles = {
