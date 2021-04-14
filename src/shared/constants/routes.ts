@@ -48,13 +48,5 @@ export default Object.freeze({
         route: '/games/sprint/:group?/:page?',
       },
     },
-  },
-  E_BOOK: {
-    name: 'Электронный учебник',
-    route: '/e-book',
-  },
-  DICTIONARY: {
-    name: 'Словарь',
-    route: '/dictionary',
   }
 });
