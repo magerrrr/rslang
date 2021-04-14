@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image } from 'react-bootstrap';
-import mainImage from '../../../assets/speakit.png';
+import mainImage from '../../../assets/speak-it/speakit.png';
 import { Box } from '../SpeakItStyles';
 import { baseURL } from '../../../api/urls';
 

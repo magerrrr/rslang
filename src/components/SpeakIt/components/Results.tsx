@@ -54,9 +54,6 @@ const Results = ({ words, continueGame, closeResult }: any) => {
           <Button variant="secondary" color="#c9b1fc" onClick={continueGame}>
             продолжить
           </Button>
-          <Button variant="secondary" color="#c9b1fc" onClick={closeResult}>
-            статистика
-          </Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -81,10 +81,7 @@ export const Main = (props: Props) => {
               <Title>Игры</Title>
             </Col>
             <GameCol xs={12} md={12} sm={12} lg={5} className="mr-auto">
-              <Link
-                component={RouterLink}
-                to={GAMES.subroutes.AUDIO_CHALLENGE.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.AUDIO_CHALLENGE.route}>
                 <Game1>
                   <Card.Img variant="top" src={challenge} />
                   <Card.Body>
@@ -92,10 +89,7 @@ export const Main = (props: Props) => {
                   </Card.Body>
                 </Game1>
               </Link>
-              <Link
-                component={RouterLink}
-                to={GAMES.subroutes.SPRINT.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.SPRINT.route}>
                 <Game2>
                   <Card.Img variant="top" src={sprint} />
                   <Card.Body>
@@ -105,10 +99,7 @@ export const Main = (props: Props) => {
               </Link>
             </GameCol>
             <GameCol xs={12} md={12} sm={12} lg={7}>
-              <Link
-                component={RouterLink}
-                to={GAMES.subroutes.SPEAK_IT.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.SPEAK_IT.route}>
                 <Game3>
                   <Card.Img variant="top" src={speak} />
                   <Card.Body>
@@ -116,10 +107,7 @@ export const Main = (props: Props) => {
                   </Card.Body>
                 </Game3>
               </Link>
-              <Link
-                component={RouterLink}
-                to={GAMES.subroutes.SAVANNAH.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.SAVANNAH.route}>
                 <Game4>
                   <Card.Img variant="top" src={savannah} />
                   <Card.Body>

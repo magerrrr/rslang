@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import arrow from '../../assets/down-filled-triangular-arrow.svg';
+import arrow from '../../assets/img/down-filled-triangular-arrow.svg';
 
 const LevelsContainer = styled.div`
   display: flex;
@@ -20,8 +20,7 @@ const LevelsContainer = styled.div`
 `;
 
 const Select = styled.select`
-  background: #fff url(${arrow}) right 0.75rem center/8px 10px no-repeat;
-  background-size: 14px;
+  background: #fff url(${arrow}) right 0.75rem center/14px 14px no-repeat;
   border: 1px solid #ced4da;
   box-shadow: 0 0 10px rgb(166 50 198 / 50%);
   width: 100px;

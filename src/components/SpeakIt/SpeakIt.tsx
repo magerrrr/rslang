@@ -14,7 +14,7 @@ import { startRecording, stopRecording, useGetSpeakWord } from './helpers/Speech
 import Results from './components/Results';
 import { activeInit, wordsCount } from './helpers/Constants';
 import { getLevels } from './helpers/Game';
-import success from '../../assets/guessed.wav';
+import success from '../../assets/audio/guessed.wav';
 import api from '../../api';
 
 const SpeakIt = () => {

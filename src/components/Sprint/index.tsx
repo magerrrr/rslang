@@ -23,8 +23,8 @@ import {
 import { increaseSeries, resetSeries, maxSeries } from './SeriesHelper';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';
-import success from '../../assets/guessed.wav';
-import fail from '../../assets/fail.mp3';
+import success from '../../assets/audio/guessed.wav';
+import fail from '../../assets/audio/fail.mp3';
 
 import {
   BackGround,

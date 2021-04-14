@@ -29,6 +29,7 @@ const App = () => {
           <Route path={SIGN_IN.route} component={SignIn} />
           <Route path={SIGN_UP.route} component={SignUp} />
           <Route path={GAMES.subroutes.SPEAK_IT.route} component={SpeakIt} />
+          <Route path={GAMES.subroutes.SPRINT.route} component={Sprint} />
         </Switch>
       </MuiThemeProvider>
     </Router>

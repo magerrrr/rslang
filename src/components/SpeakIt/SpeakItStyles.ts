@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Button, Table } from 'react-bootstrap';
 
-import bgImage from '../../assets/speak-it-bg.svg';
-import audio from '../../assets/volume.svg';
+import arrow from '../../assets/speak-it/down-filled-triangular-arrow.svg';
+import bgImage from '../../assets/speak-it/speak-it-bg.svg';
+import audio from '../../assets/speak-it/volume.svg';
 
 const Card = styled.div`
   font-size: 18px;
@@ -60,15 +61,27 @@ const ResultsAudioIcon = styled(AudioIcon)`
 
 const GameContainer = styled.div`
   background-image: url(${bgImage});
-  min-height: calc(100vh + 90px);
-  background-size: 100%;
+  height: calc(100vw / 1.617);
+  background-size: cover;
+  background-position: center;
   svg {
+    display: none;
     position: absolute;
     right: 25px;
     width: 40px;
     height: 40px;
     fill: #c9b1fc;
     cursor: pointer;
+    @media (min-width: 576px) {
+      display: block;
+    }
+  }
+  select {
+    background: #fff url(${arrow}) right 0.75rem center/14px 14px no-repeat;
+  }
+  @media (max-width: 1024px) {
+    height: auto;
+    min-height: calc(100vw / 1.45);
   }
 `;
 
@@ -95,7 +108,7 @@ const Box = styled.div`
 `;
 
 const PlayButton = styled(Button)`
-  margin: 30px auto 0 auto;
+  margin: 30px auto 30px auto;
   width: 200px;
   height: 40px;
   background-color: #c9b1fc;
@@ -116,6 +129,9 @@ const PlayButton = styled(Button)`
     color: inherit;
     background-color: #c9b1fc !important;
     border-color: #007bff !important;
+  }
+  @media (max-width: 767px) {
+    margin: 30px auto 0 auto;
   }
 `;
 

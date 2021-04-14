@@ -163,7 +163,7 @@ export const Menu = (props: Props) => {
               <List component="div" disablePadding>
                 <Link
                   component={RouterLink}
-                  to="/savannah"
+                  to="/games/savannah"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
@@ -191,7 +191,7 @@ export const Menu = (props: Props) => {
                 </Link>
                 <Link
                   component={RouterLink}
-                  to="/audiochallendge"
+                  to="/games/audiochallendge"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}

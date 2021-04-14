@@ -23,7 +23,7 @@ const Controls = ({ isGameMode, startGame, continueGame, finishedGame, cleanResu
         </PlayButton>
       </Col>
       <Col xs="auto" sm="auto">
-        <ControlButton onClick={finishedGame} type="button" disabled={!isGameMode}>
+        <ControlButton className="mb-4" onClick={finishedGame} type="button" disabled={!isGameMode}>
           результаты
         </ControlButton>
       </Col>
