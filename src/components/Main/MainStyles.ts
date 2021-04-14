@@ -97,7 +97,7 @@ const GamesRow = styled(Row)`
   width: 100%;
 `;
 
-const HowToText = styled.p`
+const HowToText = styled.div`
   @media (max-width: 767px) {
     padding-left: 20px;
     padding-right: 20px;
@@ -185,6 +185,9 @@ const Member = styled(Row)`
     .col-12 {
       flex: 0 0 100%;
       max-width: 100%;
+      .card-title {
+        text-align: center;
+      }
     }
   }
   @media (max-width: 1024px) {
