@@ -9,12 +9,13 @@ const LevelsContainer = styled.div`
   margin: 15px auto 0 auto;
   p {
     font-size: 1.25rem;
+    font-weight: 600;
     width: calc(100px - 10px);
     text-align: center;
     margin: 5px;
   }
   .col:first-child {
-    padding-left: 20px;
+    padding-left: 15px;
   }
 `;
 
