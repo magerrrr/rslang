@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useParams } from 'react-router-dom';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
@@ -24,14 +25,17 @@ const initialStatsData = {
 };
 
 const SpeakIt = () => {
+  const { page } = useParams<any>();
+  const { group } = useParams<any>();
   const userId = useGetCurrentUserId();
+  const initialLevels = userId ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
+  const [gamePage, setGamePage] = useState(initialLevels.page);
+  const [gameLevel, setGameLevel] = useState(initialLevels.level);
   const [words, setWords] = useState<any>([]);
   const [active, setActive] = useState(activeInit);
   const [isGameMode, setIsGameMode] = useState(false);
   const [gameWordIndex, setGameWordIndex] = useState(0);
-  const [gamePage, setGamePage] = useState(0);
-  const [gameLevel, setGameLevel] = useState(0);
   const [speakWord, resetTranscript] = useGetSpeakWord();
   const [numGuessedWords, setNumGuessedWords] = useState(0);
   const authorized = useCheckAuthenticate();
@@ -157,6 +161,7 @@ const SpeakIt = () => {
       <Container>
         <FullscreenIcon onClick={onFullScreenChange} />
         <Levels
+          isDisabled={page && group}
           setGameLevel={setGameLevel}
           setGamePage={setGamePage}
           gameLevel={gameLevel + 1}

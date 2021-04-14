@@ -29,7 +29,7 @@ export default Object.freeze({
       },
       SPEAK_IT: {
         name: 'Скажи это',
-        route: '/games/speakit',
+        route: '/games/speakit/:group?/:page?',
       },
       AUDIO_CHALLENGE: {
         name: 'Аудиовызов',

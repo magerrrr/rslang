@@ -74,8 +74,7 @@ const Sprint = () => {
   };
 
   const restartGame = () => {
-    cleanStats();
-    setIsFinish(false);
+    cleanResult();
     setIsPlay(true);
   };
 
