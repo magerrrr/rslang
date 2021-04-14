@@ -63,10 +63,11 @@ export default function CustomizedTables(props:any) {
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableBody>
+          <audio ref={audio} />
           {items.map((item:any) => (
             <StyledTableRow key={item.word}>
               <StyledTableCell component="th" scope="row">
-                <VolumeUpIcon onClick={() => {}/*playAudio(item.soundURL)*/}/>
+                <VolumeUpIcon onClick={() => playAudio(item.soundURL)}/>
               </StyledTableCell>
               <StyledTableCell align="center">
                 <Box
