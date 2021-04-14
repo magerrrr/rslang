@@ -257,6 +257,7 @@ export const Menu = (props: Props) => {
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
+              onClick={handleVisibility}
             >
               <ListItem button onClick={() => {}}>
                 <ListItemIcon>
