@@ -11,15 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import Controls from './Controls';
 import LivesContent from './Lives';
 import Results from './Results';
-import {
-  getRandom,
-  getCurrentWordTranslate,
-  getInitialLevels,
-  getLevels,
-  getScorePoints,
-  getInitialStats,
-  getStatistics,
-} from './Helpers';
+import { getRandom, getCurrentWordTranslate, getScorePoints } from './Helpers';
+import { getInitialLevels, getLevels, getInitialStats, getStatistics } from '../../shared/helpers';
 import { increaseSeries, resetSeries, maxSeries } from './SeriesHelper';
 import api from '../../api';
 import { LeftControlButton } from './SprintStyles';

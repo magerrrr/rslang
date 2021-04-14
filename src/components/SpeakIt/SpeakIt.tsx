@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import useFullScreen from '../../hooks/useFullScreen';
 import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
+import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
 import useAudio from '../../hooks/useAudio';
 import { GameContainer } from './SpeakItStyles';
 import WordBox from './components/WordBox';
@@ -13,11 +14,17 @@ import Controls from './components/Controls';
 import { startRecording, stopRecording, useGetSpeakWord } from './helpers/SpeechRecognition';
 import Results from './components/Results';
 import { activeInit, wordsCount } from './helpers/Constants';
-import { getLevels } from './helpers/Game';
 import success from '../../assets/audio/guessed.wav';
 import api from '../../api';
+import { getInitialLevels, getLevels, getInitialStats, getStatistics } from '../../shared/helpers';
+
+const initialStatsData = {
+  isLoading: false,
+  statistics: null,
+};
 
 const SpeakIt = () => {
+  const userId = useGetCurrentUserId();
   const [isFinish, setIsFinish] = useState(false);
   const [words, setWords] = useState<any>([]);
   const [active, setActive] = useState(activeInit);
@@ -32,15 +39,21 @@ const SpeakIt = () => {
   const [audio, playAudio] = useAudio();
   const onFullScreenChange = useFullScreen();
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
-
+  const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
+  const [stats, setStats] = useState<any>();
+  console.log(api.usersStatistic.getStatistics(userId));
   const saveStats = useCallback(async () => {
     const date = new Date().toLocaleDateString();
     const currentGameStats = {
       date,
-      wrong: wordsCount - numGuessedWords,
-      right: numGuessedWords,
+      success: numGuessedWords,
+      fail: wordsCount - numGuessedWords,
+      series: 0,
     };
-    console.log(currentGameStats);
+
+    setStats((prevStat: any) => {
+      return getStatistics(prevStat, currentGameStats, wordsCount, 'speakit');
+    });
   }, [numGuessedWords]);
 
   const cleanResult = () => {
@@ -72,8 +85,22 @@ const SpeakIt = () => {
     setIsFinish(true);
     setIsGameMode(false);
     stopRecording();
-    saveStats();
+    userId && stats && saveStats();
   }, [saveStats]);
+
+  useEffect(() => {
+    userId && stats && api.usersStatistic.updateStatistics(userId, stats);
+  }, [userId, stats]);
+
+  const initStats = () => {
+    if (!statsData.isLoading) {
+      setStats(getInitialStats(statsData.statistics));
+    }
+  };
+
+  useEffect(() => {
+    initStats();
+  }, [statsData.isLoading, statsData.statistics]);
 
   useEffect(() => {
     let ignore = false;
