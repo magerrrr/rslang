@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import useUserWord from '../../hooks/useUserWord';
 import useFullScreen from '../../hooks/useFullScreen';
 import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
@@ -45,7 +46,8 @@ const SpeakIt = () => {
   const data = api.words.getWordsByLevel(gamePage, gameLevel);
   const statsData = userId ? api.usersStatistic.getStatistics(userId) : initialStatsData;
   const [stats, setStats] = useState<any>();
-  console.log(api.usersStatistic.getStatistics(userId));
+  const setWord = useUserWord(userId);
+
   const saveStats = useCallback(async () => {
     const date = new Date().toLocaleDateString();
     const currentGameStats = {
@@ -113,6 +115,7 @@ const SpeakIt = () => {
         (item: any) => item.word.toLowerCase() === word.toLowerCase(),
       );
       if (wordIndex > -1) {
+        userId && setWord(words[wordIndex]);
         words[wordIndex].isGuessed = true;
         guessedSound.current.play();
         setNumGuessedWords((numGuessedWords) => numGuessedWords + 1);
