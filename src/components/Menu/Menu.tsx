@@ -45,9 +45,9 @@ export const Menu = (props: Props) => {
   const [open, setOpen] = React.useState(true);
   const isAuthenticated = useCheckAuthenticate();
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const handleVisibility = () => {
+    setShown(!shown);
+  }
 
   return (
     <div className={classes.root}>
@@ -58,7 +58,7 @@ export const Menu = (props: Props) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={() => setShown(true)}
+            onClick={handleVisibility}            
           >
             <MenuIcon />
           </IconButton>
@@ -69,7 +69,7 @@ export const Menu = (props: Props) => {
           </RouterLink>
         </Toolbar>
       </AppBar>
-      <Drawer open={shown} onClose={() => setShown(false)}>
+      <Drawer open={shown} onClose={handleVisibility}>
         <div className={classes.list}>
           <List>
             <Link
@@ -78,6 +78,7 @@ export const Menu = (props: Props) => {
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
+              onClick={handleVisibility}
             >
               <ListItem button onClick={() => {}}>
                 <ListItemIcon>
@@ -94,6 +95,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -111,6 +113,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -130,6 +133,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -142,10 +146,11 @@ export const Menu = (props: Props) => {
             {isAuthenticated && (
               <Link
                 component={RouterLink}
-                to={TEXTBOOK.route}
+                to={'/textbook'}
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -162,6 +167,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -171,7 +177,7 @@ export const Menu = (props: Props) => {
                 </ListItem>
               </Link>
             )}
-            <ListItem button onClick={handleClick}>
+            <ListItem button onClick={() => setOpen(!open)}>
               <ListItemIcon>
                 <SportsEsportsIcon color="primary" />
               </ListItemIcon>
@@ -186,6 +192,7 @@ export const Menu = (props: Props) => {
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
@@ -200,6 +207,7 @@ export const Menu = (props: Props) => {
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
@@ -214,6 +222,7 @@ export const Menu = (props: Props) => {
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
@@ -229,6 +238,7 @@ export const Menu = (props: Props) => {
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
@@ -247,6 +257,7 @@ export const Menu = (props: Props) => {
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
+              onClick={handleVisibility}
             >
               <ListItem button onClick={() => {}}>
                 <ListItemIcon>

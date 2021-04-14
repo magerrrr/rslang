@@ -1,8 +1,8 @@
 import * as React from 'react';
 import api from '../api';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import ImageUploader from 'react-images-upload';
+import styled from 'styled-components';
 import { Button, withStyles } from '@material-ui/core';
 
 type Props = {};

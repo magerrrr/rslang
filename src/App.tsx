@@ -7,6 +7,8 @@ import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
 import { Statistics } from './components/Statistics';
 import { Profile } from './components/Profile';
+import { EBook } from './components/EBook/EBook';
+import { Dictionary } from './components/Dictionary';
 import { Menu } from './components/Menu/Menu';
 import { SpeakIt } from './components/SpeakIt';
 import { ScrollToTop } from './ScrollToTop';
@@ -16,7 +18,7 @@ import { ROUTES } from './shared/constants';
 import './App.css';
 import theme from './theme';
 
-const { MAIN, PROFILE, STATS, SIGN_IN, SIGN_UP, GAMES } = ROUTES;
+const { MAIN, PROFILE, TEXTBOOK, WORDBOOK, STATS, SIGN_IN, SIGN_UP, GAMES } = ROUTES;
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
         <Menu />
         <Switch>
           <PrivateRoute path={PROFILE.route} component={Profile} />
+          <PrivateRoute path={TEXTBOOK.route} component={EBook} />
+          <PrivateRoute path={WORDBOOK.route} component={Dictionary} />
           <Route exact path={MAIN.route} component={Main} />
           <Route path={STATS.route} component={Statistics} />
           <Route path={SIGN_IN.route} component={SignIn} />
