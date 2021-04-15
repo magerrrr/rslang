@@ -17,31 +17,31 @@ const Final = ({ words, answer, handleNewGame, restartGame }: any) => {
             <div>Неправильно: {answer.unCorrectAnswer}</div>
           </div>
           {words.map((item: any) => {
-            if (item.isCheckedAnswer === false) {
-              return (
-                <GameOverItemCol>
-                  <div>
-                    <span>{item.enWord}</span>
-                    <span>{item.ruWord}</span>
-                  </div>
-                  <ButtonDifficult>в сложные</ButtonDifficult>
-                </GameOverItemCol>
-              );
-            }
+            return item.isCheckedAnswer === false ? (
+              <GameOverItemCol>
+                <div>
+                  <span>{item.enWord}</span>
+                  <span>{item.ruWord}</span>
+                </div>
+                <ButtonDifficult>в сложные</ButtonDifficult>
+              </GameOverItemCol>
+            ) : (
+              ''
+            );
           })}
         </GameOverItem>
         <GameOverItem>
           <h3>Угаданные слова</h3>
           <div>Правильно: {answer.correctAnswer}</div>
           {words.map((item: any) => {
-            if (item.isCheckedAnswer === true) {
-              return (
-                <GameOverItemCol>
-                  <span>{item.enWord}</span>
-                  <span>{item.ruWord}</span>
-                </GameOverItemCol>
-              );
-            }
+            return item.isCheckedAnswer === true ? (
+              <GameOverItemCol>
+                <span>{item.enWord}</span>
+                <span>{item.ruWord}</span>
+              </GameOverItemCol>
+            ) : (
+              ''
+            );
           })}
         </GameOverItem>
       </GameOverResult>

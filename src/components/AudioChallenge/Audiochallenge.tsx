@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   GameContainer,
   Box,
@@ -41,6 +41,7 @@ const AudioChallenge = () => {
     isChecked: false,
   } as any);
   const [audio, playAudio] = useAudio();
+  const [playable, setPlayable] = useState(false);
   const [clickAnswerCounter, setClickAnswerCounter] = useState({
     correctAnswer: 0,
     unCorrectAnswer: 0,
@@ -60,7 +61,7 @@ const AudioChallenge = () => {
     });
   };
 
-  const getNextWord = React.useCallback(() => {
+  const getNextWord = useCallback(() => {
     if (words.length) {
       const restWords = words.filter((word: any) => word.isGuessed !== null);
 
@@ -77,7 +78,8 @@ const AudioChallenge = () => {
   }, [words]);
 
   const handleClick = () => {
-    playAudio(currentWord.audio);
+    if (playable) playAudio(currentWord.audio);
+    setPlayable(true);
   };
 
   const isCurrentTranslateCorrect = (clickWord: any, currentWord: any) => {
@@ -128,7 +130,6 @@ const AudioChallenge = () => {
     getNextWord();
     roundOver();
     scoreCounter(e);
-    playAudio(currentWord.audio);
   };
 
   const handleCheckAnswer = (e: any) => {
@@ -151,7 +152,7 @@ const AudioChallenge = () => {
     return array;
   };
 
-  const getRandomTranslate = () => {
+  const getRandomTranslate = useCallback(() => {
     let filtredCurrent = gameWords.filter((item: any) => item.ruWord === currentWord.ruWord)[0];
     let filtredWords = gameWords.filter((item: any) => item.ruWord !== currentWord.ruWord);
     const startArray: any = [filtredCurrent];
@@ -159,7 +160,7 @@ const AudioChallenge = () => {
     const result = startArray.concat(randomTranslate);
     const res = shuffleWords(result);
     setTranslate(res);
-  };
+  }, [currentWord.ruWord, gameWords]);
 
   React.useEffect(() => {
     if (!data.isLoading) {
@@ -181,8 +182,14 @@ const AudioChallenge = () => {
   }, [words, getNextWord]);
 
   React.useEffect(() => {
-    getRandomTranslate();
-  }, [currentWord]);
+    playable && currentWord.audio && playAudio(currentWord.audio);
+  }, [currentWord.audio, playAudio, playable]);
+
+  React.useEffect(() => {
+    if (currentWord && currentWord.enWord) {
+      getRandomTranslate();
+    }
+  }, [currentWord, getRandomTranslate]);
 
   return (
     <GameContainer>
@@ -202,8 +209,12 @@ const AudioChallenge = () => {
             <audio ref={audio} />
           </AudioImage>
           <ButtonContainer>
-            {translate.map((item: any) => {
-              return <Button onClick={handleCheckAnswer}>{item.ruWord}</Button>;
+            {translate.map((item: any, i: number) => {
+              return (
+                <Button key={`btn-${i}`} onClick={handleCheckAnswer}>
+                  {item.ruWord}
+                </Button>
+              );
             })}
           </ButtonContainer>
           <NextWord onClick={(e) => handlerNext(e)}>Следущее</NextWord>
