@@ -128,11 +128,11 @@ const AudioChallenge = () => {
 
   const handlerNext = (e: any) => {
     getNextWord();
-    roundOver();
-    scoreCounter(e);
   };
 
   const handleCheckAnswer = (e: any) => {
+    roundOver();
+    scoreCounter(e);
     if (e.target.textContent === currentWord.ruWord) {
       successSound.play();
     } else {
@@ -195,7 +195,7 @@ const AudioChallenge = () => {
     <GameContainer>
       {isGameOver ? (
         <>
-          <StartButton>Начать Игру</StartButton>
+          <StartButton onClick={() => setIsGameOver(false)}>Начать Игру</StartButton>
           <Final
             words={gameWords}
             answer={clickAnswerCounter}
@@ -217,7 +217,7 @@ const AudioChallenge = () => {
               );
             })}
           </ButtonContainer>
-          <NextWord onClick={(e) => handlerNext(e)}>Следущее</NextWord>
+          <NextWord onClick={(e) => handlerNext(e)}>Следующее</NextWord>
         </Box>
       )}
     </GameContainer>
