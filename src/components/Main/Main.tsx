@@ -18,6 +18,7 @@ import {
   Game2,
   Game3,
   Game4,
+  OurVideo,
 } from './MainStyles';
 import { ROUTES } from '../../shared/constants';
 import english from '../../assets/img/english.jpg';
@@ -208,6 +209,19 @@ export const Main = (props: Props) => {
           </Row>
         </Container>
       </Team>
+
+      <OurVideo>
+        <iframe
+          width="490px"
+          height="315px"
+          src="https://www.youtube.com/embed/xJc2PjECqYI"
+          title="RS Lang"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </OurVideo>
+
       <Footer />
     </>
   );

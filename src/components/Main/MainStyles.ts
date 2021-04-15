@@ -155,6 +155,36 @@ const Team = styled(Section)`
   }
 `;
 
+const OurVideo = styled(Section)`
+  background-image: url(${gamesBg});
+  height: calc(100vw / 1.62);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 992px) {
+    height: auto;
+    .card {
+      margin-bottom: 30px !important;
+      margin-left: 0;
+    }
+  }
+  @media (min-width: 1321px) {
+    .container {
+      max-width: 960px;
+      height: 90%;
+    }
+  }
+  @media (max-width: 1321px) {
+    .container {
+      max-width: 800px;
+    }
+  }
+  @media (max-width: 767px) {
+    padding-top: 40px;
+  }
+`;
+
 const Member = styled(Row)`
   background-color: #fff;
   max-width: 400px;
@@ -309,4 +339,5 @@ export {
   Game2,
   Game3,
   Game4,
+  OurVideo,
 };
