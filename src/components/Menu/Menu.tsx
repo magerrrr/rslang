@@ -16,14 +16,20 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+import PhoneIcon from '@material-ui/icons/Phone';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import PetsIcon from '@material-ui/icons/Pets';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
+
 import { ROUTES } from '../../shared/constants';
 
 import useStyles from './style';
@@ -31,7 +37,7 @@ import useCheckAuthenticate from '../../hooks/useCheckAuthenticate';
 
 type Props = {};
 
-const { MAIN, PROFILE, TEAM, SIGN_IN, SIGN_UP } = ROUTES;
+const { MAIN, PROFILE, TEXTBOOK, WORDBOOK, STATS, SIGN_IN, SIGN_UP } = ROUTES;
 
 export const Menu = (props: Props) => {
   const classes = useStyles();
@@ -39,8 +45,8 @@ export const Menu = (props: Props) => {
   const [open, setOpen] = React.useState(true);
   const isAuthenticated = useCheckAuthenticate();
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleVisibility = () => {
+    setShown(!shown);
   };
 
   return (
@@ -52,7 +58,7 @@ export const Menu = (props: Props) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={() => setShown(true)}
+            onClick={handleVisibility}
           >
             <MenuIcon />
           </IconButton>
@@ -63,7 +69,7 @@ export const Menu = (props: Props) => {
           </RouterLink>
         </Toolbar>
       </AppBar>
-      <Drawer open={shown} onClose={() => setShown(false)}>
+      <Drawer open={shown} onClose={handleVisibility}>
         <div className={classes.list}>
           <List>
             <Link
@@ -72,27 +78,13 @@ export const Menu = (props: Props) => {
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
+              onClick={handleVisibility}
             >
               <ListItem button onClick={() => {}}>
                 <ListItemIcon>
                   <HomeIcon color="primary" />
                 </ListItemIcon>
                 {MAIN.name}
-              </ListItem>
-            </Link>
-
-            <Link
-              component={RouterLink}
-              to={TEAM.route}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListItem button onClick={() => {}}>
-                <ListItemIcon>
-                  <GroupIcon color="primary" />
-                </ListItemIcon>
-                {TEAM.name}
               </ListItem>
             </Link>
 
@@ -103,6 +95,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -120,6 +113,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -139,6 +133,7 @@ export const Menu = (props: Props) => {
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
               >
                 <ListItem button onClick={() => {}}>
                   <ListItemIcon>
@@ -148,7 +143,41 @@ export const Menu = (props: Props) => {
                 </ListItem>
               </Link>
             )}
-            <ListItem button onClick={handleClick}>
+            {isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={'/textbook'}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <MenuBookIcon color="primary" />
+                  </ListItemIcon>
+                  {TEXTBOOK.name}
+                </ListItem>
+              </Link>
+            )}
+            {isAuthenticated && (
+              <Link
+                component={RouterLink}
+                to={WORDBOOK.route}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+                onClick={handleVisibility}
+              >
+                <ListItem button onClick={() => {}}>
+                  <ListItemIcon>
+                    <SortByAlphaIcon color="primary" />
+                  </ListItemIcon>
+                  {WORDBOOK.name}
+                </ListItem>
+              </Link>
+            )}
+            <ListItem button onClick={() => setOpen(!open)}>
               <ListItemIcon>
                 <SportsEsportsIcon color="primary" />
               </ListItemIcon>
@@ -159,42 +188,45 @@ export const Menu = (props: Props) => {
               <List component="div" disablePadding>
                 <Link
                   component={RouterLink}
-                  to="/savannah"
+                  to="/games/savannah"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#dc622f' }} />
+                      <PetsIcon style={{ fill: '#dc622f' }} />
                     </ListItemIcon>
                     <ListItemText primary="Саванна" />
                   </ListItem>
                 </Link>
                 <Link
                   component={RouterLink}
-                  to="/speakit"
+                  to="/games/speakit"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#A632C6' }} />
+                      <RecordVoiceOverIcon style={{ fill: '#A632C6' }} />
                     </ListItemIcon>
                     <ListItemText primary="Скажи это" />
                   </ListItem>
                 </Link>
                 <Link
                   component={RouterLink}
-                  to="/audiochallendge"
+                  to="/games/audiochallendge"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#1BD9DE' }} />
+                      <PhoneIcon style={{ fill: '#1BD9DE' }} />
                     </ListItemIcon>
 
                     <ListItemText primary="Аудиовызов" />
@@ -202,14 +234,15 @@ export const Menu = (props: Props) => {
                 </Link>
                 <Link
                   component={RouterLink}
-                  to="/sprint"
+                  to="/games/sprint"
                   color="primary"
                   variant="body1"
                   style={{ textDecoration: 'none' }}
+                  onClick={handleVisibility}
                 >
                   <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                      <StarBorder style={{ fill: '#32A2E5' }} />
+                      <DirectionsRunIcon style={{ fill: '#32A2E5' }} />
                     </ListItemIcon>
                     <ListItemText primary="Спринт" />
                   </ListItem>
@@ -217,6 +250,23 @@ export const Menu = (props: Props) => {
               </List>
             </Collapse>
           </List>
+          {isAuthenticated && (
+            <Link
+              component={RouterLink}
+              to={STATS.route}
+              color="primary"
+              variant="body1"
+              style={{ textDecoration: 'none' }}
+              onClick={handleVisibility}
+            >
+              <ListItem button onClick={() => {}}>
+                <ListItemIcon>
+                  <EqualizerIcon color="primary" />
+                </ListItemIcon>
+                {STATS.name}
+              </ListItem>
+            </Link>
+          )}
         </div>
       </Drawer>
     </div>

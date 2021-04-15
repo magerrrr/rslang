@@ -1,15 +1,23 @@
 export default Object.freeze({
   MAIN: {
-    name: 'Домашняя',
+    name: 'Главная',
     route: '/',
   },
   PROFILE: {
     name: 'Профиль',
     route: '/profile',
   },
-  TEAM: {
-    name: 'Наша Команда',
-    route: '/our-team',
+  TEXTBOOK: {
+    name: 'Электронный учебник',
+    route: '/textbook/:group?/:page?',
+  },
+  WORDBOOK: {
+    name: 'Словарь',
+    route: '/wordbook',
+  },
+  STATS: {
+    name: 'Статистка',
+    route: '/statistics',
   },
   SIGN_IN: {
     name: 'Войти',
@@ -29,7 +37,7 @@ export default Object.freeze({
       },
       SPEAK_IT: {
         name: 'Скажи это',
-        route: '/games/speakit',
+        route: '/games/speakit/:group?/:page?',
       },
       AUDIO_CHALLENGE: {
         name: 'Аудиовызов',
@@ -37,7 +45,7 @@ export default Object.freeze({
       },
       SPRINT: {
         name: 'Спринт',
-        route: '/games/sprint',
+        route: '/games/sprint/:group?/:page?',
       },
     },
   },
