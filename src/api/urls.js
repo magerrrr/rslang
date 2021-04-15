@@ -13,6 +13,16 @@ const urls = {
     byId: (id) => `${baseURL}/users/${id}`,
     byIdWithToken: (id) => `${baseURL}/users/${id}/tokens`,
   },
+  usersWords: {
+    byId: (id) => `${baseURL}/users/${id}/words`,
+    byUserIdAndWordId: (userId, wordId) => `${baseURL}/users/${userId}/words/${wordId}`,
+  },
+  usersStatistics: {
+    byId: (userId) => `${baseURL}/users/${userId}/statistics`,
+  },
+  usersSettings: {
+    byId: (userId) => `${baseURL}/users/${userId}/settings`,
+  },
 };
 
 export default urls;

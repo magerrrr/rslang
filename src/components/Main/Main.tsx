@@ -18,6 +18,7 @@ import {
   Game2,
   Game3,
   Game4,
+  OurVideo,
 } from './MainStyles';
 import { ROUTES } from '../../shared/constants';
 import english from '../../assets/img/english.jpg';
@@ -29,6 +30,7 @@ import kirill from '../../assets/img/team/kira.jpg';
 import inna from '../../assets/img/team/inna.jpg';
 import sergey from '../../assets/img/team/sergey.jpg';
 import ana from '../../assets/img/team/photo.jpg';
+import styled from 'styled-components';
 const { GAMES } = ROUTES;
 
 type Props = {};
@@ -65,10 +67,14 @@ export const Main = (props: Props) => {
             </Col>
             <Col xs={12} lg={5} md={5}>
               <HowToText>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic{' '}
+                <h3 className="d-none d-lg-block">Выучить 3600 слов - легко!</h3>
+                Приложение разработано для изучения наиболее часто употребляемых английских слов.
+                <p>
+                  Мы подготовили для Вас 4 увлекательные красочные игры, которые помогут сделать
+                  обучение английскому языку весёлым и захватывающим. Вам предстоит проверить себя в
+                  написании, аудировании и произношении английских слов.
+                </p>
+                <h4 className="d-none d-lg-block">Изучай слова в процессе игры, забудь о скуке!</h4>
               </HowToText>
             </Col>
           </Row>
@@ -81,12 +87,7 @@ export const Main = (props: Props) => {
               <Title>Игры</Title>
             </Col>
             <GameCol xs={12} md={12} sm={12} lg={5} className="mr-auto">
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                component={RouterLink}
-                to={GAMES.subroutes.AUDIO_CHALLENGE.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.AUDIO_CHALLENGE.route}>
                 <Game1>
                   <Card.Img variant="top" src={challenge} />
                   <Card.Body>
@@ -94,12 +95,7 @@ export const Main = (props: Props) => {
                   </Card.Body>
                 </Game1>
               </Link>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                component={RouterLink}
-                to={GAMES.subroutes.SPRINT.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.SPRINT.route}>
                 <Game2>
                   <Card.Img variant="top" src={sprint} />
                   <Card.Body>
@@ -109,12 +105,7 @@ export const Main = (props: Props) => {
               </Link>
             </GameCol>
             <GameCol xs={12} md={12} sm={12} lg={7}>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                component={RouterLink}
-                to={GAMES.subroutes.SPEAK_IT.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.SPEAK_IT.route}>
                 <Game3>
                   <Card.Img variant="top" src={speak} />
                   <Card.Body>
@@ -122,12 +113,7 @@ export const Main = (props: Props) => {
                   </Card.Body>
                 </Game3>
               </Link>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                component={RouterLink}
-                to={GAMES.subroutes.SAVANNAH.route}
-              >
+              <Link component={RouterLink} to={GAMES.subroutes.SAVANNAH.route}>
                 <Game4>
                   <Card.Img variant="top" src={savannah} />
                   <Card.Body>
@@ -159,8 +145,9 @@ export const Main = (props: Props) => {
                   >
                     <h5 className="card-title">Кирилл</h5>
                   </Link>
-                  This is a wider card with supporting text below as a natural lead-in to additional
-                  content.
+                  <div>Авторизация</div>
+                  <div>Бекенд</div>
+                  <div>Юнит-тесты</div>
                 </Col>
               </Member>
               <Member>
@@ -176,8 +163,9 @@ export const Main = (props: Props) => {
                   >
                     <h5 className="card-title">Инна</h5>
                   </Link>
-                  This is a wider card with supporting text below as a natural lead-in to additional
-                  content.
+                  <div>Дизайн приложения</div>
+                  <div>Мини-игры "Саванна",</div>
+                  <div>"Аудиовызов"</div>
                 </Col>
               </Member>
             </Col>
@@ -195,8 +183,9 @@ export const Main = (props: Props) => {
                   >
                     <h5 className="card-title">Сергей</h5>
                   </Link>
-                  This is a wider card with supporting text below as a natural lead-in to additional
-                  content.
+                  <div>Электронный учебник</div>
+                  <div>Словарь</div>
+                  <div>Статистика</div>
                 </Col>
               </Member>
               <Member>
@@ -212,15 +201,32 @@ export const Main = (props: Props) => {
                   >
                     <h5 className="card-title">Анастасия</h5>
                   </Link>
-                  This is a wider card with supporting text below as a natural lead-in to additional
-                  content.
+                  <div>Главная страница</div>
+                  <div>Мини-игры "Спринт",</div>
+                  <div>"Скажи это"</div>
                 </Col>
               </Member>
             </Col>
           </Row>
         </Container>
       </Team>
+
+      <OurVideo>
+        <MyIFrame
+          src="https://www.youtube.com/embed/xJc2PjECqYI"
+          title="RS Lang"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </OurVideo>
+
       <Footer />
     </>
   );
 };
+
+const MyIFrame = styled.iframe`
+  width: 60%;
+  height: 50%;
+`;

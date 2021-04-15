@@ -1,5 +1,6 @@
 html {
   position: relative;
+  min-height: 100vh;
 }
 
 body {
@@ -15,4 +16,9 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: underline;
 }
