@@ -79,7 +79,9 @@ export const EBook = (props: Props) => {
             <Box display="flex" justifyContent="center">
               {levelControls}
             </Box>
-            <Box>{data.isLoading ? <CircularProgress /> : <CustomizedTables words={words} />}</Box>
+            <Box display="flex" justifyContent="center">
+              {data.isLoading ? <StyledCircularProgress /> : <CustomizedTables words={words} />}
+            </Box>
             <Box display="flex" justifyContent="center" my={4}>
               <Pagination
                 count={30}
@@ -161,4 +163,8 @@ const MyButton = styled(Button)`
   &:last-child {
     margin-right: 0;
   }
+`;
+
+const StyledCircularProgress = styled(CircularProgress)`
+  margin: 50px;
 `;
