@@ -153,9 +153,9 @@ const AudioChallenge = () => {
   };
 
   const getRandomTranslate = useCallback(() => {
-    let filtredCurrent = gameWords.filter((item: any) => item.ruWord === currentWord.ruWord)[0];
+    let filteredCurrent = gameWords.filter((item: any) => item.ruWord === currentWord.ruWord)[0];
     let filtredWords = gameWords.filter((item: any) => item.ruWord !== currentWord.ruWord);
-    const startArray: any = [filtredCurrent];
+    const startArray: any = [filteredCurrent];
     const randomTranslate = filtredWords.splice(random(17), 3);
     const result = startArray.concat(randomTranslate);
     const res = shuffleWords(result);
