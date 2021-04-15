@@ -30,6 +30,7 @@ import kirill from '../../assets/img/team/kira.jpg';
 import inna from '../../assets/img/team/inna.jpg';
 import sergey from '../../assets/img/team/sergey.jpg';
 import ana from '../../assets/img/team/photo.jpg';
+import styled from 'styled-components';
 const { GAMES } = ROUTES;
 
 type Props = {};
@@ -211,18 +212,21 @@ export const Main = (props: Props) => {
       </Team>
 
       <OurVideo>
-        <iframe
-          width="490px"
-          height="315px"
+        <MyIFrame
           src="https://www.youtube.com/embed/xJc2PjECqYI"
           title="RS Lang"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        ></iframe>
+        />
       </OurVideo>
 
       <Footer />
     </>
   );
 };
+
+const MyIFrame = styled.iframe`
+  width: 60%;
+  height: 50%;
+`;
