@@ -47,7 +47,7 @@ export const Menu = (props: Props) => {
 
   const handleVisibility = () => {
     setShown(!shown);
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -58,7 +58,7 @@ export const Menu = (props: Props) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={handleVisibility}            
+            onClick={handleVisibility}
           >
             <MenuIcon />
           </IconButton>

@@ -48,5 +48,5 @@ export default Object.freeze({
         route: '/games/sprint/:group?/:page?',
       },
     },
-  }
+  },
 });

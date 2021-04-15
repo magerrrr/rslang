@@ -1,1 +1,1 @@
-export const Dictionary = () => <div>dictionary</div>
+export const Dictionary = () => <div>dictionary</div>;

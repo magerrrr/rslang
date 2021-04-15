@@ -23,7 +23,7 @@ type Props = {};
 const paneStyles = {
   commonPane: {
     display: 'flex',
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     maxWidth: 200,
     height: 140,
@@ -31,19 +31,18 @@ const paneStyles = {
     color: '#2A444E',
     textShadow: '1px 1px 2px #fff, 1 1 2em #fff',
     fontSize: '2em',
-    
   },
   savannahContainer: {
-    background: `center / cover no-repeat url(${savannah})`
+    background: `center / cover no-repeat url(${savannah})`,
   },
   speakContainer: {
-    background: `center / cover no-repeat url(${speak})`
+    background: `center / cover no-repeat url(${speak})`,
   },
   challengeContainer: {
-    background: `center / cover no-repeat url(${challenge})`
+    background: `center / cover no-repeat url(${challenge})`,
   },
   sprintContainer: {
-    background: `center / cover no-repeat url(${sprint})`
+    background: `center / cover no-repeat url(${sprint})`,
   },
 };
 
@@ -52,11 +51,10 @@ export const EBook = (props: Props) => {
   const { page } = useParams<any>();
   const { group } = useParams<any>();
 
-  const [ currentPage, setPage ] = useState<number>(page || 0);
-  const [ currentLevel, setLevel ] = useState<number>(group || 0);
+  const [currentPage, setPage] = useState<number>(page || 0);
+  const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
   const data = api.words.getWordsByLevel(currentPage, currentLevel);
-  
 
   useEffect(() => {
     if (!data.isLoading) {
@@ -66,89 +64,91 @@ export const EBook = (props: Props) => {
     history.push(`/textbook/${currentLevel}/${currentPage}`);
   }, [data.isLoading, data.word, currentPage, currentLevel, history]);
 
-  const levelControls = [...Array(6).keys()].map((level) => 
-    <Button key={level} size='medium' onClick={() => setLevel(level)}>Level {level}</Button>
-  );
+  const levelControls = [...Array(6).keys()].map((level) => (
+    <Button key={level} size="medium" onClick={() => setLevel(level)}>
+      Level {level}
+    </Button>
+  ));
 
   return (
     <>
       <Container>
         <Row>
-          <Col xs={12} className='ml-auto mr-auto mt-5'>
-            <Box
-              display='flex'
-              justifyContent='center'
-            >
-              { levelControls }
+          <Col xs={12} className="ml-auto mr-auto mt-5">
+            <Box display="flex" justifyContent="center">
+              {levelControls}
             </Box>
-            <Box>
-              { data.isLoading ? <CircularProgress /> : <CustomizedTables words={words}/> }
-            </Box>
-            <Box
-              display='flex'
-              justifyContent='center'
-              my={4}
-            >
-              <Pagination count={30} showFirstButton showLastButton onChange={(event, value) => setPage(value - 1)}/>
+            <Box>{data.isLoading ? <CircularProgress /> : <CustomizedTables words={words} />}</Box>
+            <Box display="flex" justifyContent="center" my={4}>
+              <Pagination
+                count={30}
+                showFirstButton
+                showLastButton
+                onChange={(event, value) => setPage(value - 1)}
+              />
             </Box>
           </Col>
         </Row>
         <Row>
-          <Col xs={3}>
-            <Link 
-                component={RouterLink}
-                to={`/games/savannah/${currentLevel}/${currentPage}`}
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <Paper style={{...paneStyles.savannahContainer, ...paneStyles.commonPane}}>
-                  <span>Саванна</span>
-                </Paper>
-              </Link>
-            </Col>
-            <Col xs={3}>
-              <Link
-                component={RouterLink}
-                to={`/games/speakit/${currentLevel}/${currentPage}`}
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <Paper style={{...paneStyles.speakContainer, ...paneStyles.commonPane}}>
-                  <span>Скажи это</span>
-                </Paper>
-              </Link>
-            </Col>
-            <Col xs={3}>
-              <Link
-                component={RouterLink}
-                to={`/games/audiochallendge/${currentLevel}/${currentPage}`}
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <Paper style={{...paneStyles.challengeContainer, ...paneStyles.commonPane}}>
-                  <span>Аудиовызов</span>
-                </Paper>
-              </Link>
-            </Col>
-            <Col xs={3}>
-              <Link
-                component={RouterLink}
-                to={`/games/sprint/${currentLevel}/${currentPage}`}
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-              >
-                <Paper style={{...paneStyles.sprintContainer, ...paneStyles.commonPane}}>
-                  <span>Спринт</span>
-                </Paper>
-              </Link>
-            </Col>
+          <Col lg={3} sm={6} xs={12} className="pb-4">
+            <Link
+              className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
+              component={RouterLink}
+              to={`/games/savannah/${currentLevel}/${currentPage}`}
+              color="primary"
+              variant="body1"
+              style={{ textDecoration: 'none' }}
+            >
+              <Paper style={{ ...paneStyles.savannahContainer, ...paneStyles.commonPane }}>
+                <span>Саванна</span>
+              </Paper>
+            </Link>
+          </Col>
+          <Col lg={3} sm={6} xs={12} className="pb-4">
+            <Link
+              className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
+              component={RouterLink}
+              to={`/games/speakit/${currentLevel}/${currentPage}`}
+              color="primary"
+              variant="body1"
+              style={{ textDecoration: 'none' }}
+            >
+              <Paper style={{ ...paneStyles.speakContainer, ...paneStyles.commonPane }}>
+                <span>Скажи это</span>
+              </Paper>
+            </Link>
+          </Col>
+          <Col lg={3} sm={6} xs={12} className="pb-4">
+            <Link
+              className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
+              component={RouterLink}
+              to={`/games/audiochallendge/${currentLevel}/${currentPage}`}
+              color="primary"
+              variant="body1"
+              style={{ textDecoration: 'none' }}
+            >
+              <Paper style={{ ...paneStyles.challengeContainer, ...paneStyles.commonPane }}>
+                <span>Аудиовызов</span>
+              </Paper>
+            </Link>
+          </Col>
+          <Col lg={3} sm={6} xs={12} className="pb-4">
+            <Link
+              className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
+              component={RouterLink}
+              to={`/games/sprint/${currentLevel}/${currentPage}`}
+              color="primary"
+              variant="body1"
+              style={{ textDecoration: 'none' }}
+            >
+              <Paper style={{ ...paneStyles.sprintContainer, ...paneStyles.commonPane }}>
+                <span>Спринт</span>
+              </Paper>
+            </Link>
+          </Col>
         </Row>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

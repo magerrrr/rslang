@@ -44,41 +44,40 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables(props:any) {
+export default function CustomizedTables(props: any) {
   const classes = useStyles();
-  const items = props.words.map((word:any) => ({
-    soundURL: word.audio, 
-    transcription: word.transcription, 
-    word: word.word, 
-    wordTranslate: word.wordTranslate, 
+  const items = props.words.map((word: any) => ({
+    soundURL: word.audio,
+    transcription: word.transcription,
+    word: word.word,
+    wordTranslate: word.wordTranslate,
     textExample: word.textExample,
     textExampleTranslate: word.textExampleTranslate,
   }));
-  
+
   const [audio, playAudio] = useAudio();
-  
+
   return (
     <>
       <audio ref={audio} />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableBody>
-            {items.map((item:any) => (
+            {items.map((item: any) => (
               <StyledTableRow key={item.word}>
                 <StyledTableCell component="th" scope="row">
-                  <AudioIcon onClick={() => playAudio(item.soundURL)}/>
+                  <AudioIcon onClick={() => playAudio(item.soundURL)} />
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    >
+                  <Box display="flex" flexDirection="column">
                     <span>{item.word}</span>
                     <span>{item.transcription}</span>
                     <span>{item.wordTranslate}</span>
                   </Box>
                 </StyledTableCell>
-                <StyledTableCell align="center"><div dangerouslySetInnerHTML={{__html: item.textExample}}></div></StyledTableCell>
+                <StyledTableCell align="center">
+                  <div dangerouslySetInnerHTML={{ __html: item.textExample }}></div>
+                </StyledTableCell>
                 <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
               </StyledTableRow>
             ))}
