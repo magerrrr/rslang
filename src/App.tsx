@@ -14,6 +14,7 @@ import { SpeakIt } from './components/SpeakIt';
 import { ScrollToTop } from './ScrollToTop';
 import { Sprint } from './components/Sprint';
 import { AudioChallenge } from './components/AudioChallenge';
+import { Savanna } from './components/Savanna';
 import { ROUTES } from './shared/constants';
 
 import './App.css';
@@ -38,6 +39,7 @@ const App = () => {
           <Route path={GAMES.subroutes.SPEAK_IT.route} component={SpeakIt} />
           <Route path={GAMES.subroutes.SPRINT.route} component={Sprint} />
           <Route path={GAMES.subroutes.AUDIO_CHALLENGE.route} component={AudioChallenge} />
+          <Route path={GAMES.subroutes.SAVANNAH.route} component={Savanna} />
         </Switch>
       </MuiThemeProvider>
     </Router>
