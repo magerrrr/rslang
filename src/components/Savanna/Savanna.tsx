@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameContainer, Box, ButtonContainer } from './SavannaStyle';
 import StartGame from './components/StartGame';
 import Button from './components/Button';
@@ -98,11 +98,9 @@ const Savanna = () => {
       }
     });
 
-    let filtredGameWordsTranslate = gameWordsTranslate.filter((item: any) => {
-      if (item.ruWord !== currentWord.ruWord) {
-        return item;
-      }
-    });
+    let filtredGameWordsTranslate = gameWordsTranslate.filter(
+      (item: any) => item.ruWord !== currentWord.ruWord,
+    );
     const startArray: any = [current];
     const randomTranslate = filtredGameWordsTranslate.splice(random(17), 3);
     const result = startArray.concat(randomTranslate);
@@ -168,6 +166,7 @@ const Savanna = () => {
     setGameWords(res);
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const newRound = () => {
     let res = translate.map((item: any) => {
       if (item.isTrue) {
@@ -191,6 +190,7 @@ const Savanna = () => {
     getRandomTranslate();
     roundOver();
   };
+  /* eslint-disable react-hooks/exhaustive-deps */
 
   const handlerAnswer = (e: any) => {
     if (e.target.textContent === currentWord.ruWord) {

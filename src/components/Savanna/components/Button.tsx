@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonAnswer, TrueAnswerButton, FalseAnswerButton } from '../SavannaStyle';
+import { ButtonAnswer } from '../SavannaStyle';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   word: string;

@@ -1,3 +1,3 @@
-import Savanna from './Savanna'
+import Savanna from './Savanna';
 
-export default Savanna;
+export { Savanna };
