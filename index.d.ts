@@ -13,4 +13,6 @@ declare module '*.jpg' {
     export default content;
   }
   
+  declare module '*.wav';
+declare module '*.mp3';
   declare module 'react-speech-recognition';

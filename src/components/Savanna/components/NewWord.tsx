@@ -1,12 +1,8 @@
-import React from "react";
-import {Word} from '../Savanna.style'
+import React from 'react';
+import { Word } from '../SavannaStyle';
 
+const NewWord = ({ word }: any) => {
+  return <Word>{word}</Word>;
+};
 
-const NewWord = () => {
-  return <Word>
-   buy
-  </Word>
-}
-
-
-export default NewWord
+export default NewWord;
