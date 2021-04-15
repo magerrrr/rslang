@@ -101,9 +101,7 @@ export const SignUp = (props: Props) => {
             />
           )}
 
-          <StyledButton disabled onClick={handleSubmitSignUp}>
-            Регистрация
-          </StyledButton>
+          <StyledButton onClick={handleSubmitSignUp}>Регистрация</StyledButton>
         </StyledForm>
       </FormContainer>
     </Wrapper>
