@@ -22,7 +22,7 @@ interface State {
 }
 
 const AudioChallenge = () => {
-  const intialState: State = {
+  const initialState: State = {
     audio: '',
     enWord: '',
     ruWord: '',
@@ -32,7 +32,7 @@ const AudioChallenge = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const data = api.words.getAllWords();
   const [words, setWords] = useState<any>([]);
-  const [gameWords, setGameWords] = useState<any>([intialState]);
+  const [gameWords, setGameWords] = useState<any>([initialState]);
   const [translate, setTranslate] = useState([]);
   const [currentWord, setCurrentWord] = useState({
     audio: '',
