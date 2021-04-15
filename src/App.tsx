@@ -13,6 +13,7 @@ import { Menu } from './components/Menu/Menu';
 import { SpeakIt } from './components/SpeakIt';
 import { ScrollToTop } from './ScrollToTop';
 import { Sprint } from './components/Sprint';
+import { AudioChallenge } from './components/AudioChallenge';
 import { ROUTES } from './shared/constants';
 
 import './App.css';
@@ -36,6 +37,7 @@ const App = () => {
           <Route path={SIGN_UP.route} component={SignUp} />
           <Route path={GAMES.subroutes.SPEAK_IT.route} component={SpeakIt} />
           <Route path={GAMES.subroutes.SPRINT.route} component={Sprint} />
+          <Route path={GAMES.subroutes.AUDIO_CHALLENGE.route} component={AudioChallenge} />
         </Switch>
       </MuiThemeProvider>
     </Router>
