@@ -17,6 +17,7 @@ import speak from '../../assets/img/speakit.jpg';
 import sprint from '../../assets/img/sprint.png';
 import savannah from '../../assets/img/savannah.jpg';
 import { Footer } from '../Footer/Footer';
+import styled from 'styled-components';
 
 type Props = {};
 
@@ -65,9 +66,9 @@ export const EBook = (props: Props) => {
   }, [data.isLoading, data.word, currentPage, currentLevel, history]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
-    <Button key={level} size="medium" onClick={() => setLevel(level)}>
+    <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
       Level {level}
-    </Button>
+    </MyButton>
   ));
 
   return (
@@ -152,3 +153,12 @@ export const EBook = (props: Props) => {
     </>
   );
 };
+
+const MyButton = styled(Button)`
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`;
