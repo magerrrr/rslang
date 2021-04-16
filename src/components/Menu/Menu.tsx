@@ -253,7 +253,7 @@ export const Menu = (props: Props) => {
           {isAuthenticated && (
             <Link
               component={RouterLink}
-              to={STATS.route}
+              to="/statistics"
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
