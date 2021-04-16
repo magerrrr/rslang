@@ -10,18 +10,18 @@ const signIn = async (userData) => {
     body: JSON.stringify(userData),
   };
 
-  try {
-    const signInResponse = await fetch(urls.auth.signIn, settings);
-    const data = await signInResponse.json();
+  const signInResponse = await fetch(urls.auth.signIn, settings);
 
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('refreshToken', data.refreshToken);
-    localStorage.setItem('userId', data.userId);
-    localStorage.setItem('name', data.name);
-    return data;
-  } catch (error) {
-    return error;
+  if ([403, 404].includes(signInResponse.status)) {
+    throw new Error('Некорректный е-мейл или пароль');
   }
+
+  const data = await signInResponse.json();
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('refreshToken', data.refreshToken);
+  localStorage.setItem('userId', data.userId);
+  localStorage.setItem('name', data.name);
+  return data;
 };
 
 export { signIn };
