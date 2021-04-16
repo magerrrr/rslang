@@ -8,12 +8,17 @@ const createNewUser = async (userData) => {
     body: userData,
   };
 
-  try {
-    const createNewUserResponse = await fetch(urls.users.defaultRoute, settings);
-    return await createNewUserResponse.json();
-  } catch (error) {
-    return error;
+  const createNewUserResponse = await fetch(urls.users.defaultRoute, settings);
+
+  if ([403, 404, 422].includes(createNewUserResponse.status)) {
+    throw new Error('Некорректный е-мейл или пароль.');
   }
+
+  if ([417].includes(createNewUserResponse.status)) {
+    throw new Error('Пользователь с таким адресом электронной почты уже существует.');
+  }
+
+  return await createNewUserResponse.json();
 };
 
 const useGetUserData = (id) => {
