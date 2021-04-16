@@ -2,6 +2,8 @@ import * as React from 'react';
 import { ResultsTable, ResultsAudioIcon } from './SprintStyles';
 import { Modal, Button } from 'react-bootstrap';
 import useAudio from '../../hooks/useAudio';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@material-ui/core';
 
 const Results = ({ words, restartGame, continueGame, closeResult }: any) => {
   const wrongWords = words.filter((word: any) => !word.isGuessed);
@@ -54,6 +56,11 @@ const Results = ({ words, restartGame, continueGame, closeResult }: any) => {
           <Button variant="secondary" color="#c9b1fc" onClick={continueGame}>
             продолжить
           </Button>
+          <Link component={RouterLink} to={`/statistics/sprint`}>
+            <Button variant="secondary" color="#c9b1fc" onClick={closeResult}>
+              статистика
+            </Button>
+          </Link>
         </Modal.Footer>
       </Modal>
     </>

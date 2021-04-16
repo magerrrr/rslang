@@ -17,7 +17,7 @@ export default Object.freeze({
   },
   STATS: {
     name: 'Статистка',
-    route: '/statistics',
+    route: '/statistics/:gameName?',
   },
   SIGN_IN: {
     name: 'Войти',
