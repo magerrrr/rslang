@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import api from '../../api';
 import { Container as BootstrapContainer, Row, Col } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
@@ -16,28 +17,44 @@ const DEFAULT_GAME = 'savannah';
 
 const Statistics = () => {
   const userId = useGetCurrentUserId();
-  const [game, setGame] = useState<string>();
+  const history = useHistory();
+  const { gameName } = useParams<any>();
   const [tableData, setTableData] = useState<any>([]);
   const [learnedWords, setLearnedWords] = useState<number>(0);
   const [guessedWords, setGuessedWords] = useState<number>(0);
   const data = api.usersStatistic.getStatistics(userId);
+  const gameButtons = useRef(null) as any;
 
   const getGuessedWordsAsPercentage = (success: number, fail: number) => {
     const learned = success + fail;
     return learned === 0 ? 0 : Math.floor((success / learned) * 100);
   };
 
+  const getGameName = (game: string) => {
+    return game.toLowerCase().replace('_', '');
+  };
+
+  const updateGameButtons = useCallback(() => {
+    [...gameButtons.current.children].map((child: any) => {
+      child.classList.remove('isSelected');
+      if (getGameName(child.children[0].innerText) === gameName) {
+        child.classList.add('isSelected');
+      }
+      return child;
+    });
+  }, [gameName]);
+
   useEffect(() => {
     if (!data.isLoading && data.statistics) {
-      setGame(DEFAULT_GAME);
+      history.push(`/statistics/${gameName || DEFAULT_GAME}`);
     }
-  }, [data.isLoading, data.statistics]);
+  }, [data.isLoading, data.statistics, gameName, history]);
 
   useEffect(() => {
-    if (game) {
+    if (gameName) {
+      updateGameButtons();
       const date = new Date().toLocaleDateString();
-
-      const gameData = data.statistics && data.statistics.optional[game];
+      const gameData = data.statistics && data.statistics.optional[gameName];
       const tableData = [] as any;
       let allLearned = 0;
       let allGuessed = 0;
@@ -58,29 +75,19 @@ const Statistics = () => {
         });
       }
       setTableData(tableData);
-
       setLearnedWords(allLearned);
       const { length } = tableData;
       setGuessedWords(length > 0 ? Math.floor(allGuessed / length) : length);
     }
-  }, [game, data.statistics]);
+  }, [gameName, data.statistics, updateGameButtons]);
 
-  const games = [...Object.keys(GAMES.subroutes)].map((gameName) => (
+  const games = [...Object.keys(GAMES.subroutes)].map((game, i) => (
     <MyButton
-      key={gameName}
+      key={game}
       size="medium"
-      onClick={(e: any) => {
-        const { currentTarget } = e;
-        [...currentTarget.parentNode.children].map((child: any) => {
-          child.classList.remove('isSelected');
-          return child;
-        });
-        currentTarget.classList.add('isSelected');
-        const game = gameName.toLowerCase().replace('_', '');
-        setGame(game);
-      }}
+      onClick={(e: any) => history.push(`/statistics/${getGameName(e.currentTarget.innerText)}`)}
     >
-      {gameName}
+      {game}
     </MyButton>
   ));
 
@@ -90,7 +97,7 @@ const Statistics = () => {
         <Row>
           <Col xs={12} className="ml-auto mr-auto mt-5 mb-5">
             <Box display="flex" justifyContent="center">
-              {games}
+              <div ref={gameButtons}> {games} </div>
             </Box>
             <Box display="flex" justifyContent="center">
               {data.isLoading ? <StyledCircularProgress /> : <Table data={tableData} />}
