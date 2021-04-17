@@ -18,6 +18,9 @@ import sprint from '../../assets/img/sprint.png';
 import savannah from '../../assets/img/savannah.jpg';
 import { Footer } from '../Footer/Footer';
 import styled from 'styled-components';
+import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 type Props = {};
 
@@ -56,14 +59,46 @@ export const EBook = (props: Props) => {
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
   const data = api.words.getWordsByLevel(currentPage, currentLevel);
+  const currentUserId = useGetCurrentUserId();
+  const [showTranslate, setShowTranstale] = useState<boolean>(false);
+  const settings = api.usersSettings.getSettings(currentUserId).settings;
+  
+  
+  
+  const handleShowTranslate = () => {
+    console.log('switch click' + showTranslate);
+    const newSettings = {
+      wordsPerDay: settings.wordsPerDay, 
+      optional: {
+        showTranslate: !showTranslate,
+      }
+    };
+    
+    console.log(newSettings)
+    api.usersSettings.updateSettings(currentUserId, newSettings);
+    setShowTranstale(!showTranslate);
+  }
 
   useEffect(() => {
     if (!data.isLoading) {
       const cloneData = [...data.word];
       setWords(cloneData);
     }
+  
+    if (!settings) {
+      api.usersSettings.updateSettings(currentUserId, {wordsPerDay:10, optional:{showTranslate: true}});
+    } else {
+      console.log('load')
+      const showTranslateNewValue = settings.optional.showTranslate;
+      console.log(showTranslateNewValue + ' ' + showTranslate);
+      if (showTranslate !== showTranslateNewValue) {
+        setShowTranstale(showTranslateNewValue);
+      }
+    }
+
     history.push(`/textbook/${currentLevel}/${currentPage}`);
-  }, [data.isLoading, data.word, currentPage, currentLevel, history]);
+    
+  }, [data.isLoading, data.word, currentPage, currentLevel, history, showTranslate, currentUserId, settings]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
@@ -76,11 +111,23 @@ export const EBook = (props: Props) => {
       <Container>
         <Row>
           <Col xs={12} className="ml-auto mr-auto mt-5">
+            <Row>
+              <Col xs={12}>
+                <Box display="flex" justifyContent="space-between">
+                  <FormControlLabel
+                    value="top"
+                    control={<Switch color="primary" checked={showTranslate} onChange={handleShowTranslate}/>}
+                    label="Show Translate"
+                    labelPlacement="top"
+                  />
+                  <Box>
+                    {levelControls}
+                  </Box>
+                </Box>
+              </Col>
+            </Row>
             <Box display="flex" justifyContent="center">
-              {levelControls}
-            </Box>
-            <Box display="flex" justifyContent="center">
-              {data.isLoading ? <StyledCircularProgress /> : <CustomizedTables words={words} />}
+              {data.isLoading ? <StyledCircularProgress /> : <CustomizedTables words={words} showTranslate={showTranslate}/>}
             </Box>
             <Box display="flex" justifyContent="center" my={4}>
               <Pagination

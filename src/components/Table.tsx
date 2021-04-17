@@ -46,7 +46,8 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
-  const items = props.words.map((word: any) => ({
+  const { showTranslate, words } = props;
+  const items = words.map((word: any) => ({
     soundURL: word.audio,
     transcription: word.transcription,
     word: word.word,
@@ -72,13 +73,13 @@ export default function CustomizedTables(props: any) {
                   <Box display="flex" flexDirection="column">
                     <span>{item.word}</span>
                     <span>{item.transcription}</span>
-                    <span>{item.wordTranslate}</span>
+                    { showTranslate ? <span>{item.wordTranslate}</span> : '' }
                   </Box>
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <div dangerouslySetInnerHTML={{ __html: item.textExample }}></div>
                 </StyledTableCell>
-                <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
+                <StyledTableCell align="center">{ showTranslate ? item.textExampleTranslate : ''}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
