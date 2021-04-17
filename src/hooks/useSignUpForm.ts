@@ -55,7 +55,7 @@ const useSignUpForm = () => {
     initialValues,
     validationSchema: signUpValidationSchema,
     validateOnBlur: false,
-    onSubmit: async ({ name, email, password }) => {
+    onSubmit: async ({ name, email, password, avatar }) => {
       try {
         if (!name.trim()) {
           setFieldError(names.name, 'Поле содержит пробелы');
@@ -67,10 +67,10 @@ const useSignUpForm = () => {
         setServerResponseError('');
 
         const signUpFormData = new FormData();
-        signUpFormData.append('name', values.name);
-        signUpFormData.append('email', values.email);
-        signUpFormData.append('password', values.password);
-        values.avatar && signUpFormData.append('avatar', values.avatar, values.avatar.name);
+        signUpFormData.append('name', name);
+        signUpFormData.append('email', email);
+        signUpFormData.append('password', password);
+        avatar && signUpFormData.append('avatar', avatar, avatar.name);
 
         await api.users.createNewUser(signUpFormData);
         await api.auth.signIn({ email, password });
