@@ -5,7 +5,8 @@ import { baseURL } from '../api/urls';
 import useGetCurrentUserId from '../hooks/useGetCurrentUserId';
 import api from '../api';
 import styled from 'styled-components';
-import { Button, withStyles } from '@material-ui/core';
+import { Button, Avatar, withStyles } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 type Props = {};
 
@@ -28,11 +29,11 @@ export const Profile = (props: Props) => {
 
       {user && (
         <ProfileCard>
-          {user.avatar && (
-            <MySpan>
-              <Img src={`${baseURL}/${user.avatar}`} alt="Avatar" />
-            </MySpan>
-          )}
+          <MySpan>
+            <Img alt="Avatar" src={`${baseURL}/${user.avatar}`}>
+              <AccountCircleIcon />
+            </Img>
+          </MySpan>
           <h1>{user.name}</h1>
           <AdditionalInfoContainer>
             <MyUL>
@@ -73,12 +74,17 @@ const ProfileCard = styled.div`
   align-items: center;
 `;
 
-const Img = styled.img`
+const Img = styled(Avatar)`
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  background-color: rgba(154, 143, 184, 0.7);
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const MySpan = styled.span`
@@ -86,7 +92,7 @@ const MySpan = styled.span`
   height: 90px;
   line-height: 90px;
   font-size: 18px;
-  margin: 0px auto 10px;
+  margin: 10px auto 10px;
   display: block;
 `;
 
