@@ -73,6 +73,7 @@ const useSignUpForm = () => {
         values.avatar && signUpFormData.append('avatar', values.avatar, values.avatar.name);
 
         await api.users.createNewUser(signUpFormData);
+        await api.auth.signIn({ email, password });
         history.push('/');
       } catch (error) {
         setServerResponseError(String(error.message));
