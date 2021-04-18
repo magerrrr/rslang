@@ -13,10 +13,10 @@ const useGetAggregatedWord = (id, wordId) => {
   };
 };
 
-const useGetAggregatedWords = (id, page, group, difficulty, counter=0) => {
+const useGetAggregatedWords = (id, page, group, difficulty) => {
   const token = localStorage.getItem('token');
   const filter = encodeURI(`{"$and":[{"userWord.difficulty":"${difficulty}", "page": ${page}, "group": ${group}}]}`);
-  const url = `${urls.usersAggregatedWords.byId(id)}?counter=${counter}&filter=${filter}`;
+  const url = `${urls.usersAggregatedWords.byId(id)}?filter=${filter}`;
 
   const { data, error } = useSWR([url, token], fetcher);
 

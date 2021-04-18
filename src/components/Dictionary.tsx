@@ -69,7 +69,6 @@ export const Dictionary = (props: Props) => {
   const [currentPage, setPage] = useState<any>(page || 0);
   const [currentLevel, setLevel] = useState<any>(group || 0);
   const [currentDifficulty, setCurrentDifficulty] = useState<string>(difficulty || 'onlearn');
-  const [counter, setCounter] = useState<any>(3600);
   const [words, setWords] = useState<any>([]);
   const levelControlsPanel = useRef(null) as any;
   const data = api.usersAggregatedWords.getWords(
@@ -77,7 +76,6 @@ export const Dictionary = (props: Props) => {
     currentPage,
     currentLevel,
     currentDifficulty,
-    counter,
   );
 
   const updateLevelControls = useCallback(() => {
@@ -122,7 +120,9 @@ export const Dictionary = (props: Props) => {
     const row = currentTarget.closest('tr');
     const wordId = row.children[0].innerText;
     await api.usersWords.deleteUserWord(userId, wordId);
-    setCounter((prevCounter: any) => prevCounter - 1);
+    const wordIndex = words.findIndex((word: any) => word._id === wordId);
+    words.splice(wordIndex, 1);
+    setWords((prevWords: any) => [...prevWords]);
   };
 
   return (
@@ -170,7 +170,7 @@ export const Dictionary = (props: Props) => {
                 count={30}
                 showFirstButton
                 showLastButton
-                page={1 + currentPage}
+                page={+currentPage + 1}
                 color="secondary"
                 onChange={(event, value) => setPage(value - 1)}
               />
