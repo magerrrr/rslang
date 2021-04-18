@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import useAudio from '../hooks/useAudio';
 import audio from '../assets/speak-it/volume.svg';
 import styled from 'styled-components';
+import { baseURL } from '../api/urls';
 
 const AudioIcon = styled.span`
   display: block;
@@ -42,17 +43,27 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  img: {
+    objectFit: 'cover',
+    height: 60,
+    width: 60,
+  },
 });
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
+
   const items = props.words.map((word: any) => ({
+    wordId: word.id || word._id,
     soundURL: word.audio,
+    thumb: word.image,
     transcription: word.transcription,
     word: word.word,
     wordTranslate: word.wordTranslate,
     textExample: word.textExample,
     textExampleTranslate: word.textExampleTranslate,
+    textMeaning: word.textMeaning,
+    textMeaningTranslate: word.textMeaningTranslate,
   }));
 
   const [audio, playAudio] = useAudio();
@@ -65,20 +76,31 @@ export default function CustomizedTables(props: any) {
           <TableBody>
             {items.map((item: any) => (
               <StyledTableRow key={item.word}>
+                <StyledTableCell component="th" scope="row" hidden>
+                  {item.wordId}
+                </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <AudioIcon onClick={() => playAudio(item.soundURL)} />
                 </StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell component="th" scope="row">
+                  <img src={`${baseURL}/${item.thumb}`} className={classes.img} alt="word" />
+                </StyledTableCell>
+                <StyledTableCell>
                   <Box display="flex" flexDirection="column">
                     <span>{item.word}</span>
                     <span>{item.transcription}</span>
                     <span>{item.wordTranslate}</span>
                   </Box>
                 </StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell>
+                  <div dangerouslySetInnerHTML={{ __html: item.textMeaning }}></div>
                   <div dangerouslySetInnerHTML={{ __html: item.textExample }}></div>
                 </StyledTableCell>
-                <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
+                <StyledTableCell>
+                  <div dangerouslySetInnerHTML={{ __html: item.textMeaningTranslate }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: item.textExampleTranslate }}></div>
+                </StyledTableCell>
+                <StyledTableCell>{props.children}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import RestoreIcon from '@material-ui/icons/Restore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import api from '../api';
 import useGetCurrentUserId from '../hooks/useGetCurrentUserId';
@@ -65,9 +66,10 @@ export const Dictionary = (props: Props) => {
   const { group } = useParams<any>();
   const { difficulty } = useParams<any>();
   const userId = useGetCurrentUserId();
-  const [currentPage, setPage] = useState<number>(page || 0);
-  const [currentLevel, setLevel] = useState<number>(group || 0);
+  const [currentPage, setPage] = useState<any>(page || 0);
+  const [currentLevel, setLevel] = useState<any>(group || 0);
   const [currentDifficulty, setCurrentDifficulty] = useState<string>(difficulty || 'onlearn');
+  const [counter, setCounter] = useState<any>(3600);
   const [words, setWords] = useState<any>([]);
   const levelControlsPanel = useRef(null) as any;
   const data = api.usersAggregatedWords.getWords(
@@ -75,6 +77,7 @@ export const Dictionary = (props: Props) => {
     currentPage,
     currentLevel,
     currentDifficulty,
+    counter,
   );
 
   const updateLevelControls = useCallback(() => {
@@ -114,6 +117,14 @@ export const Dictionary = (props: Props) => {
     setCurrentDifficulty(newValue);
   };
 
+  const restoreWord = async (e: any) => {
+    const { currentTarget } = e;
+    const row = currentTarget.closest('tr');
+    const wordId = row.children[0].innerText;
+    await api.usersWords.deleteUserWord(userId, wordId);
+    setCounter((prevCounter: any) => prevCounter - 1);
+  };
+
   return (
     <>
       <Container>
@@ -137,13 +148,30 @@ export const Dictionary = (props: Props) => {
               <div ref={levelControlsPanel}> {levelControls} </div>
             </Box>
             <Box display="flex" justifyContent="center">
-              {data.isLoading ? <StyledCircularProgress /> : <CustomizedTables words={words} />}
+              {data.isLoading ? (
+                <StyledCircularProgress />
+              ) : (
+                <CustomizedTables words={words}>
+                  <MyButton
+                    size="medium"
+                    onClick={restoreWord}
+                    startIcon={<RestoreIcon />}
+                    className="text-capitalize"
+                    variant="outlined"
+                    color="primary"
+                  >
+                    Восстановить
+                  </MyButton>
+                </CustomizedTables>
+              )}
             </Box>
             <Box display="flex" justifyContent="center" my={4}>
               <Pagination
                 count={30}
                 showFirstButton
                 showLastButton
+                page={1 + currentPage}
+                color="secondary"
                 onChange={(event, value) => setPage(value - 1)}
               />
             </Box>
@@ -154,7 +182,7 @@ export const Dictionary = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/savannah/${currentLevel}/${currentPage}`}
+              to={`/games/savannah/${currentDifficulty}/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -168,7 +196,7 @@ export const Dictionary = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/speakit/${currentLevel}/${currentPage}`}
+              to={`/games/speakit/${currentDifficulty}/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -182,7 +210,7 @@ export const Dictionary = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/audiochallendge/${currentLevel}/${currentPage}`}
+              to={`/games/audiochallendge/${currentDifficulty}/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -196,7 +224,7 @@ export const Dictionary = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/sprint/${currentLevel}/${currentPage}`}
+              to={`/games/sprint/${currentDifficulty}/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -218,9 +246,6 @@ const MyButton = styled(Button)`
   margin-right: 10px;
   &:hover {
     background-color: #f1e8fd !important;
-  }
-  &:last-child {
-    margin-right: 0;
   }
   &.isSelected {
     background-color: #f1e8fd;

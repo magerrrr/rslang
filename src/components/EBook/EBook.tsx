@@ -85,6 +85,7 @@ export const EBook = (props: Props) => {
             <Box display="flex" justifyContent="center" my={4}>
               <Pagination
                 count={30}
+                color="secondary"
                 showFirstButton
                 showLastButton
                 onChange={(event, value) => setPage(value - 1)}
@@ -159,6 +160,9 @@ export const EBook = (props: Props) => {
 const MyButton = styled(Button)`
   margin-bottom: 10px;
   margin-right: 10px;
+  &:hover {
+    background-color: #f1e8fd !important;
+  }
 
   &:last-child {
     margin-right: 0;
