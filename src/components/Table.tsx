@@ -55,7 +55,7 @@ export default function CustomizedTables(props: any) {
 
   const items = props.words.map((word: any) => ({
     wordId: word.id || word._id,
-    soundURL: word.audio,
+    soundURLs: [word.audio, word.audioMeaning, word.audioExample],
     thumb: word.image,
     transcription: word.transcription,
     word: word.word,
@@ -80,7 +80,7 @@ export default function CustomizedTables(props: any) {
                   {item.wordId}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  <AudioIcon onClick={() => playAudio(item.soundURL)} />
+                  <AudioIcon onClick={() => playAudio(item.soundURLs)} />
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <img src={`${baseURL}/${item.thumb}`} className={classes.img} alt="word" />

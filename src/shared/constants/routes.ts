@@ -37,7 +37,7 @@ export default Object.freeze({
       },
       SPEAK_IT: {
         name: 'Скажи это',
-        route: '/games/speakit/:group?/:page?',
+        route: '/games/speakit/:difficulty?/:group?/:page?',
       },
       AUDIO_CHALLENGE: {
         name: 'Аудиовызов',
@@ -45,7 +45,7 @@ export default Object.freeze({
       },
       SPRINT: {
         name: 'Спринт',
-        route: '/games/sprint/:group?/:page?',
+        route: '/games/sprint/:difficulty?/:group?/:page?',
       },
     },
   },
