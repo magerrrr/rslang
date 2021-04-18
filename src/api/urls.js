@@ -17,6 +17,10 @@ const urls = {
     byId: (id) => `${baseURL}/users/${id}/words`,
     byUserIdAndWordId: (userId, wordId) => `${baseURL}/users/${userId}/words/${wordId}`,
   },
+  usersAggregatedWords: {
+    byId: (id) => `${baseURL}/users/${id}/aggregatedWords`,
+    byUserIdAndWordId: (userId, wordId) => `${baseURL}/users/${userId}/aggregatedWords/${wordId}`,
+  },
   usersStatistics: {
     byId: (userId) => `${baseURL}/users/${userId}/statistics`,
   },

@@ -13,7 +13,7 @@ export default Object.freeze({
   },
   WORDBOOK: {
     name: 'Словарь',
-    route: '/wordbook',
+    route: '/wordbook/:difficulty?/:group?/:page?',
   },
   STATS: {
     name: 'Статистка',

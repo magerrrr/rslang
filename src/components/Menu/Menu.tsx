@@ -163,7 +163,7 @@ export const Menu = (props: Props) => {
             {isAuthenticated && (
               <Link
                 component={RouterLink}
-                to={WORDBOOK.route}
+                to="/wordbook"
                 color="primary"
                 variant="body1"
                 style={{ textDecoration: 'none' }}
