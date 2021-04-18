@@ -61,44 +61,50 @@ export const EBook = (props: Props) => {
   const data = api.words.getWordsByLevel(currentPage, currentLevel);
   const currentUserId = useGetCurrentUserId();
   const [showTranslate, setShowTranstale] = useState<boolean>(false);
-  const settings = api.usersSettings.getSettings(currentUserId).settings;
+  let settings = api.usersSettings.getSettings(currentUserId);
   
   
-  
-  const handleShowTranslate = () => {
+  const handleShowTranslate = async() => {
     console.log('switch click' + showTranslate);
     const newSettings = {
-      wordsPerDay: settings.wordsPerDay, 
+      wordsPerDay: settings.settings.wordsPerDay, 
       optional: {
         showTranslate: !showTranslate,
       }
     };
     
     console.log(newSettings)
-    api.usersSettings.updateSettings(currentUserId, newSettings);
-    setShowTranstale(!showTranslate);
+    await api.usersSettings.updateSettings(currentUserId, newSettings);
+    console.log(settings)
+    setShowTranstale(!showTranslate)
   }
 
   useEffect(() => {
     if (!data.isLoading) {
       const cloneData = [...data.word];
       setWords(cloneData);
-    }
-  
+    }  
+
+    history.push(`/textbook/${currentLevel}/${currentPage}`);
+    
+  }, [data.isLoading, data.word, currentPage, currentLevel, history]);
+
+  useEffect(() => {
+    console.log('use settings')
     if (!settings) {
+      console.log('init')
       api.usersSettings.updateSettings(currentUserId, {wordsPerDay:10, optional:{showTranslate: true}});
-    } else {
+    } 
+    if (!settings.isLoading) {
       console.log('load')
-      const showTranslateNewValue = settings.optional.showTranslate;
+      console.log(settings)
+      const showTranslateNewValue = settings.settings.optional.showTranslate;
       console.log(showTranslateNewValue + ' ' + showTranslate);
       if (showTranslate !== showTranslateNewValue) {
         setShowTranstale(showTranslateNewValue);
       }
     }
-
-    history.push(`/textbook/${currentLevel}/${currentPage}`);
-    
-  }, [data.isLoading, data.word, currentPage, currentLevel, history, showTranslate, currentUserId, settings]);
+  }, [showTranslate, currentUserId, settings.isLoading, settings])
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
