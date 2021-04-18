@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import api from '../api';
 import useGetCurrentUserId from '../hooks/useGetCurrentUserId';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -21,8 +26,6 @@ import { Footer } from './Footer/Footer';
 import styled from 'styled-components';
 
 type Props = {};
-
-const DIFFICULTY_GROUPS: any = { onlearn: 'Изученные', hard: 'Сложные', deleted: 'Удаленные' };
 
 const paneStyles = {
   commonPane: {
@@ -48,6 +51,12 @@ const paneStyles = {
   sprintContainer: {
     background: `center / cover no-repeat url(${sprint})`,
   },
+  difficulty: {
+    flexGrow: 1,
+    maxWidth: 500,
+    margin: '0 auto',
+    boxShadow: 'none',
+  },
 };
 
 export const Dictionary = (props: Props) => {
@@ -60,6 +69,7 @@ export const Dictionary = (props: Props) => {
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [currentDifficulty, setCurrentDifficulty] = useState<string>(difficulty || 'onlearn');
   const [words, setWords] = useState<any>([]);
+  const levelControlsPanel = useRef(null) as any;
   const data = api.usersAggregatedWords.getWords(
     userId,
     currentPage,
@@ -67,25 +77,32 @@ export const Dictionary = (props: Props) => {
     currentDifficulty,
   );
 
+  const updateLevelControls = useCallback(() => {
+    [...levelControlsPanel.current.children].map((child: any) => {
+      child.classList.remove('isSelected');
+      if (child.children[0].innerText.slice(-1) === currentLevel.toString()) {
+        child.classList.add('isSelected');
+      }
+      return child;
+    });
+  }, [currentLevel]);
+
   useEffect(() => {
     if (!data.isLoading && data.words) {
-      console.log(data.words);
       let cloneData = [...data.words[0].paginatedResults];
-
       setWords(cloneData);
     }
     history.push(`/wordbook/${currentDifficulty}/${currentLevel}/${currentPage}`);
-  }, [data.isLoading, data.words, currentDifficulty, currentPage, currentLevel, history]);
-
-  const difficultyControls = [...Object.keys(DIFFICULTY_GROUPS)].map((difficulty: string) => (
-    <DifficultyButton
-      key={difficulty}
-      size="medium"
-      onClick={() => setCurrentDifficulty(difficulty)}
-    >
-      {DIFFICULTY_GROUPS[difficulty]}
-    </DifficultyButton>
-  ));
+    updateLevelControls();
+  }, [
+    data.isLoading,
+    data.words,
+    currentDifficulty,
+    currentPage,
+    currentLevel,
+    updateLevelControls,
+    history,
+  ]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
@@ -93,16 +110,31 @@ export const Dictionary = (props: Props) => {
     </MyButton>
   ));
 
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+    setCurrentDifficulty(newValue);
+  };
+
   return (
     <>
       <Container>
         <Row>
-          <Col xs={12} className="ml-auto mr-auto mt-5">
+          <Col xs={12} className="ml-auto mr-auto mt-3">
+            <Paper square style={{ ...paneStyles.difficulty }} className="mb-4">
+              <Tabs
+                value={currentDifficulty}
+                onChange={handleChange}
+                variant="fullWidth"
+                textColor="primary"
+                indicatorColor="primary"
+                aria-label="icon label tabs example"
+              >
+                <Tab icon={<HowToRegIcon />} label="Изучаемые" value="onlearn" />
+                <Tab icon={<NewReleasesIcon />} label="Сложные" value="hard" />
+                <Tab icon={<DeleteForeverIcon />} label="Удаленные" value="deleted" />
+              </Tabs>
+            </Paper>
             <Box display="flex" justifyContent="center">
-              {difficultyControls}
-            </Box>
-            <Box display="flex" justifyContent="center">
-              {levelControls}
+              <div ref={levelControlsPanel}> {levelControls} </div>
             </Box>
             <Box display="flex" justifyContent="center">
               {data.isLoading ? <StyledCircularProgress /> : <CustomizedTables words={words} />}
@@ -192,12 +224,6 @@ const MyButton = styled(Button)`
   }
   &.isSelected {
     background-color: #f1e8fd;
-  }
-`;
-
-const DifficultyButton = styled(MyButton)`
-  &:hover {
-    background-color: #c1b3f1 !important;
   }
 `;
 
