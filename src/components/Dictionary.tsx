@@ -165,76 +165,85 @@ export const Dictionary = (props: Props) => {
                 </CustomizedTables>
               )}
             </Box>
-            <Box display="flex" justifyContent="center" my={4}>
-              <Pagination
-                count={30}
-                showFirstButton
-                showLastButton
-                page={+currentPage + 1}
-                color="secondary"
-                onChange={(event, value) => setPage(value - 1)}
-              />
-            </Box>
+            {words.length > 0 ? null : (
+              <Box display="flex" justifyContent="center" marginTop="30px">
+                Начните играть, чтобы слова появились здесь :)
+              </Box>
+            )}
+            {words.length > 0 ? (
+              <Box display="flex" justifyContent="center" my={4}>
+                <Pagination
+                  count={30}
+                  showFirstButton
+                  showLastButton
+                  page={+currentPage + 1}
+                  color="secondary"
+                  onChange={(event, value) => setPage(value - 1)}
+                />
+              </Box>
+            ) : null}
           </Col>
         </Row>
-        <Row>
-          <Col lg={3} sm={6} xs={12} className="pb-4">
-            <Link
-              className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
-              component={RouterLink}
-              to={`/games/savannah/${currentDifficulty}/${currentLevel}/${currentPage}`}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <Paper style={{ ...paneStyles.savannahContainer, ...paneStyles.commonPane }}>
-                <span>Саванна</span>
-              </Paper>
-            </Link>
-          </Col>
-          <Col lg={3} sm={6} xs={12} className="pb-4">
-            <Link
-              className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
-              component={RouterLink}
-              to={`/games/speakit/${currentDifficulty}/${currentLevel}/${currentPage}`}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <Paper style={{ ...paneStyles.speakContainer, ...paneStyles.commonPane }}>
-                <span>Скажи это</span>
-              </Paper>
-            </Link>
-          </Col>
-          <Col lg={3} sm={6} xs={12} className="pb-4">
-            <Link
-              className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
-              component={RouterLink}
-              to={`/games/audiochallendge/${currentDifficulty}/${currentLevel}/${currentPage}`}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <Paper style={{ ...paneStyles.challengeContainer, ...paneStyles.commonPane }}>
-                <span>Аудиовызов</span>
-              </Paper>
-            </Link>
-          </Col>
-          <Col lg={3} sm={6} xs={12} className="pb-4">
-            <Link
-              className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
-              component={RouterLink}
-              to={`/games/sprint/${currentDifficulty}/${currentLevel}/${currentPage}`}
-              color="primary"
-              variant="body1"
-              style={{ textDecoration: 'none' }}
-            >
-              <Paper style={{ ...paneStyles.sprintContainer, ...paneStyles.commonPane }}>
-                <span>Спринт</span>
-              </Paper>
-            </Link>
-          </Col>
-        </Row>
+        {words.length > 0 ? (
+          <Row>
+            <Col lg={3} sm={6} xs={12} className="pb-4">
+              <Link
+                className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
+                component={RouterLink}
+                to={`/games/savannah/${currentDifficulty}/${currentLevel}/${currentPage}`}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <Paper style={{ ...paneStyles.savannahContainer, ...paneStyles.commonPane }}>
+                  <span>Саванна</span>
+                </Paper>
+              </Link>
+            </Col>
+            <Col lg={3} sm={6} xs={12} className="pb-4">
+              <Link
+                className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
+                component={RouterLink}
+                to={`/games/speakit/${currentDifficulty}/${currentLevel}/${currentPage}`}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <Paper style={{ ...paneStyles.speakContainer, ...paneStyles.commonPane }}>
+                  <span>Скажи это</span>
+                </Paper>
+              </Link>
+            </Col>
+            <Col lg={3} sm={6} xs={12} className="pb-4">
+              <Link
+                className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
+                component={RouterLink}
+                to={`/games/audiochallendge/${currentDifficulty}/${currentLevel}/${currentPage}`}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <Paper style={{ ...paneStyles.challengeContainer, ...paneStyles.commonPane }}>
+                  <span>Аудиовызов</span>
+                </Paper>
+              </Link>
+            </Col>
+            <Col lg={3} sm={6} xs={12} className="pb-4">
+              <Link
+                className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
+                component={RouterLink}
+                to={`/games/sprint/${currentDifficulty}/${currentLevel}/${currentPage}`}
+                color="primary"
+                variant="body1"
+                style={{ textDecoration: 'none' }}
+              >
+                <Paper style={{ ...paneStyles.sprintContainer, ...paneStyles.commonPane }}>
+                  <span>Спринт</span>
+                </Paper>
+              </Link>
+            </Col>
+          </Row>
+        ) : null}
       </Container>
       <Footer />
     </>
