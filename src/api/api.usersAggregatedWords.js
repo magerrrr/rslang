@@ -16,12 +16,12 @@ const useGetAggregatedWord = (id, wordId) => {
 const useGetAggregatedWords = (id, page, group, difficulty) => {
   const token = localStorage.getItem('token');
   const filter = encodeURI(`{"$and":[{"userWord.difficulty":"${difficulty}", "page": ${page}, "group": ${group}}]}`);
-  const url = `${urls.usersAggregatedWords.byId(id)}?filter=${filter}`;
+  const url = `${urls.usersAggregatedWords.byId(id)}?filter=${filter}&wordsPerPage=20`;
 
-  const { data, error } = useSWR([url, token], fetcher);
+  const { data, error } = useSWR(() => id ? [url, token] : null, fetcher);
 
   return {
-    words: data,
+    words: data && data[0].paginatedResults,
     isLoading: !error && !data,
     isError: error,
   };

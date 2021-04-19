@@ -90,7 +90,7 @@ export const Dictionary = (props: Props) => {
 
   useEffect(() => {
     if (!data.isLoading && data.words) {
-      let cloneData = [...data.words[0].paginatedResults];
+      let cloneData = [...data.words];
       setWords(cloneData);
     }
     history.push(`/wordbook/${currentDifficulty}/${currentLevel}/${currentPage}`);
@@ -106,7 +106,7 @@ export const Dictionary = (props: Props) => {
   ]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
-    <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
+    <MyButton key={level} size="medium" style={{ width: 100 }} onClick={() => setLevel(level)}>
       Level {level}
     </MyButton>
   ));

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import api from '../../api';
+import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
 import { Container, Row, Col } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -51,7 +52,7 @@ export const EBook = (props: Props) => {
   const history = useHistory();
   const { page } = useParams<any>();
   const { group } = useParams<any>();
-
+  const userId = useGetCurrentUserId();
   const [currentPage, setPage] = useState<number>(page || 0);
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
@@ -71,6 +72,28 @@ export const EBook = (props: Props) => {
     </MyButton>
   ));
 
+  const sendWordData = (difficulty: string) => {
+    return {
+      difficulty,
+      optional: {
+        lastDate: new Date().toDateString(),
+      },
+    };
+  };
+
+  const moveWord = async ({ currentTarget }: any, difficulty: string) => {
+    const row = currentTarget.closest('tr');
+    const wordId = row.children[0].innerText;
+    try {
+      await api.usersWords.updateUserWord(userId, wordId, sendWordData(difficulty));
+    } catch (err) {
+      console.log(err);
+    }
+    //const wordIndex = words.findIndex((word: any) => word._id === wordId);
+    //words.splice(wordIndex, 1);
+    //setWords((prevWords: any) => [...prevWords]);
+  };
+
   return (
     <>
       <Container>
@@ -80,7 +103,36 @@ export const EBook = (props: Props) => {
               {levelControls}
             </Box>
             <Box display="flex" justifyContent="center">
-              {data.isLoading ? <StyledCircularProgress /> : <CustomizedTables words={words} />}
+              {data.isLoading ? (
+                <StyledCircularProgress />
+              ) : (
+                <CustomizedTables words={words}>
+                  <MyButton
+                    size="medium"
+                    style={{ width: 120, marginRight: 0 }}
+                    onClick={(e) => {
+                      moveWord(e, 'hard');
+                    }}
+                    className="text-capitalize"
+                    variant="outlined"
+                    color="primary"
+                  >
+                    В сложные
+                  </MyButton>
+                  <MyButton
+                    size="medium"
+                    style={{ width: 120, marginRight: 0 }}
+                    onClick={(e) => {
+                      moveWord(e, 'deleted');
+                    }}
+                    className="text-capitalize"
+                    variant="outlined"
+                    color="primary"
+                  >
+                    В удаленные
+                  </MyButton>
+                </CustomizedTables>
+              )}
             </Box>
             <Box display="flex" justifyContent="center" my={4}>
               <Pagination
@@ -160,6 +212,7 @@ export const EBook = (props: Props) => {
 const MyButton = styled(Button)`
   margin-bottom: 10px;
   margin-right: 10px;
+  width: 100px;
   &:hover {
     background-color: #f1e8fd !important;
   }
