@@ -170,18 +170,16 @@ export const Dictionary = (props: Props) => {
                 Начните играть, чтобы слова появились здесь :)
               </Box>
             )}
-            {words.length > 0 ? (
-              <Box display="flex" justifyContent="center" my={4}>
-                <Pagination
-                  count={30}
-                  showFirstButton
-                  showLastButton
-                  page={+currentPage + 1}
-                  color="secondary"
-                  onChange={(event, value) => setPage(value - 1)}
-                />
-              </Box>
-            ) : null}
+            <Box display="flex" justifyContent="center" my={4}>
+              <Pagination
+                count={30}
+                showFirstButton
+                showLastButton
+                page={+currentPage + 1}
+                color="secondary"
+                onChange={(event, value) => setPage(value - 1)}
+              />
+            </Box>
           </Col>
         </Row>
         {words.length > 0 ? (

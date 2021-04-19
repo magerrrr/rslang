@@ -30,7 +30,7 @@ const App = () => {
         <Menu />
         <Switch>
           <PrivateRoute path={PROFILE.route} component={Profile} />
-          <PrivateRoute path={TEXTBOOK.route} component={EBook} />
+          <Route path={TEXTBOOK.route} component={EBook} />
           <PrivateRoute path={WORDBOOK.route} component={Dictionary} />
           <Route exact path={MAIN.route} component={Main} />
           <Route path={STATS.route} component={Statistics} />

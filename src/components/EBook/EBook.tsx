@@ -60,15 +60,18 @@ export const EBook = (props: Props) => {
   const userData = api.usersAggregatedWords.getWords(userId, currentPage, currentLevel);
 
   useEffect(() => {
-    if (!data.isLoading && !userData.isLoading) {
+    if (!data.isLoading) {
       const cloneData = [...data.word];
-      cloneData.map((item: any) => {
-        const userWord = [...userData.words].find((word: any) => item.id === word._id);
-        if (userWord && userWord.userWord) {
-          item.difficulty = userWord.userWord.difficulty;
-        }
-        return item;
-      });
+
+      if (!userData.isLoading) {
+        cloneData.map((item: any) => {
+          const userWord = [...userData.words].find((word: any) => item.id === word._id);
+          if (userWord && userWord.userWord) {
+            item.difficulty = userWord.userWord.difficulty;
+          }
+          return item;
+        });
+      }
       setWords(cloneData);
     }
     history.push(`/textbook/${currentLevel}/${currentPage}`);
@@ -124,30 +127,34 @@ export const EBook = (props: Props) => {
                 <StyledCircularProgress />
               ) : (
                 <CustomizedTables words={words}>
-                  <MyButton
-                    size="medium"
-                    style={{ width: 120, marginRight: 0 }}
-                    onClick={(e) => {
-                      moveWord(e, 'hard');
-                    }}
-                    className="text-capitalize"
-                    variant="outlined"
-                    color="primary"
-                  >
-                    В сложные
-                  </MyButton>
-                  <MyButton
-                    size="medium"
-                    style={{ width: 120, marginRight: 0 }}
-                    onClick={(e) => {
-                      moveWord(e, 'deleted');
-                    }}
-                    className="text-capitalize"
-                    variant="outlined"
-                    color="primary"
-                  >
-                    В удаленные
-                  </MyButton>
+                  {userId && (
+                    <>
+                      <MyButton
+                        size="medium"
+                        style={{ width: 120, marginRight: 0 }}
+                        onClick={(e) => {
+                          moveWord(e, 'hard');
+                        }}
+                        className="text-capitalize"
+                        variant="outlined"
+                        color="primary"
+                      >
+                        В сложные
+                      </MyButton>
+                      <MyButton
+                        size="medium"
+                        style={{ width: 120, marginRight: 0 }}
+                        onClick={(e) => {
+                          moveWord(e, 'deleted');
+                        }}
+                        className="text-capitalize"
+                        variant="outlined"
+                        color="primary"
+                      >
+                        В удаленные
+                      </MyButton>
+                    </>
+                  )}
                 </CustomizedTables>
               )}
             </Box>

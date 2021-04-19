@@ -143,23 +143,21 @@ export const Menu = (props: Props) => {
                 </ListItem>
               </Link>
             )}
-            {isAuthenticated && (
-              <Link
-                component={RouterLink}
-                to={'/textbook'}
-                color="primary"
-                variant="body1"
-                style={{ textDecoration: 'none' }}
-                onClick={handleVisibility}
-              >
-                <ListItem button onClick={() => {}}>
-                  <ListItemIcon>
-                    <MenuBookIcon color="primary" />
-                  </ListItemIcon>
-                  {TEXTBOOK.name}
-                </ListItem>
-              </Link>
-            )}
+            <Link
+              component={RouterLink}
+              to={'/textbook'}
+              color="primary"
+              variant="body1"
+              style={{ textDecoration: 'none' }}
+              onClick={handleVisibility}
+            >
+              <ListItem button onClick={() => {}}>
+                <ListItemIcon>
+                  <MenuBookIcon color="primary" />
+                </ListItemIcon>
+                {TEXTBOOK.name}
+              </ListItem>
+            </Link>
             {isAuthenticated && (
               <Link
                 component={RouterLink}
