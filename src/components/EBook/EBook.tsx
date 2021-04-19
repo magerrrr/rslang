@@ -57,14 +57,31 @@ export const EBook = (props: Props) => {
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
   const data = api.words.getWordsByLevel(currentPage, currentLevel);
+  const userData = api.usersAggregatedWords.getWords(userId, currentPage, currentLevel);
 
   useEffect(() => {
-    if (!data.isLoading) {
+    if (!data.isLoading && !userData.isLoading) {
       const cloneData = [...data.word];
+      cloneData.map((item: any) => {
+        const userWord = [...userData.words].find((word: any) => item.id === word._id);
+        console.log(userWord);
+        if (userWord && userWord.userWord) {
+          item.difficulty = userWord.userWord.difficulty;
+        }
+        return item;
+      });
       setWords(cloneData);
     }
     history.push(`/textbook/${currentLevel}/${currentPage}`);
-  }, [data.isLoading, data.word, currentPage, currentLevel, history]);
+  }, [
+    data.isLoading,
+    data.word,
+    userData.isLoading,
+    userData.words,
+    currentPage,
+    currentLevel,
+    history,
+  ]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
@@ -84,14 +101,15 @@ export const EBook = (props: Props) => {
   const moveWord = async ({ currentTarget }: any, difficulty: string) => {
     const row = currentTarget.closest('tr');
     const wordId = row.children[0].innerText;
-    try {
-      await api.usersWords.updateUserWord(userId, wordId, sendWordData(difficulty));
-    } catch (err) {
-      console.log(err);
+    const response = await api.usersWords.updateUserWord(userId, wordId, sendWordData(difficulty));
+    if (response.error) {
+      await api.usersWords.createUserWord(userId, wordId, sendWordData(difficulty));
     }
-    //const wordIndex = words.findIndex((word: any) => word._id === wordId);
-    //words.splice(wordIndex, 1);
-    //setWords((prevWords: any) => [...prevWords]);
+    const movedWord = words.find((word: any) => word.id === wordId);
+    if (movedWord) {
+      movedWord.difficulty = difficulty;
+    }
+    setWords((prevWords: any) => [...prevWords]);
   };
 
   return (

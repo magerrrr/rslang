@@ -36,6 +36,19 @@ const StyledTableRow = withStyles((theme) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
+    '&.hard': {
+      backgroundColor: 'rgba(236, 64, 122, 0.2)',
+
+      '& button:first-child': {
+        display: 'none',
+      },
+      '& td, & th': {
+        borderBottom: '1px solid rgba(236, 64, 122, 0.3)',
+      },
+    },
+    '&.deleted': {
+      display: 'none',
+    },
   },
 }))(TableRow);
 
@@ -64,6 +77,8 @@ export default function CustomizedTables(props: any) {
     textExampleTranslate: word.textExampleTranslate,
     textMeaning: word.textMeaning,
     textMeaningTranslate: word.textMeaningTranslate,
+    className:
+      word.difficulty || (word.userWord && word.userWord.difficulty === 'hard' && 'hard') || '',
   }));
 
   const [audio, playAudio] = useAudio();
@@ -75,7 +90,7 @@ export default function CustomizedTables(props: any) {
         <Table className={classes.table} aria-label="customized table">
           <TableBody>
             {items.map((item: any) => (
-              <StyledTableRow key={item.word}>
+              <StyledTableRow key={item.word} className={item.className}>
                 <StyledTableCell component="th" scope="row" hidden>
                   {item.wordId}
                 </StyledTableCell>
