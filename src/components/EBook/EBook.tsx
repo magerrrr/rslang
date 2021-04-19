@@ -64,7 +64,6 @@ export const EBook = (props: Props) => {
       const cloneData = [...data.word];
       cloneData.map((item: any) => {
         const userWord = [...userData.words].find((word: any) => item.id === word._id);
-        console.log(userWord);
         if (userWord && userWord.userWord) {
           item.difficulty = userWord.userWord.difficulty;
         }
