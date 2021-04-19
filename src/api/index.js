@@ -14,6 +14,10 @@ import {
   updateUserWord,
   deleteUserWord,
 } from './api.usersWords';
+import {
+  useGetAggregatedWord,
+  useGetAggregatedWords,
+} from './api.usersAggregatedWords';
 import { upsertUserStatistics, useGetUserStatistics } from './api.usersStatistics';
 import { useGetUserSettings, upsertUserSettings } from './api.usersSettings';
 
@@ -39,6 +43,10 @@ const api = {
     getUserWordById: useGetUserWordById,
     updateUserWord,
     deleteUserWord,
+  },
+  usersAggregatedWords: {
+   getWordWordById: useGetAggregatedWord,
+   getWords: useGetAggregatedWords,
   },
   usersStatistic: {
     getStatistics: useGetUserStatistics,

@@ -8,9 +8,13 @@ const theme = createMuiTheme({
       dark: '#002884',
       contrastText: '#fff',
     },
+    secondary: {
+      main: '#f1e8fd',
+    },
     action: {
       disabledBackground: '#9a8fb83b',
       disabled: 'black',
+      hover: '#f1e8fd',
     },
   },
   typography: {

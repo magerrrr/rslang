@@ -71,7 +71,10 @@ const updateUserWord = async (userId, wordId, word) => {
     );
     return await updateUserWordResponse.json();
   } catch (error) {
-    return error;
+    return {
+     error: true,
+     errorMsg: error
+    };
   }
 };
 

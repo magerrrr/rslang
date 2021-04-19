@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import useAudio from '../hooks/useAudio';
 import audio from '../assets/speak-it/volume.svg';
 import styled from 'styled-components';
+import { baseURL } from '../api/urls';
 
 const AudioIcon = styled.span`
   display: block;
@@ -35,6 +36,19 @@ const StyledTableRow = withStyles((theme) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
+    '&.hard': {
+      backgroundColor: 'rgba(236, 64, 122, 0.2)',
+
+      '& button:first-child': {
+        display: 'none',
+      },
+      '& td, & th': {
+        borderBottom: '1px solid rgba(236, 64, 122, 0.3)',
+      },
+    },
+    '&.deleted': {
+      display: 'none',
+    },
   },
 }))(TableRow);
 
@@ -42,17 +56,29 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  img: {
+    objectFit: 'cover',
+    height: 60,
+    width: 60,
+  },
 });
 
 export default function CustomizedTables(props: any) {
   const classes = useStyles();
+
   const items = props.words.map((word: any) => ({
-    soundURL: word.audio,
+    wordId: word.id || word._id,
+    soundURLs: [word.audio, word.audioMeaning, word.audioExample],
+    thumb: word.image,
     transcription: word.transcription,
     word: word.word,
     wordTranslate: word.wordTranslate,
     textExample: word.textExample,
     textExampleTranslate: word.textExampleTranslate,
+    textMeaning: word.textMeaning,
+    textMeaningTranslate: word.textMeaningTranslate,
+    className:
+      word.difficulty || (word.userWord && word.userWord.difficulty === 'hard' && 'hard') || '',
   }));
 
   const [audio, playAudio] = useAudio();
@@ -64,21 +90,32 @@ export default function CustomizedTables(props: any) {
         <Table className={classes.table} aria-label="customized table">
           <TableBody>
             {items.map((item: any) => (
-              <StyledTableRow key={item.word}>
-                <StyledTableCell component="th" scope="row">
-                  <AudioIcon onClick={() => playAudio(item.soundURL)} />
+              <StyledTableRow key={item.word} className={item.className}>
+                <StyledTableCell component="th" scope="row" hidden>
+                  {item.wordId}
                 </StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell component="th" scope="row">
+                  <AudioIcon onClick={() => playAudio(item.soundURLs)} />
+                </StyledTableCell>
+                <StyledTableCell component="th" scope="row">
+                  <img src={`${baseURL}/${item.thumb}`} className={classes.img} alt="word" />
+                </StyledTableCell>
+                <StyledTableCell>
                   <Box display="flex" flexDirection="column">
                     <span>{item.word}</span>
                     <span>{item.transcription}</span>
                     <span>{item.wordTranslate}</span>
                   </Box>
                 </StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell>
+                  <div dangerouslySetInnerHTML={{ __html: item.textMeaning }}></div>
                   <div dangerouslySetInnerHTML={{ __html: item.textExample }}></div>
                 </StyledTableCell>
-                <StyledTableCell align="center">{item.textExampleTranslate}</StyledTableCell>
+                <StyledTableCell>
+                  <div dangerouslySetInnerHTML={{ __html: item.textMeaningTranslate }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: item.textExampleTranslate }}></div>
+                </StyledTableCell>
+                <StyledTableCell>{props.children}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
