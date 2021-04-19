@@ -65,7 +65,6 @@ export const EBook = (props: Props) => {
   
   
   const handleShowTranslate = async() => {
-    console.log('switch click' + showTranslate);
     const newSettings = {
       wordsPerDay: settings.settings.wordsPerDay, 
       optional: {
@@ -73,10 +72,7 @@ export const EBook = (props: Props) => {
       }
     };
     
-    console.log(newSettings)
     await api.usersSettings.updateSettings(currentUserId, newSettings);
-    console.log(settings)
-    setShowTranstale(!showTranslate)
   }
 
   useEffect(() => {
@@ -90,16 +86,11 @@ export const EBook = (props: Props) => {
   }, [data.isLoading, data.word, currentPage, currentLevel, history]);
 
   useEffect(() => {
-    console.log('use settings')
     if (!settings) {
-      console.log('init')
       api.usersSettings.updateSettings(currentUserId, {wordsPerDay:10, optional:{showTranslate: true}});
     } 
     if (!settings.isLoading) {
-      console.log('load')
-      console.log(settings)
       const showTranslateNewValue = settings.settings.optional.showTranslate;
-      console.log(showTranslateNewValue + ' ' + showTranslate);
       if (showTranslate !== showTranslateNewValue) {
         setShowTranstale(showTranslateNewValue);
       }

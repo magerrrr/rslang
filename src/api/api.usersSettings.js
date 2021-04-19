@@ -1,5 +1,5 @@
 import urls from './urls';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import fetcher from './utils';
 
 const useGetUserSettings = (userId) => {
@@ -27,10 +27,15 @@ const upsertUserSettings = async (userId, settings) => {
   };
 
   try {
+    mutate(urls.usersSettings.byId(userId), settings, false);
+
     const updateUserSettingsResponse = await fetch(
       urls.usersSettings.byId(userId),
       requestSettings,
     );
+
+    mutate(urls.usersSettings.byId(userId));
+
     return await updateUserSettingsResponse.json();
   } catch (error) {
     return error;
