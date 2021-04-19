@@ -36,15 +36,9 @@ const StyledTableRow = withStyles((theme) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    '& button': {
-      display: 'none',
-    },
     '&.hard': {
       backgroundColor: 'rgba(236, 64, 122, 0.2)',
-      '& button': {
-        display: 'block',
-      },
-      '& button:first-child': {
+      '& button.hard': {
         display: 'none',
       },
       '& td, & th': {
@@ -53,11 +47,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
     '&.deleted': {
       display: 'none',
-    },
-    '&.onlearn': {
-      '& button': {
-        display: 'block',
-      },
     },
   },
 }))(TableRow);

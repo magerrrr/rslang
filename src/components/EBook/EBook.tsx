@@ -135,7 +135,7 @@ export const EBook = (props: Props) => {
                         onClick={(e) => {
                           moveWord(e, 'hard');
                         }}
-                        className="text-capitalize"
+                        className="text-capitalize hard"
                         variant="outlined"
                         color="primary"
                       >
