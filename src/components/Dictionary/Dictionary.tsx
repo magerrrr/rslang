@@ -53,9 +53,6 @@ export const Dictionary = (props: Props) => {
   useEffect(() => {
     if (!data.isLoading && data.words) {
       let cloneData = [...data.words];
-      if (currentDifficulty === DIFFICULTY.hard) {
-        //cloneData.map((item: any) => {
-      }
       setWords(cloneData);
     }
     history.push(`/wordbook/${currentDifficulty}/${currentLevel}/${currentPage}`);
@@ -72,7 +69,7 @@ export const Dictionary = (props: Props) => {
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <CustomButton key={level} size="medium" style={{ width: 100 }} onClick={() => setLevel(level)}>
-      Level {level}
+      Level {level + 1}
     </CustomButton>
   ));
 

@@ -87,7 +87,7 @@ export const EBook = (props: Props) => {
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
-      Level {level}
+      Level {level + 1}
     </MyButton>
   ));
 
