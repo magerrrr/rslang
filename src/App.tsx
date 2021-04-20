@@ -8,7 +8,7 @@ import { SignIn } from './components/SignIn';
 import { Statistics } from './components/Statistics';
 import { Profile } from './components/Profile';
 import { EBook } from './components/EBook/EBook';
-import { Dictionary } from './components/Dictionary';
+import { Dictionary } from './components/Dictionary/Dictionary';
 import { Menu } from './components/Menu/Menu';
 import { SpeakIt } from './components/SpeakIt';
 import { ScrollToTop } from './ScrollToTop';

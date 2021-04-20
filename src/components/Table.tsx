@@ -77,7 +77,12 @@ export default function CustomizedTables(props: any) {
     textMeaning: word.textMeaning,
     textMeaningTranslate: word.textMeaningTranslate,
     className:
-      word.difficulty || (word.userWord && word.userWord.difficulty === 'hard' && 'hard') || '',
+      word.difficulty ||
+      (word.userWord &&
+        word.userWord.difficulty === 'hard' &&
+        props.difficulty !== 'hard' &&
+        'hard') ||
+      '',
   }));
 
   const [audio, playAudio] = useAudio();

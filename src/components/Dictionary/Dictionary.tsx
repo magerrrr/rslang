@@ -1,64 +1,22 @@
 import * as React from 'react';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { useHistory, Link as RouterLink, useParams } from 'react-router-dom';
+import api from '../../api';
+import useGetCurrentUserId from '../../hooks/useGetCurrentUserId';
+import { Container, Row, Col } from 'react-bootstrap';
+import { paneStyles, CustomButton, StyledCircularProgress } from './DictionaryStyle';
+import { Box, Link, Paper, Tab, Tabs } from '@material-ui/core';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import RestoreIcon from '@material-ui/icons/Restore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import api from '../api';
-import useGetCurrentUserId from '../hooks/useGetCurrentUserId';
-import { Container, Row, Col } from 'react-bootstrap';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import CustomizedTables from './Table';
 import Pagination from '@material-ui/lab/Pagination';
-import { Link as RouterLink } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import challenge from '../assets/img/challenge.png';
-import speak from '../assets/img/speakit.jpg';
-import sprint from '../assets/img/sprint.png';
-import savannah from '../assets/img/savannah.jpg';
-import { Footer } from './Footer/Footer';
-import styled from 'styled-components';
+import CustomizedTables from '../Table';
+import { Footer } from '../Footer/Footer';
+
+import { DIFFICULTY, difficultyMap } from './Constants';
 
 type Props = {};
-
-const paneStyles = {
-  commonPane: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    maxWidth: 200,
-    height: 140,
-    width: '100%',
-    color: '#2A444E',
-    textShadow: '1px 1px 2px #fff, 1 1 2em #fff',
-    fontSize: '2em',
-  },
-  savannahContainer: {
-    background: `center / cover no-repeat url(${savannah})`,
-  },
-  speakContainer: {
-    background: `center / cover no-repeat url(${speak})`,
-  },
-  challengeContainer: {
-    background: `center / cover no-repeat url(${challenge})`,
-  },
-  sprintContainer: {
-    background: `center / cover no-repeat url(${sprint})`,
-  },
-  difficulty: {
-    flexGrow: 1,
-    maxWidth: 500,
-    margin: '0 auto',
-    boxShadow: 'none',
-  },
-};
 
 export const Dictionary = (props: Props) => {
   const history = useHistory();
@@ -68,14 +26,18 @@ export const Dictionary = (props: Props) => {
   const userId = useGetCurrentUserId();
   const [currentPage, setPage] = useState<any>(page || 0);
   const [currentLevel, setLevel] = useState<any>(group || 0);
-  const [currentDifficulty, setCurrentDifficulty] = useState<string>(difficulty || 'onlearn');
+  const [currentDifficulty, setCurrentDifficulty] = useState<string>(
+    difficulty || DIFFICULTY.onlearn,
+  );
   const [words, setWords] = useState<any>([]);
   const levelControlsPanel = useRef(null) as any;
   const data = api.usersAggregatedWords.getWords(
     userId,
     currentPage,
     currentLevel,
-    currentDifficulty,
+    currentDifficulty === DIFFICULTY.onlearn
+      ? [DIFFICULTY.onlearn, DIFFICULTY.hard]
+      : currentDifficulty,
   );
 
   const updateLevelControls = useCallback(() => {
@@ -91,6 +53,9 @@ export const Dictionary = (props: Props) => {
   useEffect(() => {
     if (!data.isLoading && data.words) {
       let cloneData = [...data.words];
+      if (currentDifficulty === DIFFICULTY.hard) {
+        //cloneData.map((item: any) => {
+      }
       setWords(cloneData);
     }
     history.push(`/wordbook/${currentDifficulty}/${currentLevel}/${currentPage}`);
@@ -106,9 +71,9 @@ export const Dictionary = (props: Props) => {
   ]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
-    <MyButton key={level} size="medium" style={{ width: 100 }} onClick={() => setLevel(level)}>
+    <CustomButton key={level} size="medium" style={{ width: 100 }} onClick={() => setLevel(level)}>
       Level {level}
-    </MyButton>
+    </CustomButton>
   ));
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
@@ -139,9 +104,21 @@ export const Dictionary = (props: Props) => {
                 indicatorColor="primary"
                 aria-label="icon label tabs example"
               >
-                <Tab icon={<HowToRegIcon />} label="Изучаемые" value="onlearn" />
-                <Tab icon={<NewReleasesIcon />} label="Сложные" value="hard" />
-                <Tab icon={<DeleteForeverIcon />} label="Удаленные" value="deleted" />
+                <Tab
+                  icon={<HowToRegIcon />}
+                  label={difficultyMap.get(DIFFICULTY.onlearn)}
+                  value={DIFFICULTY.onlearn}
+                />
+                <Tab
+                  icon={<NewReleasesIcon />}
+                  label={difficultyMap.get(DIFFICULTY.hard)}
+                  value={DIFFICULTY.hard}
+                />
+                <Tab
+                  icon={<DeleteForeverIcon />}
+                  label={difficultyMap.get(DIFFICULTY.deleted)}
+                  value={DIFFICULTY.deleted}
+                />
               </Tabs>
             </Paper>
             <Box display="flex" justifyContent="center">
@@ -151,8 +128,8 @@ export const Dictionary = (props: Props) => {
               {data.isLoading ? (
                 <StyledCircularProgress />
               ) : (
-                <CustomizedTables words={words}>
-                  <MyButton
+                <CustomizedTables words={words} difficulty={currentDifficulty}>
+                  <CustomButton
                     size="medium"
                     onClick={restoreWord}
                     startIcon={<RestoreIcon />}
@@ -161,7 +138,7 @@ export const Dictionary = (props: Props) => {
                     color="primary"
                   >
                     Восстановить
-                  </MyButton>
+                  </CustomButton>
                 </CustomizedTables>
               )}
             </Box>
@@ -247,18 +224,3 @@ export const Dictionary = (props: Props) => {
     </>
   );
 };
-
-const MyButton = styled(Button)`
-  margin-bottom: 10px;
-  margin-right: 10px;
-  &:hover {
-    background-color: #f1e8fd !important;
-  }
-  &.isSelected {
-    background-color: #f1e8fd;
-  }
-`;
-
-const StyledCircularProgress = styled(CircularProgress)`
-  margin: 50px;
-`;

@@ -15,8 +15,19 @@ const useGetAggregatedWord = (id, wordId) => {
 
 const useGetAggregatedWords = (id, page, group, difficulty?) => {
   const token = localStorage.getItem('token');
-  const difficultyConstraint = difficulty ? `"userWord.difficulty":"${difficulty}",` : '';
-  const filter = encodeURI(`{"$and":[{${difficultyConstraint} "page": ${page}, "group": ${group}}]}`);
+  let difficultyConstraint;
+  if (Array.isArray(difficulty)) {
+      const difficultyArr = [];
+      difficulty.map((item: any) => {
+        difficultyArr.push(`{"userWord.difficulty":"${item}"}`);
+        return item;
+      });
+     difficultyConstraint = `{"$or":[${difficultyArr.join(",")}]},`;
+  } else {
+     difficultyConstraint = difficulty ? `{"userWord.difficulty":"${difficulty}"},` : '';
+  }
+
+  const filter = encodeURI(`{"$and":[${difficultyConstraint} {"page": ${page}}, {"group": ${group}}]}`);
   const url = `${urls.usersAggregatedWords.byId(id)}?filter=${filter}&wordsPerPage=20`;
 
   const { data, error } = useSWR(() => id ? [url, token] : null, fetcher);
