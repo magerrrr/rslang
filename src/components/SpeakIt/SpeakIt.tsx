@@ -154,10 +154,10 @@ const SpeakIt = () => {
 
   useEffect(() => {
     if (!data.isLoading) {
-      const cloneData = [...data.word].slice(wordsCount);
+      const cloneData = [...data.words].slice(wordsCount);
       setWords(cloneData);
     }
-  }, [data.isLoading, data.word, gamePage, gameLevel]);
+  }, [data.isLoading, data.words, gamePage, gameLevel]);
 
   return (
     <GameContainer>

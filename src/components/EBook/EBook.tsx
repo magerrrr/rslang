@@ -56,34 +56,17 @@ export const EBook = (props: Props) => {
   const [currentPage, setPage] = useState<number>(page || 0);
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
-  const data = api.words.getWordsByLevel(currentPage, currentLevel);
-  const userData = api.usersAggregatedWords.getWords(userId, currentPage, currentLevel);
+  const data = userId
+    ? api.usersAggregatedWords.getWords(userId, currentPage, currentLevel)
+    : api.words.getWordsByLevel(currentPage, currentLevel);
 
   useEffect(() => {
     if (!data.isLoading) {
-      const cloneData = [...data.word];
-
-      if (!userData.isLoading) {
-        cloneData.map((item: any) => {
-          const userWord = [...userData.words].find((word: any) => item.id === word._id);
-          if (userWord && userWord.userWord) {
-            item.difficulty = userWord.userWord.difficulty;
-          }
-          return item;
-        });
-      }
+      const cloneData = [...data.words];
       setWords(cloneData);
     }
     history.push(`/textbook/${currentLevel}/${currentPage}`);
-  }, [
-    data.isLoading,
-    data.word,
-    userData.isLoading,
-    userData.words,
-    currentPage,
-    currentLevel,
-    history,
-  ]);
+  }, [data.isLoading, data.words, currentPage, currentLevel, history]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>

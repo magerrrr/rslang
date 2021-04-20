@@ -206,10 +206,10 @@ const Sprint = () => {
 
   useEffect(() => {
     if (!isFinish && !data.isLoading) {
-      const clonedData = [...data.word] as any;
+      const clonedData = [...data.words] as any;
       setWords(clonedData);
     }
-  }, [data.isLoading, data.word]);
+  }, [data.isLoading, data.words]);
 
   const initStats = () => {
     if (!statsData.isLoading) {
