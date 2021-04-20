@@ -164,7 +164,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/savannah/${currentLevel}/${currentPage}`}
+              to={`/games/savannah/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -178,7 +178,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/speakit/${currentLevel}/${currentPage}`}
+              to={`/games/speakit/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -192,7 +192,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/audiochallendge/${currentLevel}/${currentPage}`}
+              to={`/games/audiochallendge/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -206,7 +206,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/sprint/${currentLevel}/${currentPage}`}
+              to={`/games/sprint/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}

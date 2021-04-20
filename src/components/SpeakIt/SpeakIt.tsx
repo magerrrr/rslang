@@ -29,7 +29,7 @@ const SpeakIt = () => {
   const { page } = useParams<any>();
   const { group } = useParams<any>();
   const userId = useGetCurrentUserId();
-  const initialLevels = userId ? getInitialLevels(group, page) : { page: 0, level: 0 };
+  const initialLevels = page && group ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(initialLevels.page);
   const [gameLevel, setGameLevel] = useState(initialLevels.level);
