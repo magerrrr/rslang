@@ -15,9 +15,6 @@ const useUserWord = (userId: any) => {
   useEffect(() => {
     const getData = async () => {
       if (!userWord.isLoading) {
-        if (userWord.word && userWord.word.wordId && userWord.word.difficulty === 'hard') {
-          await api.usersWords.updateUserWord(userId, userWord.word.wordId, sendWordData);
-        }
         if (userWord.isError || (userWord.word && userWord.word.error)) {
           const wordId = word && word.id;
           wordId && (await api.usersWords.createUserWord(userId, wordId, sendWordData));

@@ -43,7 +43,7 @@ export const Dictionary = (props: Props) => {
   const updateLevelControls = useCallback(() => {
     [...levelControlsPanel.current.children].map((child: any) => {
       child.classList.remove('isSelected');
-      if (child.children[0].innerText.slice(-1) === currentLevel.toString()) {
+      if (child.children[0].innerText.slice(-1) === (currentLevel + 1).toString()) {
         child.classList.add('isSelected');
       }
       return child;

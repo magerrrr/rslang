@@ -227,7 +227,7 @@ const Sprint = () => {
       <Timer isTimerRun={isPlay} onTimeLeft={handleTimeLeft} stopTimer={isFinish} />
       <Point>Очки: {score}</Point>
       <GameContainer>
-        <Container fluid="md">
+        <Container>
           {isPlay ? (
             <Box>
               <div className="d-flex justify-content-center p-2 bd-highlight mt-2">
@@ -256,7 +256,7 @@ const Sprint = () => {
             </Box>
           ) : (
             <Box>
-              <GameHeading fluid="md">
+              <GameHeading>
                 <Levels
                   isDisabled={page && group}
                   gamePage={gamePage + 1}

@@ -57,7 +57,11 @@ export const EBook = (props: Props) => {
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
   const data = userId
-    ? api.usersAggregatedWords.getWords(userId, currentPage, currentLevel)
+    ? api.usersAggregatedWords.getWords(userId, currentPage, currentLevel, [
+        null,
+        'onlearn',
+        'hard',
+      ])
     : api.words.getWordsByLevel(currentPage, currentLevel);
 
   useEffect(() => {
@@ -87,14 +91,17 @@ export const EBook = (props: Props) => {
     const row = currentTarget.closest('tr');
     const wordId = row.children[0].innerText;
     const response = await api.usersWords.updateUserWord(userId, wordId, sendWordData(difficulty));
+    const userData = sendWordData(difficulty);
     if (response.error) {
-      await api.usersWords.createUserWord(userId, wordId, sendWordData(difficulty));
+      await api.usersWords.createUserWord(userId, wordId, userData);
     }
-    const movedWord = words.find((word: any) => word.id === wordId);
+    const movedWord = words.find((word: any) => word._id === wordId);
     if (movedWord) {
-      movedWord.difficulty = difficulty;
+      movedWord.userWord = userData;
     }
-    setWords((prevWords: any) => [...prevWords]);
+    setWords((prevWords: any) => [
+      ...prevWords.filter((word) => !word.userWord || word.userWord.difficulty !== 'deleted'),
+    ]);
   };
 
   return (

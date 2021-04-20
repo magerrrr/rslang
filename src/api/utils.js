@@ -22,7 +22,8 @@ export const aggregatedWordsFilter = (page, group, difficulty?) => {
   if (Array.isArray(difficulty)) {
       const difficultyArr = [];
       difficulty.map((item: any) => {
-        difficultyArr.push(`{"userWord.difficulty":"${item}"}`);
+        const value = item ? `"${item}"` : null;
+        difficultyArr.push(`{"userWord.difficulty": ${value}}`);
         return item;
       });
      difficultyConstraint = `{"$or":[${difficultyArr.join(",")}]},`;

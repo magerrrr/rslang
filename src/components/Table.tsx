@@ -39,14 +39,11 @@ const StyledTableRow = withStyles((theme) => ({
     '&.hard': {
       backgroundColor: 'rgba(236, 64, 122, 0.2)',
       '& button.hard': {
-        display: 'none',
+        visibility: 'hidden',
       },
       '& td, & th': {
         borderBottom: '1px solid rgba(236, 64, 122, 0.3)',
       },
-    },
-    '&.deleted': {
-      display: 'none',
     },
   },
 }))(TableRow);
@@ -81,6 +78,7 @@ export default function CustomizedTables(props: any) {
         word.userWord.difficulty === 'hard' &&
         props.difficulty !== 'hard' &&
         'hard') ||
+      (word.userWord && word.userWord.difficulty !== 'hard' && word.userWord.difficulty) ||
       '',
   }));
 
