@@ -26,7 +26,7 @@ const useWords = (page, group) => {
   const { data, error } = useSWR(`${urls.words.defaultRoute}?page=${page}&group=${group}`, fetcher);
 
   return {
-    word: data,
+    words: data,
     isLoading: !error && !data,
     isError: error,
   };

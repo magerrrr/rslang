@@ -16,3 +16,21 @@ const fetcher = async (url, token) => {
 };
 
 export default fetcher;
+
+export const aggregatedWordsFilter = (page, group, difficulty?) => {
+  let difficultyConstraint;
+  if (Array.isArray(difficulty)) {
+      const difficultyArr = [];
+      difficulty.map((item: any) => {
+        const value = item ? `"${item}"` : null;
+        difficultyArr.push(`{"userWord.difficulty": ${value}}`);
+        return item;
+      });
+     difficultyConstraint = `{"$or":[${difficultyArr.join(",")}]},`;
+  } else {
+     difficultyConstraint = difficulty ? `{"userWord.difficulty":"${difficulty}"},` : '';
+  }
+
+  return encodeURI(`{"$and":[${difficultyConstraint} {"page": ${page}}, {"group": ${group}}]}`);
+}
+

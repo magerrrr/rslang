@@ -36,27 +36,13 @@ const StyledTableRow = withStyles((theme) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    '& button': {
-      display: 'none',
-    },
     '&.hard': {
       backgroundColor: 'rgba(236, 64, 122, 0.2)',
-      '& button': {
-        display: 'block',
-      },
-      '& button:first-child': {
-        display: 'none',
+      '& button.hard': {
+        visibility: 'hidden',
       },
       '& td, & th': {
         borderBottom: '1px solid rgba(236, 64, 122, 0.3)',
-      },
-    },
-    '&.deleted': {
-      display: 'none',
-    },
-    '&.onlearn': {
-      '& button': {
-        display: 'block',
       },
     },
   },
@@ -88,7 +74,12 @@ export default function CustomizedTables(props: any) {
     textMeaning: word.textMeaning,
     textMeaningTranslate: word.textMeaningTranslate,
     className:
-      word.difficulty || (word.userWord && word.userWord.difficulty === 'hard' && 'hard') || '',
+      (word.userWord &&
+        word.userWord.difficulty === 'hard' &&
+        props.difficulty !== 'hard' &&
+        'hard') ||
+      (word.userWord && word.userWord.difficulty !== 'hard' && word.userWord.difficulty) ||
+      '',
   }));
 
   const [audio, playAudio] = useAudio();

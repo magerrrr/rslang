@@ -45,7 +45,7 @@ const Sprint = () => {
   const { page } = useParams<any>();
   const { group } = useParams<any>();
   const userId = useGetCurrentUserId();
-  const initialLevels = userId ? getInitialLevels(group, page) : { page: 0, level: 0 };
+  const initialLevels = page && group ? getInitialLevels(group, page) : { page: 0, level: 0 };
   const [isFinish, setIsFinish] = useState(false);
   const [gamePage, setGamePage] = useState(initialLevels.page);
   const [gameLevel, setGameLevel] = useState(initialLevels.level);
@@ -206,10 +206,10 @@ const Sprint = () => {
 
   useEffect(() => {
     if (!isFinish && !data.isLoading) {
-      const clonedData = [...data.word] as any;
+      const clonedData = [...data.words] as any;
       setWords(clonedData);
     }
-  }, [data.isLoading, data.word]);
+  }, [data.isLoading, data.words]);
 
   const initStats = () => {
     if (!statsData.isLoading) {
@@ -227,7 +227,7 @@ const Sprint = () => {
       <Timer isTimerRun={isPlay} onTimeLeft={handleTimeLeft} stopTimer={isFinish} />
       <Point>Очки: {score}</Point>
       <GameContainer>
-        <Container fluid="md">
+        <Container>
           {isPlay ? (
             <Box>
               <div className="d-flex justify-content-center p-2 bd-highlight mt-2">
@@ -256,7 +256,7 @@ const Sprint = () => {
             </Box>
           ) : (
             <Box>
-              <GameHeading fluid="md">
+              <GameHeading>
                 <Levels
                   isDisabled={page && group}
                   gamePage={gamePage + 1}

@@ -56,38 +56,25 @@ export const EBook = (props: Props) => {
   const [currentPage, setPage] = useState<number>(page || 0);
   const [currentLevel, setLevel] = useState<number>(group || 0);
   const [words, setWords] = useState<any>([]);
-  const data = api.words.getWordsByLevel(currentPage, currentLevel);
-  const userData = api.usersAggregatedWords.getWords(userId, currentPage, currentLevel);
+  const data = userId
+    ? api.usersAggregatedWords.getWords(userId, currentPage, currentLevel, [
+        null,
+        'onlearn',
+        'hard',
+      ])
+    : api.words.getWordsByLevel(currentPage, currentLevel);
 
   useEffect(() => {
     if (!data.isLoading) {
-      const cloneData = [...data.word];
-
-      if (!userData.isLoading) {
-        cloneData.map((item: any) => {
-          const userWord = [...userData.words].find((word: any) => item.id === word._id);
-          if (userWord && userWord.userWord) {
-            item.difficulty = userWord.userWord.difficulty;
-          }
-          return item;
-        });
-      }
+      const cloneData = [...data.words];
       setWords(cloneData);
     }
     history.push(`/textbook/${currentLevel}/${currentPage}`);
-  }, [
-    data.isLoading,
-    data.word,
-    userData.isLoading,
-    userData.words,
-    currentPage,
-    currentLevel,
-    history,
-  ]);
+  }, [data.isLoading, data.words, currentPage, currentLevel, history]);
 
   const levelControls = [...Array(6).keys()].map((level) => (
     <MyButton key={level} size="medium" onClick={() => setLevel(level)}>
-      Level {level}
+      Level {level + 1}
     </MyButton>
   ));
 
@@ -104,14 +91,17 @@ export const EBook = (props: Props) => {
     const row = currentTarget.closest('tr');
     const wordId = row.children[0].innerText;
     const response = await api.usersWords.updateUserWord(userId, wordId, sendWordData(difficulty));
+    const userData = sendWordData(difficulty);
     if (response.error) {
-      await api.usersWords.createUserWord(userId, wordId, sendWordData(difficulty));
+      await api.usersWords.createUserWord(userId, wordId, userData);
     }
-    const movedWord = words.find((word: any) => word.id === wordId);
+    const movedWord = words.find((word: any) => word._id === wordId);
     if (movedWord) {
-      movedWord.difficulty = difficulty;
+      movedWord.userWord = userData;
     }
-    setWords((prevWords: any) => [...prevWords]);
+    setWords((prevWords: any) => [
+      ...prevWords.filter((word) => !word.userWord || word.userWord.difficulty !== 'deleted'),
+    ]);
   };
 
   return (
@@ -135,7 +125,7 @@ export const EBook = (props: Props) => {
                         onClick={(e) => {
                           moveWord(e, 'hard');
                         }}
-                        className="text-capitalize"
+                        className="text-capitalize hard"
                         variant="outlined"
                         color="primary"
                       >
@@ -174,7 +164,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/savannah/${currentLevel}/${currentPage}`}
+              to={`/games/savannah/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -188,7 +178,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/speakit/${currentLevel}/${currentPage}`}
+              to={`/games/speakit/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -202,7 +192,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-end justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/audiochallendge/${currentLevel}/${currentPage}`}
+              to={`/games/audiochallendge/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}
@@ -216,7 +206,7 @@ export const EBook = (props: Props) => {
             <Link
               className="d-flex justify-content-sm-start justify-content-center justify-content-lg-center"
               component={RouterLink}
-              to={`/games/sprint/${currentLevel}/${currentPage}`}
+              to={`/games/sprint/difficulty/${currentLevel}/${currentPage}`}
               color="primary"
               variant="body1"
               style={{ textDecoration: 'none' }}

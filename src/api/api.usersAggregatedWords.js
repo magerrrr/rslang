@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import urls from './urls';
-import fetcher from './utils';
+import fetcher, { aggregatedWordsFilter } from './utils';
 
 const useGetAggregatedWord = (id, wordId) => {
   const token = localStorage.getItem('token');
@@ -15,8 +15,8 @@ const useGetAggregatedWord = (id, wordId) => {
 
 const useGetAggregatedWords = (id, page, group, difficulty?) => {
   const token = localStorage.getItem('token');
-  const difficultyConstraint = difficulty ? `"userWord.difficulty":"${difficulty}",` : '';
-  const filter = encodeURI(`{"$and":[{${difficultyConstraint} "page": ${page}, "group": ${group}}]}`);
+  const filter = aggregatedWordsFilter(page, group, difficulty);
+
   const url = `${urls.usersAggregatedWords.byId(id)}?filter=${filter}&wordsPerPage=20`;
 
   const { data, error } = useSWR(() => id ? [url, token] : null, fetcher);
